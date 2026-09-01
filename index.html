@@ -4,3139 +4,984 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#f7f6ff">
-
 <title>카드로 이해하는 나의 흥미와 적성</title>
-
 <style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+:root{
+  --bg:#f7f7fc;--card:#fff;--text:#26263a;--sub:#747489;
+  --primary:#6c63ff;--shadow:0 18px 45px rgba(34,34,70,.10);
+  --things:#eb9d45;--people:#e96c87;--data:#548bcf;--ideas:#866bce;
+}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:Pretendard,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  background:
+    radial-gradient(circle at top left,#efedff 0,transparent 28%),
+    radial-gradient(circle at top right,#ffeef2 0,transparent 25%),
+    var(--bg);
+  color:var(--text);-webkit-tap-highlight-color:transparent
+}
+button{font-family:inherit;touch-action:manipulation}
+img{user-select:none;-webkit-user-drag:none}
+.screen{display:none;min-height:100vh}
+.screen.active{display:flex}
+.container{width:min(1050px,calc(100% - 32px));margin:auto}
+.small{font-size:14px;line-height:1.72;color:var(--sub)}
+.logo-mark{
+  width:50px;height:50px;border-radius:16px;
+  background:linear-gradient(135deg,#786fff,#ff83a1);
+  display:grid;place-items:center;color:white;font-weight:900;font-size:21px;
+  box-shadow:0 10px 22px rgba(108,99,255,.25)
+}
+
+/* home */
+#homeScreen{align-items:center;justify-content:center;padding:50px 0}
+.home-panel{
+  background:rgba(255,255,255,.94);box-shadow:var(--shadow);
+  border-radius:34px;padding:54px 48px;text-align:center
+}
+.home-logo{margin:0 auto 24px}
+.home-panel h1{font-size:clamp(30px,5vw,49px);letter-spacing:-2px;margin:0 0 18px}
+.home-panel h1 span{color:var(--primary)}
+.home-description{max-width:760px;margin:0 auto 32px;line-height:1.85;color:#727286}
+.dimension-mini{max-width:650px;margin:28px auto;display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.dimension-mini>div{background:#f6f6fb;border-radius:14px;padding:12px 6px;font-size:12px}
+.dimension-mini b{display:block;font-size:14px;margin-bottom:3px}
+.home-buttons{max-width:680px;margin:34px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.start-btn{border:none;border-radius:22px;padding:24px 20px;font-size:20px;font-weight:800;cursor:pointer}
+.start-btn.interest{background:#fff0f4;color:#d94e71}
+.start-btn.aptitude{background:#eef5ff;color:#3973c6}
+.start-btn .icon{display:block;font-size:31px;margin-bottom:8px}
+.previous-results{margin-top:25px}
+.previous-results button{border:none;background:transparent;color:var(--primary);font-weight:800;cursor:pointer;margin:4px}
+
+/* test */
+#testScreen{flex-direction:column}
+.test-header{background:rgba(255,255,255,.92);border-bottom:1px solid #ededf3}
+.test-header-inner{width:min(900px,calc(100% - 30px));height:76px;margin:auto;display:flex;justify-content:space-between;align-items:center}
+.test-title{display:flex;gap:12px;align-items:center}
+.test-title-badge{background:#eceaff;color:var(--primary);padding:7px 12px;border-radius:30px;font-size:13px;font-weight:800}
+.exit-btn{border:none;background:#f1f1f7;padding:9px 13px;border-radius:12px;cursor:pointer}
+.progress-area{width:min(900px,calc(100% - 30px));margin:19px auto 0}
+.progress-info{display:flex;justify-content:space-between;margin-bottom:8px;font-size:13px}
+.progress-track{height:8px;background:#e7e7ee;border-radius:50px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#6c63ff,#918cff);transition:width .3s}
+.test-body{width:min(900px,calc(100% - 30px));margin:auto;padding:22px 0 30px;display:flex;flex-direction:column;align-items:center}
+.instruction{text-align:center;color:var(--sub)}
+.game-card-wrap{width:min(385px,100%)}
+.game-card{background:white;border-radius:25px;overflow:hidden;box-shadow:0 22px 50px rgba(35,35,70,.13);transition:.2s}
+.game-card.card-out{transform:translateX(-32px) rotate(-2deg);opacity:0}
+.card-image-box{position:relative;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;background:#fafafd}
+.card-image-box img{width:100%;height:100%;object-fit:contain}
+.card-loading{position:absolute;inset:0;z-index:10;background:rgba(250,250,253,.94);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;font-weight:800;color:#777}
+.loading-spinner{width:38px;height:38px;border:4px solid #e3e2f0;border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.image-error{display:none;padding:30px;text-align:center;color:#999;line-height:1.7}
+.card-bottom{padding:15px 18px;display:flex;justify-content:space-between}
+.card-number{color:#aaa;font-size:12px}.card-name{font-size:17px;font-weight:900}
+.choice-buttons{width:min(590px,100%);display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:20px}
+.choice-btn{border:none;border-radius:17px;min-height:62px;font-size:16px;font-weight:800;cursor:pointer}
+.choice-btn.good{background:#eaf8f2;color:#328766}.choice-btn.normal{background:#fff6e7;color:#d4871c}.choice-btn.bad{background:#fff0f0;color:#d95757}
+.choice-btn:disabled{opacity:.35;pointer-events:none}
+.keyboard-help{margin-top:13px;color:#aaa;font-size:11px}
+
+/* selection */
+#selectionScreen{align-items:flex-start;padding:35px 0 60px}
+.selection-panel{width:100%;background:white;border-radius:30px;box-shadow:var(--shadow);padding:35px}
+.selection-header{text-align:center;margin-bottom:28px}
+.selection-counter{display:inline-block;margin-top:15px;background:#eceaff;color:var(--primary);border-radius:30px;padding:9px 17px;font-weight:900}
+.selected-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.mini-card{position:relative;border-radius:17px;overflow:hidden;background:white;box-shadow:0 7px 20px rgba(30,30,60,.08);cursor:pointer;border:2px solid transparent}
+.mini-card img{width:100%;aspect-ratio:3/4;object-fit:contain}
+.mini-card-title{padding:8px;text-align:center;font-size:12px;font-weight:800}
+.remove-label{position:absolute;right:7px;top:7px;width:25px;height:25px;border-radius:50%;display:grid;place-items:center;background:rgba(30,30,40,.72);color:white}
+.added-badge{position:absolute;left:7px;top:7px;background:#ffb84d;color:white;padding:5px 7px;border-radius:8px;font-size:9px;font-weight:800}
+.selection-actions,.result-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:30px}
+.primary-btn,.secondary-btn{border:none;border-radius:16px;padding:15px 25px;font-size:15px;font-weight:800;cursor:pointer}
+.primary-btn{background:var(--primary);color:white}.primary-btn:disabled{opacity:.35;cursor:default}.secondary-btn{background:#eeeef5}
+
+/* analysis */
+#analysisScreen{justify-content:center;align-items:center}
+.analysis-box{width:min(500px,calc(100% - 30px));background:white;border-radius:32px;padding:55px 30px;text-align:center;box-shadow:var(--shadow)}
+.analysis-icon{font-size:65px;animation:pulse 1s infinite alternate}
+@keyframes pulse{from{transform:scale(.9)}to{transform:scale(1.1)}}
+.analysis-progress{height:8px;margin-top:25px;background:#ededf4;border-radius:50px;overflow:hidden}
+.analysis-progress div{height:100%;width:0;background:linear-gradient(90deg,#6c63ff,#ff7c9b);transition:width .5s}
+
+/* result */
+#resultScreen{align-items:flex-start;padding:35px 0 70px}
+.result-page{width:min(1000px,calc(100% - 30px));margin:auto}
+.result-top{background:linear-gradient(135deg,#6e67e9,#8a7cee);color:white;padding:38px;border-radius:30px}
+.result-top h1{margin:8px 0 12px;font-size:clamp(29px,5vw,45px);letter-spacing:-1.2px}
+.result-top p{line-height:1.78}
+.result-kicker{display:inline-block;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.16);font-weight:800;font-size:13px}
+.result-quote{margin-top:15px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.13);font-weight:800}
+.result-section{background:white;margin-top:20px;border-radius:24px;padding:30px;box-shadow:0 12px 30px rgba(40,40,80,.07)}
+.result-section h2{margin-top:0}
+.domain-bars{display:flex;flex-direction:column;gap:14px}
+.domain-row{display:grid;grid-template-columns:100px 1fr 50px;gap:12px;align-items:center}
+.domain-track{height:13px;background:#ededf3;border-radius:40px;overflow:hidden}
+.domain-value{height:100%;border-radius:inherit}
+.result-grid-two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.result-grid-three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.info-card{background:#f8f8fc;border-radius:18px;padding:22px}
+.info-card h3{margin-top:0}
+.info-card p{line-height:1.78;color:#626277;margin-bottom:0}
+.evidence-card{border:1px solid #ececf4;background:#fcfcff}
+.evidence-chip-wrap,.tag-wrap{display:flex;flex-wrap:wrap;gap:8px}
+.evidence-chip,.tag{padding:9px 12px;border-radius:30px;background:#f1f0ff;color:#5e56c7;font-size:13px;font-weight:700}
+.theme-card{border:1px solid #ececf4;background:#fff;border-radius:18px;padding:20px}
+.theme-score{font-size:12px;color:#858598;margin-bottom:8px}
+.theme-card h3{margin:0 0 8px}
+.theme-card p{margin:0;color:#67677b;line-height:1.72;font-size:14px}
+.career-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.career-card{background:#f8f8fc;border-radius:18px;padding:18px}
+.career-card h3{margin:0 0 8px}
+.career-card p{font-size:13px;line-height:1.65;color:#6e6e82;margin:0 0 12px}
+.reflection-box{background:linear-gradient(135deg,#fff8e8,#f8f3ff);border-radius:20px;padding:22px}
+.reflection-box ol{margin:0;padding-left:22px;line-height:1.9}
+.domain-card-section{margin-top:18px;padding:20px;border-radius:20px;background:#fafafd}
+.domain-card-header{display:flex;justify-content:space-between;margin-bottom:15px}
+.domain-card-title{font-weight:900;font-size:18px}
+.domain-card-count{color:white;padding:6px 11px;border-radius:20px;font-size:12px;font-weight:900}
+.grouped-card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(115px,1fr));gap:12px}
+.final-card{position:relative;background:white;border-radius:15px;padding:7px}
+.final-card img{width:100%;aspect-ratio:3/4;object-fit:contain}
+.card-domain-badge{position:absolute;top:12px;left:12px;color:white;padding:5px 8px;border-radius:20px;font-size:10px;font-weight:900}
+.final-card-title{display:block;text-align:center;font-size:11px;font-weight:800;padding:7px}
+.notice{border-left:4px solid #c8c5ff;padding-left:14px}
+.toast{position:fixed;bottom:25px;left:50%;transform:translate(-50%,30px);opacity:0;background:rgba(30,30,40,.92);color:white;padding:12px 20px;border-radius:30px;transition:.3s;z-index:1000}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media(max-width:760px){
+  .home-panel{padding:35px 20px}.home-buttons{grid-template-columns:1fr}.dimension-mini{grid-template-columns:repeat(2,1fr)}
+  .game-card-wrap{width:min(310px,82vw)}.choice-buttons{position:sticky;bottom:8px;background:rgba(247,247,252,.92);padding:7px;border-radius:20px}
+  .selected-grid{grid-template-columns:repeat(3,1fr)}.result-grid-two,.result-grid-three,.career-grid{grid-template-columns:1fr}
+  .grouped-card-grid{grid-template-columns:repeat(3,1fr)}.result-section{padding:22px 18px}
 }
-
-:root {
-    --bg: #f7f7fc;
-    --card: #ffffff;
-    --text: #242438;
-    --sub: #77778b;
-
-    --primary: #6c63ff;
-    --primary-soft: #eceaff;
-
-    --things: #eb9d45;
-    --people: #e96c87;
-    --data: #548bcf;
-    --ideas: #866bce;
-
-    --shadow: 0 18px 45px rgba(34,34,70,.09);
-}
-
-html, body {
-    margin: 0;
-    min-height: 100%;
-}
-
-body {
-    font-family:
-        Pretendard,
-        "Noto Sans KR",
-        "Apple SD Gothic Neo",
-        "Malgun Gothic",
-        sans-serif;
-
-    background:
-        radial-gradient(circle at top left, #efedff 0, transparent 28%),
-        radial-gradient(circle at top right, #ffeef2 0, transparent 25%),
-        var(--bg);
-
-    color: var(--text);
-    -webkit-tap-highlight-color: transparent;
-}
-
-button {
-    font-family: inherit;
-    touch-action: manipulation;
-}
-
-img {
-    user-select: none;
-    -webkit-user-drag: none;
-}
-
-.screen {
-    display: none;
-    min-height: 100vh;
-}
-
-.screen.active {
-    display: flex;
-}
-
-.container {
-    width: min(1040px, calc(100% - 32px));
-    margin: auto;
-}
-
-.small {
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--sub);
-}
-
-.logo-mark {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #786fff, #ff83a1);
-    display: grid;
-    place-items: center;
-    color: white;
-    font-weight: 900;
-    font-size: 21px;
-    box-shadow: 0 10px 22px rgba(108,99,255,.25);
-}
-
-
-/* =========================================================
-   메인
-========================================================= */
-
-#homeScreen {
-    align-items: center;
-    justify-content: center;
-    padding: 50px 0;
-}
-
-.home-panel {
-    background: rgba(255,255,255,.92);
-    box-shadow: var(--shadow);
-    border-radius: 34px;
-    padding: 55px 50px;
-    text-align: center;
-}
-
-.home-logo {
-    margin: 0 auto 24px;
-}
-
-.home-panel h1 {
-    font-size: clamp(30px,5vw,49px);
-    letter-spacing: -2px;
-    margin: 0 0 18px;
-}
-
-.home-panel h1 span {
-    color: var(--primary);
-}
-
-.home-description {
-    max-width: 720px;
-    margin: 0 auto 35px;
-    line-height: 1.85;
-    color: #727286;
-}
-
-.dimension-mini {
-    max-width: 600px;
-    margin: 28px auto;
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 9px;
-}
-
-.dimension-mini > div {
-    background: #f6f6fb;
-    border-radius: 14px;
-    padding: 12px 6px;
-    font-size: 12px;
-}
-
-.dimension-mini b {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 3px;
-}
-
-.home-buttons {
-    max-width: 650px;
-    margin: 35px auto 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-.start-btn {
-    border: none;
-    border-radius: 22px;
-    padding: 24px 20px;
-    font-size: 20px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.start-btn.interest {
-    background: #fff0f4;
-    color: #d94e71;
-}
-
-.start-btn.aptitude {
-    background: #eef5ff;
-    color: #3973c6;
-}
-
-.start-btn .icon {
-    display: block;
-    font-size: 31px;
-    margin-bottom: 8px;
-}
-
-.previous-results {
-    margin-top: 25px;
-}
-
-.previous-results button {
-    border: none;
-    background: transparent;
-    color: var(--primary);
-    font-weight: 800;
-    cursor: pointer;
-}
-
-
-/* =========================================================
-   검사
-========================================================= */
-
-#testScreen {
-    flex-direction: column;
-}
-
-.test-header {
-    background: rgba(255,255,255,.9);
-    border-bottom: 1px solid #ededf3;
-}
-
-.test-header-inner {
-    width: min(900px,calc(100% - 30px));
-    height: 76px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.test-title {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.test-title-badge {
-    background: #eceaff;
-    color: var(--primary);
-    padding: 7px 12px;
-    border-radius: 30px;
-    font-size: 13px;
-    font-weight: 800;
-}
-
-.exit-btn {
-    border: none;
-    background: #f1f1f7;
-    padding: 9px 13px;
-    border-radius: 12px;
-    cursor: pointer;
-}
-
-.progress-area {
-    width: min(900px,calc(100% - 30px));
-    margin: 19px auto 0;
-}
-
-.progress-info {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 13px;
-}
-
-.progress-track {
-    height: 8px;
-    background: #e7e7ee;
-    border-radius: 50px;
-    overflow: hidden;
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg,#6c63ff,#918cff);
-    transition: width .3s;
-}
-
-.test-body {
-    width: min(900px,calc(100% - 30px));
-    margin: auto;
-    padding: 22px 0 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.instruction {
-    text-align: center;
-    color: var(--sub);
-}
-
-.game-card-wrap {
-    width: min(385px,100%);
-}
-
-.game-card {
-    background: white;
-    border-radius: 25px;
-    overflow: hidden;
-    box-shadow: 0 22px 50px rgba(35,35,70,.13);
-    transition: .2s;
-}
-
-.game-card.card-out {
-    transform: translateX(-32px) rotate(-2deg);
-    opacity: 0;
-}
-
-.card-image-box {
-    position: relative;
-    aspect-ratio: 3/4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #fafafd;
-}
-
-.card-image-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.card-loading {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
-    background: rgba(250,250,253,.92);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 13px;
-    font-weight: 800;
-    color: #777;
-}
-
-.loading-spinner {
-    width: 38px;
-    height: 38px;
-    border: 4px solid #e3e2f0;
-    border-top-color: var(--primary);
-    border-radius: 50%;
-    animation: spin .7s linear infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-.image-error {
-    display: none;
-    padding: 30px;
-    text-align: center;
-    color: #999;
-    line-height: 1.7;
-}
-
-.card-bottom {
-    padding: 15px 18px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.card-number {
-    color: #aaa;
-    font-size: 12px;
-}
-
-.card-name {
-    font-size: 17px;
-    font-weight: 900;
-}
-
-.choice-buttons {
-    width: min(590px,100%);
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 11px;
-    margin-top: 20px;
-}
-
-.choice-btn {
-    border: none;
-    border-radius: 17px;
-    min-height: 62px;
-    font-size: 16px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.choice-btn.good {
-    background: #eaf8f2;
-    color: #328766;
-}
-
-.choice-btn.normal {
-    background: #fff6e7;
-    color: #d4871c;
-}
-
-.choice-btn.bad {
-    background: #fff0f0;
-    color: #d95757;
-}
-
-.choice-btn:disabled {
-    opacity: .35;
-    pointer-events: none;
-}
-
-.keyboard-help {
-    margin-top: 13px;
-    color: #aaa;
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   최종선택
-========================================================= */
-
-#selectionScreen {
-    align-items: flex-start;
-    padding: 35px 0 60px;
-}
-
-.selection-panel {
-    width: 100%;
-    background: white;
-    border-radius: 30px;
-    box-shadow: var(--shadow);
-    padding: 35px;
-}
-
-.selection-header {
-    text-align: center;
-    margin-bottom: 28px;
-}
-
-.selection-counter {
-    display: inline-block;
-    margin-top: 15px;
-    background: #eceaff;
-    color: var(--primary);
-    border-radius: 30px;
-    padding: 9px 17px;
-    font-weight: 900;
-}
-
-.selected-grid {
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    gap: 14px;
-}
-
-.mini-card {
-    position: relative;
-    border-radius: 17px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 7px 20px rgba(30,30,60,.08);
-    cursor: pointer;
-    border: 2px solid transparent;
-}
-
-.mini-card img {
-    width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: contain;
-}
-
-.mini-card-title {
-    padding: 8px;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.remove-label {
-    position: absolute;
-    right: 7px;
-    top: 7px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    background: rgba(30,30,40,.72);
-    color: white;
-}
-
-.added-badge {
-    position: absolute;
-    left: 7px;
-    top: 7px;
-    background: #ffb84d;
-    color: white;
-    padding: 5px 7px;
-    border-radius: 8px;
-    font-size: 9px;
-    font-weight: 800;
-}
-
-.selection-actions,
-.result-actions {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 30px;
-}
-
-.primary-btn,
-.secondary-btn {
-    border: none;
-    border-radius: 16px;
-    padding: 15px 25px;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-}
-
-.primary-btn {
-    background: var(--primary);
-    color: white;
-}
-
-.primary-btn:disabled {
-    opacity: .35;
-    cursor: default;
-}
-
-.secondary-btn {
-    background: #eeeef5;
-}
-
-
-/* =========================================================
-   분석
-========================================================= */
-
-#analysisScreen {
-    justify-content: center;
-    align-items: center;
-}
-
-.analysis-box {
-    width: min(500px,calc(100% - 30px));
-    background: white;
-    border-radius: 32px;
-    padding: 55px 30px;
-    text-align: center;
-    box-shadow: var(--shadow);
-}
-
-.analysis-icon {
-    font-size: 65px;
-    animation: pulse 1s infinite alternate;
-}
-
-@keyframes pulse {
-    from { transform: scale(.9); }
-    to { transform: scale(1.1); }
-}
-
-.analysis-progress {
-    height: 8px;
-    margin-top: 25px;
-    background: #ededf4;
-    border-radius: 50px;
-    overflow: hidden;
-}
-
-.analysis-progress div {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg,#6c63ff,#ff7c9b);
-    transition: width .5s;
-}
-
-
-/* =========================================================
-   결과
-========================================================= */
-
-#resultScreen {
-    align-items: flex-start;
-    padding: 35px 0 70px;
-}
-
-.result-page {
-    width: min(1000px,calc(100% - 30px));
-    margin: auto;
-}
-
-.result-top {
-    background: linear-gradient(135deg,#6e67e9,#8a7cee);
-    color: white;
-    padding: 38px;
-    border-radius: 30px;
-}
-
-.result-top h1 {
-    margin: 8px 0 12px;
-    font-size: clamp(28px,5vw,44px);
-}
-
-.result-top p {
-    line-height: 1.75;
-}
-
-.result-section {
-    background: white;
-    margin-top: 20px;
-    border-radius: 24px;
-    padding: 30px;
-    box-shadow: 0 12px 30px rgba(40,40,80,.07);
-}
-
-.result-section h2 {
-    margin-top: 0;
-}
-
-.domain-bars {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-.domain-row {
-    display: grid;
-    grid-template-columns: 100px 1fr 50px;
-    gap: 12px;
-    align-items: center;
-}
-
-.domain-track {
-    height: 13px;
-    background: #ededf3;
-    border-radius: 40px;
-    overflow: hidden;
-}
-
-.domain-value {
-    height: 100%;
-    border-radius: inherit;
-}
-
-.result-grid-two {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-.info-card {
-    background: #f8f8fc;
-    border-radius: 18px;
-    padding: 22px;
-}
-
-.info-card p {
-    line-height: 1.75;
-    color: #666679;
-}
-
-.tag-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.tag {
-    padding: 9px 12px;
-    border-radius: 30px;
-    background: #f1f0ff;
-    color: #5e56c7;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.domain-card-section {
-    margin-top: 18px;
-    padding: 20px;
-    border-radius: 20px;
-    background: #fafafd;
-}
-
-.domain-card-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.domain-card-title {
-    font-weight: 900;
-    font-size: 18px;
-}
-
-.domain-card-count {
-    color: white;
-    padding: 6px 11px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 900;
-}
-
-.grouped-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(115px,1fr));
-    gap: 12px;
-}
-
-.final-card {
-    position: relative;
-    background: white;
-    border-radius: 15px;
-    padding: 7px;
-}
-
-.final-card img {
-    width: 100%;
-    aspect-ratio: 3/4;
-    object-fit: contain;
-}
-
-.card-domain-badge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    color: white;
-    padding: 5px 8px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: 900;
-}
-
-.final-card-title {
-    display: block;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 800;
-    padding: 7px;
-}
-
-.toast {
-    position: fixed;
-    bottom: 25px;
-    left: 50%;
-    transform: translate(-50%,30px);
-    opacity: 0;
-    background: rgba(30,30,40,.92);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 30px;
-    transition: .3s;
-    z-index: 1000;
-}
-
-.toast.show {
-    opacity: 1;
-    transform: translate(-50%,0);
-}
-
-
-@media(max-width:760px) {
-
-    .home-panel {
-        padding: 35px 20px;
-    }
-
-    .home-buttons {
-        grid-template-columns: 1fr;
-    }
-
-    .dimension-mini {
-        grid-template-columns: repeat(2,1fr);
-    }
-
-    .game-card-wrap {
-        width: min(310px,82vw);
-    }
-
-    .choice-buttons {
-        position: sticky;
-        bottom: 8px;
-        background: rgba(247,247,252,.92);
-        padding: 7px;
-        border-radius: 20px;
-    }
-
-    .selected-grid {
-        grid-template-columns: repeat(3,1fr);
-    }
-
-    .result-grid-two {
-        grid-template-columns: 1fr;
-    }
-
-    .grouped-card-grid {
-        grid-template-columns: repeat(3,1fr);
-    }
-
-    .result-section {
-        padding: 22px 18px;
-    }
-}
-
 </style>
 </head>
-
 <body>
 
-
 <section id="homeScreen" class="screen active">
-
 <div class="container">
 <div class="home-panel">
-
-<div class="logo-mark home-logo">P</div>
-
-<h1>
-카드로 이해하는<br>
-나의 <span>흥미와 적성</span>
-</h1>
-
-<div class="home-description">
-
-52장의 활동 카드를 통해
-내가 좋아하는 활동과 잘한다고 느끼는 활동을 찾아봅니다.
-
-<br><br>
-
-활동은
-<b>사물 · 사람 · 자료 · 아이디어</b>
-네 영역으로 살펴봅니다.
-
-</div>
-
-<div class="dimension-mini">
-
-<div><b>🔧 사물</b>만들고 다루기</div>
-<div><b>🤝 사람</b>소통하고 돕기</div>
-<div><b>📊 자료</b>분석하고 정리하기</div>
-<div><b>💡 아이디어</b>생각하고 창조하기</div>
-
-</div>
-
-<div class="home-buttons">
-
-<button class="start-btn interest"
-onclick="startTest('interest')">
-<span class="icon">❤️</span>
-흥미 검사
-<div class="small">내가 좋아하는 활동 찾기</div>
-</button>
-
-<button class="start-btn aptitude"
-onclick="startTest('aptitude')">
-<span class="icon">⭐</span>
-적성 검사
-<div class="small">내가 잘하는 활동 찾기</div>
-</button>
-
-</div>
-
-<div id="previousResults" class="previous-results"></div>
-
+  <div class="logo-mark home-logo">P</div>
+  <h1>카드로 이해하는<br>나의 <span>흥미와 적성</span></h1>
+  <div class="home-description">
+    52장의 활동 카드를 통해 내가 좋아하는 활동과 잘한다고 느끼는 활동을 찾아봅니다.<br><br>
+    활동은 <b>사물 · 사람 · 자료 · 아이디어</b> 네 영역으로 살펴봅니다.
+  </div>
+  <div class="dimension-mini">
+    <div><b>🔧 사물</b>만들고 다루기</div>
+    <div><b>🤝 사람</b>소통하고 돕기</div>
+    <div><b>📊 자료</b>분석하고 정리하기</div>
+    <div><b>💡 아이디어</b>생각하고 창조하기</div>
+  </div>
+  <div class="home-buttons">
+    <button class="start-btn interest" onclick="startTest('interest')"><span class="icon">❤️</span>흥미 검사<div class="small">내가 좋아하는 활동 찾기</div></button>
+    <button class="start-btn aptitude" onclick="startTest('aptitude')"><span class="icon">⭐</span>적성 검사<div class="small">내가 잘한다고 느끼는 활동 찾기</div></button>
+  </div>
+  <div id="previousResults" class="previous-results"></div>
 </div>
 </div>
-
 </section>
-
-
 
 <section id="testScreen" class="screen">
-
 <header class="test-header">
-
-<div class="test-header-inner">
-
-<div class="test-title">
-<div id="testBadge" class="test-title-badge"></div>
-<strong>카드로 이해하는 나</strong>
-</div>
-
-<button class="exit-btn" onclick="confirmExit()">
-나가기
-</button>
-
-</div>
+  <div class="test-header-inner">
+    <div class="test-title"><div id="testBadge" class="test-title-badge"></div><strong>카드로 이해하는 나</strong></div>
+    <button class="exit-btn" onclick="confirmExit()">나가기</button>
+  </div>
 </header>
-
-
 <div class="progress-area">
-
-<div class="progress-info">
-<span>카드 진행</span>
-<b id="progressText">1 / 52</b>
+  <div class="progress-info"><span>카드 진행</span><b id="progressText">1 / 52</b></div>
+  <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
 </div>
-
-<div class="progress-track">
-<div id="progressBar" class="progress-bar"></div>
-</div>
-
-</div>
-
-
 <main class="test-body">
-
-<p id="questionGuide" class="instruction"></p>
-
-<div class="game-card-wrap">
-
-<div id="gameCard" class="game-card">
-
-<div class="card-image-box">
-
-<img id="cardImage" src="" alt="활동 카드">
-
-<div id="cardLoading" class="card-loading">
-<div class="loading-spinner"></div>
-카드 불러오는 중...
-</div>
-
-<div id="imageError" class="image-error"></div>
-
-</div>
-
-<div class="card-bottom">
-<span id="cardNumber" class="card-number"></span>
-<span id="cardName" class="card-name"></span>
-</div>
-
-</div>
-</div>
-
-
-<div class="choice-buttons">
-
-<button id="positiveButton"
-class="choice-btn good"
-onclick="answerCard('positive')">
-</button>
-
-<button id="neutralButton"
-class="choice-btn normal"
-onclick="answerCard('neutral')">
-😐 보통
-</button>
-
-<button id="negativeButton"
-class="choice-btn bad"
-onclick="answerCard('negative')">
-</button>
-
-</div>
-
-<div class="keyboard-help">
-← 긍정 / ↓ 보통 / → 부정
-</div>
-
+  <p id="questionGuide" class="instruction"></p>
+  <div class="game-card-wrap">
+    <div id="gameCard" class="game-card">
+      <div class="card-image-box">
+        <img id="cardImage" src="" alt="활동 카드">
+        <div id="cardLoading" class="card-loading"><div class="loading-spinner"></div>카드 불러오는 중...</div>
+        <div id="imageError" class="image-error"></div>
+      </div>
+      <div class="card-bottom"><span id="cardNumber" class="card-number"></span><span id="cardName" class="card-name"></span></div>
+    </div>
+  </div>
+  <div class="choice-buttons">
+    <button id="positiveButton" class="choice-btn good" onclick="answerCard('positive')"></button>
+    <button id="neutralButton" class="choice-btn normal" onclick="answerCard('neutral')">😐 보통</button>
+    <button id="negativeButton" class="choice-btn bad" onclick="answerCard('negative')"></button>
+  </div>
+  <div class="keyboard-help">← 긍정 / ↓ 보통 / → 부정</div>
 </main>
-
 </section>
-
-
 
 <section id="selectionScreen" class="screen">
-
 <div class="container">
-
 <div class="selection-panel">
-
-<div class="selection-header">
-
-<h2 id="selectionTitle"></h2>
-
-<p id="selectionDescription"></p>
-
-<div id="selectionCounter"
-class="selection-counter">
-</div>
-
-</div>
-
-<div id="selectedGrid"
-class="selected-grid">
-</div>
-
-<div class="selection-actions">
-
-<button class="secondary-btn"
-onclick="restartCurrentTest()">
-처음부터 다시
-</button>
-
-<button id="analyzeButton"
-class="primary-btn"
-onclick="beginAnalysis()">
-분석하기
-</button>
-
-</div>
-
+  <div class="selection-header">
+    <h2 id="selectionTitle"></h2>
+    <p id="selectionDescription"></p>
+    <div id="selectionCounter" class="selection-counter"></div>
+  </div>
+  <div id="selectedGrid" class="selected-grid"></div>
+  <div class="selection-actions">
+    <button class="secondary-btn" onclick="restartCurrentTest()">처음부터 다시</button>
+    <button id="analyzeButton" class="primary-btn" onclick="beginAnalysis()">분석하기</button>
+  </div>
 </div>
 </div>
-
 </section>
-
-
 
 <section id="analysisScreen" class="screen">
-
 <div class="analysis-box">
-
-<div class="analysis-icon">🃏</div>
-
-<h2>카드 분석중...</h2>
-
-<p id="analysisMessage" class="small"></p>
-
-<div class="analysis-progress">
-<div id="analysisProgressBar"></div>
+  <div class="analysis-icon">🃏</div>
+  <h2>카드 분석중...</h2>
+  <p id="analysisMessage" class="small"></p>
+  <div class="analysis-progress"><div id="analysisProgressBar"></div></div>
 </div>
-
-</div>
-
 </section>
-
-
 
 <section id="resultScreen" class="screen">
-
 <main id="resultPage" class="result-page"></main>
-
 </section>
-
-
 <div id="toast" class="toast"></div>
 
-
 <script>
-
-/* =========================================================
-   카드
-========================================================= */
-
 const cardNames = [
-
-"조립",
-"유지보수",
-"도구이용",
-"관리경작",
-"수집",
-"운용작동",
-"제작",
-"운송수송",
-"구매구입",
-"물류이동",
-"현장관리",
-"건축건설",
-"과학기술실험",
-
-"고객응대서비스",
-"공동작업",
-"판매영업",
-"교제네트워킹",
-"조율조화",
-"통솔지지",
-"상담코칭",
-"팀웍격려",
-"훈련육성",
-"교육",
-"사회복지봉사",
-"협상",
-"마찰해결중재",
-
-"회계",
-"예산책정",
-"판독조사",
-"편집",
-"분류정리",
-"분석",
-"요약통계",
-"검토",
-"단서수집탐색",
-"기록",
-"설계도안",
-"연구",
-"판정",
-
-"변론변호",
-"설명해석",
-"글쓰기",
-"유추",
-"문제해결",
-"개념화",
-"홍보마케팅",
-"프리젠테이션",
-"전략개발",
-"개혁개척",
-"관계결합창의",
-"아이디어포착",
-"발명"
-
+"조립","유지보수","도구이용","관리경작","수집","운용작동","제작","운송수송","구매구입","물류이동","현장관리","건축건설","과학기술실험",
+"고객응대서비스","공동작업","판매영업","교제네트워킹","조율조화","통솔지지","상담코칭","팀웍격려","훈련육성","교육","사회복지봉사","협상","마찰해결중재",
+"회계","예산책정","판독조사","편집","분류정리","분석","요약통계","검토","단서수집탐색","기록","설계도안","연구","판정",
+"변론변호","설명해석","글쓰기","유추","문제해결","개념화","홍보마케팅","프리젠테이션","전략개발","개혁개척","관계결합창의","아이디어포착","발명"
 ];
 
-
-function getDomain(id) {
-
-    if (id <= 13) return "things";
-
-    if (id <= 26) return "people";
-
-    if (id <= 39) return "data";
-
-    return "ideas";
+function getDomain(id){
+  if(id<=13) return "things";
+  if(id<=26) return "people";
+  if(id<=39) return "data";
+  return "ideas";
 }
 
-
-const allCards =
-cardNames.map((name,index)=>{
-
-    const id = index + 1;
-
-    const number =
-        String(id).padStart(2,"0");
-
-    return {
-
-        id,
-        number,
-        name,
-
-        domain:
-            getDomain(id),
-
-        file:
-            `${number}. ${name}.png`
-
-    };
-
+const allCards = cardNames.map((name,index)=>{
+  const id=index+1, number=String(id).padStart(2,"0");
+  return {id,number,name,domain:getDomain(id),file:`${number}. ${name}.png`};
 });
 
-
-/* =========================================================
-   영역 정보
-========================================================= */
-
 const domainInfo = {
-
-things: {
-
-    korean:"사물",
-    english:"THINGS",
-    icon:"🔧",
-    color:"#eb9d45",
-
-    interestDescription:
-    "직접 만들고 조작하고 움직이며 눈에 보이는 결과를 만들어내는 활동에 관심을 느끼는 경향이 있습니다.",
-
-    aptitudeDescription:
-    "직접 조작하고 시험하며 실제 문제를 해결하는 과정에서 강점을 느끼는 경향이 있습니다.",
-
-    majors:[
-        "기계공학",
-        "자동차공학",
-        "전기전자공학",
-        "로봇공학",
-        "건축공학",
-        "토목공학",
-        "산업공학",
-        "스마트팩토리",
-        "항공·드론"
-    ],
-
-    jobs:[
-        "기계공학기술자",
-        "로봇 엔지니어",
-        "자동차 연구원",
-        "전기전자 기술자",
-        "건축기술자",
-        "설비 엔지니어",
-        "드론 전문가"
-    ],
-
-    workStyle:
-    "구체적인 대상과 결과가 있는 상황에서 직접 해보고 수정하면서 일할 때 강점이 드러날 수 있습니다.",
-
-    study:
-    "실습, 실험, 제작, 시뮬레이션처럼 직접 해보는 학습을 활용하면 좋습니다.",
-
-    teamRole:
-    "제작 · 구현 · 실험 · 현장 실행"
-
-},
-
-
-people: {
-
-    korean:"사람",
-    english:"PEOPLE",
-    icon:"🤝",
-    color:"#e96c87",
-
-    interestDescription:
-    "사람과 관계를 맺고 대화하거나 돕고 협력하는 활동에 관심을 느끼는 경향이 있습니다.",
-
-    aptitudeDescription:
-    "다른 사람과 의견을 나누고 관계를 조율하며 함께 목표를 달성하는 상황에서 강점을 느끼는 경향이 있습니다.",
-
-    majors:[
-        "교육학",
-        "심리학",
-        "사회복지학",
-        "간호학",
-        "경영학",
-        "상담학",
-        "유아교육",
-        "관광·호텔경영",
-        "사회학"
-    ],
-
-    jobs:[
-        "교사",
-        "상담사",
-        "사회복지사",
-        "간호사",
-        "인사담당자",
-        "교육전문가",
-        "영업 전문가"
-    ],
-
-    workStyle:
-    "사람들과 이야기하고 협력하며 문제를 해결하는 환경에서 강점이 나타날 수 있습니다.",
-
-    study:
-    "토의, 발표, 친구에게 설명하기, 협력 프로젝트 등을 활용하면 좋습니다.",
-
-    teamRole:
-    "팀장 · 발표 · 조정 · 상담 · 지원"
-
-},
-
-
-data: {
-
-    korean:"자료",
-    english:"DATA",
-    icon:"📊",
-    color:"#548bcf",
-
-    interestDescription:
-    "정보를 수집하고 분류하며 비교·분석하고 정확하게 확인하는 활동에 관심을 느끼는 경향이 있습니다.",
-
-    aptitudeDescription:
-    "자료를 정확하게 확인하고 구조화하며 기준을 사용해 분석하고 판단하는 활동에서 강점을 느끼는 경향이 있습니다.",
-
-    majors:[
-        "통계학",
-        "데이터사이언스",
-        "컴퓨터공학",
-        "회계학",
-        "경제학",
-        "금융학",
-        "수학",
-        "경영정보학",
-        "정보보안"
-    ],
-
-    jobs:[
-        "데이터 분석가",
-        "통계전문가",
-        "회계사",
-        "금융분석가",
-        "소프트웨어 개발자",
-        "정보보안 전문가",
-        "품질관리 전문가"
-    ],
-
-    workStyle:
-    "자료와 기준을 바탕으로 차근차근 분석하고 오류나 차이를 찾아내는 방식에서 강점이 나타날 수 있습니다.",
-
-    study:
-    "표, 분류, 체크리스트, 그래프, 구조도를 활용하여 내용을 체계적으로 정리해보세요.",
-
-    teamRole:
-    "자료조사 · 분석 · 기록 · 검토"
-
-},
-
-
-ideas: {
-
-    korean:"아이디어",
-    english:"IDEAS",
-    icon:"💡",
-    color:"#866bce",
-
-    interestDescription:
-    "새로운 아이디어를 떠올리고 문제를 다른 관점에서 해석하며 새로운 해결책을 만드는 활동에 관심을 느끼는 경향이 있습니다.",
-
-    aptitudeDescription:
-    "새로운 개념을 이해하고 복잡한 문제를 해결하거나 새로운 방법을 생각하는 과정에서 강점을 느끼는 경향이 있습니다.",
-
-    majors:[
-        "컴퓨터공학",
-        "인공지능",
-        "소프트웨어학",
-        "산업디자인",
-        "광고홍보학",
-        "미디어커뮤니케이션",
-        "법학",
-        "철학",
-        "콘텐츠학"
-    ],
-
-    jobs:[
-        "AI 연구원",
-        "소프트웨어 개발자",
-        "서비스 기획자",
-        "UX·UI 디자이너",
-        "콘텐츠 기획자",
-        "광고기획자",
-        "연구원",
-        "전략기획자"
-    ],
-
-    workStyle:
-    "방법이 완전히 정해져 있지 않은 문제에서 스스로 해결책을 찾고 새로운 생각을 제안할 때 강점이 나타날 수 있습니다.",
-
-    study:
-    "탐구, 프로젝트, 글쓰기, 설계, 문제 해결처럼 스스로 답을 만들어보는 학습을 활용하면 좋습니다.",
-
-    teamRole:
-    "아이디어 · 기획 · 문제해결 · 전략"
-
-}
-
+  things:{
+    korean:"사물",english:"THINGS",icon:"🔧",color:"#eb9d45",
+    interestDescription:"직접 만들고 조작하고 움직이며 눈에 보이는 결과를 만들어내는 활동에 관심을 느끼는 경향이 있습니다.",
+    aptitudeDescription:"직접 조작하고 시험하며 실제 문제를 해결하는 과정에서 강점을 느끼는 경향이 있습니다.",
+    shine:"설명만 듣기보다 직접 해보고 결과를 확인할 때 몰입하기 쉽습니다.",
+    friction:"추상적인 설명만 길게 이어지고 실제로 해볼 기회가 없으면 답답하게 느낄 수 있습니다."
+  },
+  people:{
+    korean:"사람",english:"PEOPLE",icon:"🤝",color:"#e96c87",
+    interestDescription:"사람과 관계를 맺고 대화하거나 돕고 협력하는 활동에 관심을 느끼는 경향이 있습니다.",
+    aptitudeDescription:"다른 사람과 의견을 나누고 관계를 조율하며 함께 목표를 달성하는 상황에서 강점을 느끼는 경향이 있습니다.",
+    shine:"혼자보다 사람들과 의견을 주고받고 함께 움직일 때 에너지가 올라가기 쉽습니다.",
+    friction:"대화나 협력이 거의 없이 혼자 오래 처리해야 하는 상황은 지루하게 느껴질 수 있습니다."
+  },
+  data:{
+    korean:"자료",english:"DATA",icon:"📊",color:"#548bcf",
+    interestDescription:"정보를 수집하고 분류하며 비교·분석하고 정확하게 확인하는 활동에 관심을 느끼는 경향이 있습니다.",
+    aptitudeDescription:"자료를 정확하게 확인하고 구조화하며 기준을 사용해 분석하고 판단하는 활동에서 강점을 느끼는 경향이 있습니다.",
+    shine:"근거와 기준이 있고 자료를 정리·비교할 수 있는 상황에서 집중하기 쉽습니다.",
+    friction:"근거 없이 '그냥 느낌대로' 결정해야 하거나 기준이 계속 바뀌면 답답하게 느낄 수 있습니다."
+  },
+  ideas:{
+    korean:"아이디어",english:"IDEAS",icon:"💡",color:"#866bce",
+    interestDescription:"새로운 아이디어를 떠올리고 문제를 다른 관점에서 해석하며 새로운 해결책을 만드는 활동에 관심을 느끼는 경향이 있습니다.",
+    aptitudeDescription:"새로운 개념을 이해하고 복잡한 문제를 해결하거나 새로운 방법을 생각하는 과정에서 강점을 느끼는 경향이 있습니다.",
+    shine:"정답이 하나로 정해지지 않은 문제에서 스스로 방법을 만들 때 몰입하기 쉽습니다.",
+    friction:"방법과 답이 지나치게 고정되어 있고 새로운 시도를 할 여지가 없으면 답답하게 느낄 수 있습니다."
+  }
 };
 
-
-
-/* =========================================================
-   상태
-========================================================= */
-
-let currentTest = null;
-
-let shuffledCards = [];
-
-let currentIndex = 0;
-
-let answers = {
-    positive:[],
-    neutral:[],
-    negative:[]
+/* 학생용 별칭: 공식 유형명이 아니라 결과 이해를 돕기 위한 UI용 이름 */
+const pairProfiles = {
+  "people-things":{
+    title:"현장형 협력가", emoji:"🔧🤝",
+    quote:"같이 움직여야 일이 제대로 굴러가지!",
+    summary:"사람들과 함께 실제 일을 실행하고 눈에 보이는 결과를 만드는 활동에 끌리는 조합입니다.",
+    school:"모둠 활동에서 역할을 나누고 직접 실행하거나, 행사·실습·체육·현장형 프로젝트에서 힘을 발휘할 수 있습니다."
+  },
+  "data-things":{
+    title:"정밀한 실행가", emoji:"🔧📊",
+    quote:"일단 확인하고, 제대로 만들어보자.",
+    summary:"구체적인 대상이나 시스템을 다루면서 정확하게 확인하고 개선하는 활동에 끌리는 조합입니다.",
+    school:"실험, 제작, 코딩 디버깅, 측정, 기록처럼 '해보고 확인하는' 수행에서 강점이 드러날 수 있습니다."
+  },
+  "ideas-things":{
+    title:"메이커형 문제해결러", emoji:"🔧💡",
+    quote:"생각났으면 한번 만들어봐야지!",
+    summary:"새로운 생각을 실제 결과물로 구현하고 고쳐 나가는 활동에 끌리는 조합입니다.",
+    school:"발명, 메이커, 로봇, 프로그래밍, 설계, 디자인 프로젝트처럼 아이디어를 결과물로 바꾸는 활동이 잘 맞을 수 있습니다."
+  },
+  "data-people":{
+    title:"근거로 돕는 조율가", emoji:"🤝📊",
+    quote:"사람을 이해하려면 근거도 같이 봐야지.",
+    summary:"사람의 요구를 이해하면서 자료와 기준을 이용해 판단하고 돕는 활동에 끌리는 조합입니다.",
+    school:"설문 분석, 학생회 기획, 상담·교육 자료 만들기, 팀 일정 관리처럼 사람과 정보를 함께 다루는 역할이 잘 맞을 수 있습니다."
+  },
+  "ideas-people":{
+    title:"소통하는 크리에이터", emoji:"🤝💡",
+    quote:"좋은 생각은 사람에게 전달될 때 더 재미있어!",
+    summary:"새로운 생각을 만들고 설명하거나 다른 사람과 함께 발전시키는 활동에 끌리는 조합입니다.",
+    school:"발표, 토론, 콘텐츠 제작, 홍보, 수업·행사 기획처럼 아이디어를 사람에게 전달하는 활동에서 몰입할 수 있습니다."
+  },
+  "data-ideas":{
+    title:"탐구형 전략가", emoji:"📊💡",
+    quote:"자료 속에 답이 있을지도 몰라.",
+    summary:"정보를 분석하면서 새로운 원리·해결책·전략을 찾는 활동에 끌리는 조합입니다.",
+    school:"탐구보고서, 데이터 분석, 코딩, 연구, 전략 세우기처럼 근거를 바탕으로 답을 만드는 활동이 잘 맞을 수 있습니다."
+  }
 };
 
-let selectionPool = [];
+const singleProfiles = {
+  things:{title:"직접 해보는 실행형",emoji:"🔧",quote:"설명보다 한번 해보는 게 빠르지!",school:"실습·실험·제작·체육·기술 활동처럼 몸과 도구를 쓰는 활동에서 몰입할 수 있습니다."},
+  people:{title:"사람과 함께하는 관계형",emoji:"🤝",quote:"사람이 있어야 일이 재미있지!",school:"토의·발표·협동학습·상담·봉사처럼 관계가 있는 활동에서 몰입할 수 있습니다."},
+  data:{title:"근거를 찾는 분석형",emoji:"📊",quote:"잠깐, 기준부터 정리해보자.",school:"자료조사·정리·분석·검토·기록처럼 정보를 정확하게 다루는 활동에서 몰입할 수 있습니다."},
+  ideas:{title:"답을 만드는 창의형",emoji:"💡",quote:"다른 방법은 없을까?",school:"문제해결·기획·글쓰기·설계·창작처럼 새로운 답을 만드는 활동에서 몰입할 수 있습니다."}
+};
 
-let selectedFinalCards = [];
+const balancedProfile = {
+  title:"멀티 플레이어형",emoji:"🌈",quote:"한 가지 방식보다 여러 방식이 더 재미있어!",
+  summary:"특정 한 영역에만 몰리기보다 여러 종류의 활동을 비교적 고르게 선택했습니다.",
+  school:"과제의 성격에 따라 역할을 바꾸거나 다양한 과목·활동을 경험하면서 자신에게 맞는 방식을 찾아가는 편일 수 있습니다."
+};
 
-let cardLocked = true;
+/* 
+  교육자료의 '카드별 관련 학과/직업'을 seed로 삼아
+  시대성이 강한 명칭은 진로수업용으로 넓은 '진로테마'에 재분류했습니다.
+  즉, 아래 theme은 공식 프레디저 채점키가 아니라 결과 개인화를 위한 수업용 메타데이터입니다.
+*/
+const themeProfiles = {
+  engineering:{
+    label:"공학·기술",icon:"⚙️",
+    description:"기계·전자·로봇·자동차·건축처럼 실제 시스템을 설계하고 구현하는 분야",
+    majors:["기계공학","전기전자공학","로봇공학","자동차공학","산업공학","건축·토목공학"],
+    jobs:["로봇 엔지니어","기계·자동차 엔지니어","전기전자 엔지니어","건축·토목 기술자","스마트팩토리 엔지니어"]
+  },
+  science:{
+    label:"과학·연구",icon:"🔬",
+    description:"관찰·실험·연구를 통해 원리와 원인을 밝히는 분야",
+    majors:["물리학","화학","생명과학","환경과학","의생명과학","자연과학계열"],
+    jobs:["연구원","생명과학 연구자","화학 연구자","환경 연구자","의과학 연구자"]
+  },
+  digital:{
+    label:"디지털·컴퓨팅",icon:"💻",
+    description:"소프트웨어, 데이터, AI, 정보시스템을 이용해 문제를 해결하는 분야",
+    majors:["컴퓨터공학","소프트웨어학","인공지능","데이터사이언스","정보보안","경영정보학"],
+    jobs:["소프트웨어 개발자","AI 엔지니어","데이터 분석가","정보보안 전문가","서비스 기획자"]
+  },
+  design:{
+    label:"디자인·콘텐츠",icon:"🎨",
+    description:"아이디어를 시각·공간·제품·콘텐츠 형태로 표현하는 분야",
+    majors:["산업디자인","시각디자인","콘텐츠학","미디어학","건축디자인","문화콘텐츠학"],
+    jobs:["UX·UI 디자이너","제품 디자이너","콘텐츠 기획자","영상·편집 전문가","브랜드 디자이너"]
+  },
+  business:{
+    label:"경영·마케팅",icon:"📣",
+    description:"시장과 고객을 이해하고 상품·서비스·조직의 방향을 만드는 분야",
+    majors:["경영학","마케팅","광고홍보학","국제통상","유통·물류학","경제학"],
+    jobs:["마케터","브랜드 매니저","상품기획자","영업 전문가","유통·물류 기획자"]
+  },
+  finance:{
+    label:"경제·금융·회계",icon:"💰",
+    description:"수치와 기준을 이용해 자원·예산·경제적 의사결정을 다루는 분야",
+    majors:["회계학","경제학","금융학","세무학","통계학","경영학"],
+    jobs:["회계사","세무 전문가","금융분석가","자산관리 전문가","경제·리서치 분석가"]
+  },
+  public:{
+    label:"법·행정·공공",icon:"⚖️",
+    description:"규칙과 근거를 바탕으로 사회의 문제를 판단·조정하는 분야",
+    majors:["법학","행정학","정치외교학","경찰행정학","공공정책학","국제학"],
+    jobs:["법률 전문가","공무원","정책 연구원","외교관","노무·협상 전문가"]
+  },
+  education:{
+    label:"교육·상담",icon:"🧑‍🏫",
+    description:"사람의 성장과 학습을 돕고 코칭·상담하는 분야",
+    majors:["교육학","상담심리학","심리학","유아교육","특수교육","사회복지학"],
+    jobs:["교사","상담사","진로·교육 전문가","코치","사회복지사"]
+  },
+  health:{
+    label:"보건·의료·돌봄",icon:"🩺",
+    description:"사람의 건강·회복·생활을 지원하는 분야",
+    majors:["간호학","보건학","재활학","의생명계열","응급구조학","식품영양학"],
+    jobs:["간호사","재활 전문가","응급구조사","보건 전문가","의료서비스 전문가"]
+  },
+  communication:{
+    label:"언어·미디어·소통",icon:"🎤",
+    description:"말과 글, 미디어를 통해 의미를 전달하고 사람을 설득·연결하는 분야",
+    majors:["미디어커뮤니케이션","국어국문학","문예창작","언론·미디어학","외국어계열","광고홍보학"],
+    jobs:["기자","작가","아나운서·진행자","홍보 전문가","콘텐츠 에디터"]
+  },
+  operations:{
+    label:"현장·운영·물류",icon:"🚚",
+    description:"사람·물건·시설이 실제 현장에서 원활하게 움직이도록 운영하는 분야",
+    majors:["산업공학","물류학","항공운항·운송계열","건설관리","안전공학","관광·서비스경영"],
+    jobs:["물류 기획자","현장관리자","항공·운송 종사자","품질관리 전문가","안전관리 전문가"]
+  },
+  environment:{
+    label:"환경·농생명",icon:"🌱",
+    description:"생명, 농업, 생태, 환경을 직접 관리하고 연구하는 분야",
+    majors:["환경공학","생명과학","원예·조경학","농생명과학","산림자원학","동물자원학"],
+    jobs:["환경 전문가","조경 전문가","농생명 연구자","생태 연구자","산림·원예 전문가"]
+  }
+};
 
-let imageLoadToken = 0;
+/* 카드별 개인화 힌트 */
+const cardInsights = {
+"조립":{themes:["engineering","design"],cue:"여러 부품을 맞추어 하나의 결과물을 만드는 활동"},
+"유지보수":{themes:["engineering","operations"],cue:"고장이나 문제를 찾아 원래 기능을 회복시키는 활동"},
+"도구이용":{themes:["engineering","design"],cue:"도구를 능숙하게 사용해 결과를 만드는 활동"},
+"관리경작":{themes:["environment","science"],cue:"생명이나 환경을 꾸준히 관리하고 변화 과정을 살피는 활동"},
+"수집":{themes:["data","design"],cue:"가치 있는 대상이나 정보를 찾아 모으고 체계화하는 활동"},
+"운용작동":{themes:["engineering","operations"],cue:"기계·장비·시스템을 직접 다루고 작동시키는 활동"},
+"제작":{themes:["engineering","design"],cue:"아이디어나 재료를 실제 결과물로 만드는 활동"},
+"운송수송":{themes:["operations","business"],cue:"사람이나 물건이 목적지까지 안전하고 효율적으로 이동하게 하는 활동"},
+"구매구입":{themes:["business","finance"],cue:"필요한 물건과 조건을 비교해 적절한 선택을 하는 활동"},
+"물류이동":{themes:["operations","business"],cue:"물건과 자원의 흐름을 계획하고 연결하는 활동"},
+"현장관리":{themes:["operations","engineering"],cue:"현장의 일정·안전·인력·상황을 종합적으로 관리하는 활동"},
+"건축건설":{themes:["engineering","design"],cue:"공간과 구조물을 계획하고 실제로 만들어가는 활동"},
+"과학기술실험":{themes:["science","engineering"],cue:"실험과 검증을 통해 원리나 기술을 확인하는 활동"},
 
+"고객응대서비스":{themes:["business","communication"],cue:"상대의 요구를 듣고 알맞은 도움과 서비스를 제공하는 활동"},
+"공동작업":{themes:["education","operations"],cue:"여러 사람이 역할을 나누고 함께 결과를 만드는 활동"},
+"판매영업":{themes:["business","communication"],cue:"상대의 필요를 파악하고 상품이나 아이디어를 설득력 있게 제안하는 활동"},
+"교제네트워킹":{themes:["communication","business"],cue:"새로운 사람과 관계를 만들고 연결을 넓히는 활동"},
+"조율조화":{themes:["education","public"],cue:"서로 다른 의견과 상황을 조정해 균형을 만드는 활동"},
+"통솔지지":{themes:["education","business"],cue:"사람들에게 방향을 제시하고 함께 움직이도록 이끄는 활동"},
+"상담코칭":{themes:["education","health"],cue:"상대의 고민을 듣고 성장이나 해결을 돕는 활동"},
+"팀웍격려":{themes:["education","communication"],cue:"팀의 분위기와 동기를 높여 함께 목표를 이루도록 돕는 활동"},
+"훈련육성":{themes:["education","health"],cue:"반복적인 연습과 피드백을 통해 능력을 키워주는 활동"},
+"교육":{themes:["education","communication"],cue:"지식과 방법을 설명하고 다른 사람의 학습을 돕는 활동"},
+"사회복지봉사":{themes:["education","health"],cue:"도움이 필요한 사람의 생활과 성장을 지원하는 활동"},
+"협상":{themes:["public","business"],cue:"서로 다른 이해관계를 조정해 합의점을 찾는 활동"},
+"마찰해결중재":{themes:["public","education"],cue:"갈등의 원인을 파악하고 서로 받아들일 수 있는 해결책을 찾는 활동"},
 
-/* =========================================================
-   기본
-========================================================= */
+"회계":{themes:["finance","data"],cue:"수치를 정확하게 기록하고 기준에 맞게 재정 정보를 정리하는 활동"},
+"예산책정":{themes:["finance","business"],cue:"한정된 자원을 어디에 얼마나 쓸지 계획하는 활동"},
+"판독조사":{themes:["science","public"],cue:"작은 단서와 차이를 살펴 사실을 밝혀내는 활동"},
+"편집":{themes:["design","communication"],cue:"많은 내용을 목적에 맞게 골라 다듬고 구성하는 활동"},
+"분류정리":{themes:["data","digital"],cue:"정보를 기준에 따라 나누고 찾기 쉽게 구조화하는 활동"},
+"분석":{themes:["data","digital"],cue:"자료를 비교해 패턴과 원인을 찾아내는 활동"},
+"요약통계":{themes:["data","communication"],cue:"많은 정보를 핵심 수치와 내용으로 압축해 전달하는 활동"},
+"검토":{themes:["data","public"],cue:"오류나 빠진 부분이 없는지 기준을 가지고 꼼꼼히 확인하는 활동"},
+"단서수집탐색":{themes:["science","public"],cue:"흩어진 단서를 찾아 연결하고 사실에 접근하는 활동"},
+"기록":{themes:["data","science"],cue:"관찰한 사실과 과정을 빠짐없이 남겨 이후 판단에 활용하는 활동"},
+"설계도안":{themes:["engineering","design"],cue:"만들기 전에 구조와 형태를 계획하고 표현하는 활동"},
+"연구":{themes:["science","digital"],cue:"질문을 세우고 자료와 실험을 통해 답을 찾아가는 활동"},
+"판정":{themes:["public","data"],cue:"여러 근거와 기준을 종합해 결론을 내리는 활동"},
+
+"변론변호":{themes:["public","communication"],cue:"근거를 바탕으로 자신의 입장을 논리적으로 설명하고 설득하는 활동"},
+"설명해석":{themes:["communication","education"],cue:"복잡한 내용을 이해하기 쉽게 풀어 전달하는 활동"},
+"글쓰기":{themes:["communication","design"],cue:"생각과 정보를 글로 구조화해 표현하는 활동"},
+"유추":{themes:["science","finance"],cue:"서로 다른 사례의 공통점을 찾아 새로운 상황을 예측하는 활동"},
+"문제해결":{themes:["digital","engineering"],cue:"문제의 원인을 찾아 여러 해결방법을 비교하고 실행하는 활동"},
+"개념화":{themes:["science","communication"],cue:"복잡한 생각을 핵심 개념과 구조로 정리하는 활동"},
+"홍보마케팅":{themes:["business","communication"],cue:"사람의 관심과 필요를 파악해 메시지와 전략을 만드는 활동"},
+"프리젠테이션":{themes:["communication","business"],cue:"핵심 내용을 구조화하고 사람들 앞에서 설득력 있게 전달하는 활동"},
+"전략개발":{themes:["business","digital"],cue:"목표를 이루기 위한 여러 선택지를 비교해 장기적인 방법을 설계하는 활동"},
+"개혁개척":{themes:["design","business"],cue:"기존 방식에 의문을 가지고 새로운 길이나 방식을 시도하는 활동"},
+"관계결합창의":{themes:["design","digital"],cue:"서로 다른 요소를 연결해 새로운 조합과 가능성을 만드는 활동"},
+"아이디어포착":{themes:["design","business"],cue:"일상 속 작은 단서에서 새로운 아이디어와 기회를 발견하는 활동"},
+"발명":{themes:["engineering","design"],cue:"새로운 기능이나 방법을 생각해 실제로 구현하는 활동"}
+};
+
+/* cardInsights에서 'data'라는 테마를 쓴 카드들을 디지털/분석 계열로 자동 보정 */
+Object.values(cardInsights).forEach(v=>{
+  v.themes=v.themes.map(t=>t==="data"?"digital":t);
+});
+
+let currentTest=null;
+let shuffledCards=[];
+let currentIndex=0;
+let answers={positive:[],neutral:[],negative:[]};
+let selectionPool=[];
+let selectedFinalCards=[];
+let cardLocked=true;
+let imageLoadToken=0;
 
 function showScreen(id){
-
-    document
-    .querySelectorAll(".screen")
-    .forEach(el=>
-        el.classList.remove("active")
-    );
-
-    document
-    .getElementById(id)
-    .classList.add("active");
-
-    window.scrollTo(0,0);
+  document.querySelectorAll(".screen").forEach(el=>el.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo(0,0);
 }
-
-
 function shuffle(array){
-
-    const copy=[...array];
-
-    for(let i=copy.length-1;i>0;i--){
-
-        const j=
-        Math.floor(Math.random()*(i+1));
-
-        [copy[i],copy[j]]=
-        [copy[j],copy[i]];
-
-    }
-
-    return copy;
+  const copy=[...array];
+  for(let i=copy.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [copy[i],copy[j]]=[copy[j],copy[i]];
+  }
+  return copy;
 }
-
-
 function toast(message){
-
-    const el=
-    document.getElementById("toast");
-
-    el.textContent=message;
-
-    el.classList.add("show");
-
-    setTimeout(
-        ()=>el.classList.remove("show"),
-        1800
-    );
+  const el=document.getElementById("toast");
+  el.textContent=message;el.classList.add("show");
+  setTimeout(()=>el.classList.remove("show"),1800);
 }
-
-
 function setChoiceButtonsEnabled(enabled){
-
-    [
-        "positiveButton",
-        "neutralButton",
-        "negativeButton"
-    ]
-    .forEach(id=>{
-
-        document
-        .getElementById(id)
-        .disabled=!enabled;
-
-    });
-
-    cardLocked=!enabled;
+  ["positiveButton","neutralButton","negativeButton"].forEach(id=>document.getElementById(id).disabled=!enabled);
+  cardLocked=!enabled;
 }
-
-
-/* =========================================================
-   검사 시작
-========================================================= */
 
 function startTest(type){
+  currentTest=type;shuffledCards=shuffle(allCards);currentIndex=0;
+  answers={positive:[],neutral:[],negative:[]};selectionPool=[];selectedFinalCards=[];
+  setChoiceButtonsEnabled(false);
 
-    currentTest=type;
-
-    shuffledCards=
-    shuffle(allCards);
-
-    currentIndex=0;
-
-    answers={
-        positive:[],
-        neutral:[],
-        negative:[]
-    };
-
-    selectionPool=[];
-
-    selectedFinalCards=[];
-
-    setChoiceButtonsEnabled(false);
-
-
-    if(type==="interest"){
-
-        testBadge.textContent=
-        "❤️ 흥미 검사";
-
-        questionGuide.innerHTML=
-        `이 활동을 내가
-        <strong>얼마나 좋아하는지</strong>
-        생각해 보세요.`;
-
-        positiveButton.textContent=
-        "❤️ 좋아함";
-
-        negativeButton.textContent=
-        "🙅 싫어함";
-
-    }
-
-    else{
-
-        testBadge.textContent=
-        "⭐ 적성 검사";
-
-        questionGuide.innerHTML=
-        `이 활동을 내가
-        <strong>얼마나 잘하는지</strong>
-        생각해 보세요.`;
-
-        positiveButton.textContent=
-        "⭐ 잘함";
-
-        negativeButton.textContent=
-        "😅 잘못함";
-
-    }
-
-    showScreen("testScreen");
-
-    renderCard();
+  if(type==="interest"){
+    testBadge.textContent="❤️ 흥미 검사";
+    questionGuide.innerHTML=`이 활동을 내가 <strong>얼마나 좋아하는지</strong> 생각해 보세요.`;
+    positiveButton.textContent="❤️ 좋아함";negativeButton.textContent="🙅 싫어함";
+  }else{
+    testBadge.textContent="⭐ 적성 검사";
+    questionGuide.innerHTML=`이 활동을 내가 <strong>얼마나 잘한다고 느끼는지</strong> 생각해 보세요.`;
+    positiveButton.textContent="⭐ 잘함";negativeButton.textContent="😅 잘못함";
+  }
+  showScreen("testScreen");renderCard();
 }
-
-
-/* =========================================================
-   카드 출력
-========================================================= */
 
 function renderCard(){
-
-    if(currentIndex>=52){
-
-        finishCardQuestions();
-
-        return;
-    }
-
-    setChoiceButtonsEnabled(false);
-
-    const card=
-    shuffledCards[currentIndex];
-
-    cardNumber.textContent=
-    `${card.number} / 52`;
-
-    cardName.textContent=
-    card.name;
-
-    imageLoadToken++;
-
-    const token=imageLoadToken;
-
-    cardLoading.style.display="flex";
-
-    imageError.style.display="none";
-
-    cardImage.style.display="block";
-
-
-    cardImage.onload=()=>{
-
-        if(token!==imageLoadToken)
-            return;
-
-        cardLoading.style.display="none";
-
-        setChoiceButtonsEnabled(true);
-
-        preloadNextCard();
-
-    };
-
-
-    cardImage.onerror=()=>{
-
-        if(token!==imageLoadToken)
-            return;
-
-        cardLoading.style.display="none";
-
-        cardImage.style.display="none";
-
-        imageError.style.display="block";
-
-        imageError.innerHTML=
-        `<b>${card.number}. ${card.name}</b>
-        <br><br>
-        카드 이미지를 찾지 못했습니다.
-        <br>
-        ${card.file}`;
-
-        setChoiceButtonsEnabled(true);
-
-    };
-
-
-    cardImage.src=
-    "cards/"+card.file;
-
-
-    progressBar.style.width=
-    `${currentIndex/52*100}%`;
-
-    progressText.textContent=
-    `${currentIndex+1} / 52`;
-
+  if(currentIndex>=52){finishCardQuestions();return;}
+  setChoiceButtonsEnabled(false);
+  const card=shuffledCards[currentIndex];
+  cardNumber.textContent=`${card.number} / 52`;cardName.textContent=card.name;
+  imageLoadToken++;const token=imageLoadToken;
+  cardLoading.style.display="flex";imageError.style.display="none";cardImage.style.display="block";
+  cardImage.onload=()=>{
+    if(token!==imageLoadToken)return;
+    cardLoading.style.display="none";setChoiceButtonsEnabled(true);preloadNextCard();
+  };
+  cardImage.onerror=()=>{
+    if(token!==imageLoadToken)return;
+    cardLoading.style.display="none";cardImage.style.display="none";imageError.style.display="block";
+    imageError.innerHTML=`<b>${card.number}. ${card.name}</b><br><br>카드 이미지를 찾지 못했습니다.<br>${card.file}`;
+    setChoiceButtonsEnabled(true);
+  };
+  cardImage.src="cards/"+card.file;
+  progressBar.style.width=`${currentIndex/52*100}%`;progressText.textContent=`${currentIndex+1} / 52`;
 }
-
-
 function preloadNextCard(){
-
-    if(currentIndex+1>=52)
-        return;
-
-    const img=new Image();
-
-    img.src=
-    "cards/"+
-    shuffledCards[currentIndex+1].file;
-
+  if(currentIndex+1>=52)return;
+  const img=new Image();img.src="cards/"+shuffledCards[currentIndex+1].file;
 }
-
-
-/* =========================================================
-   카드 응답
-========================================================= */
-
 function answerCard(answer){
-
-    if(cardLocked)
-        return;
-
-    setChoiceButtonsEnabled(false);
-
-    answers[answer].push(
-        shuffledCards[currentIndex]
-    );
-
-    gameCard.classList.add("card-out");
-
-    setTimeout(()=>{
-
-        currentIndex++;
-
-        gameCard.classList.remove(
-            "card-out"
-        );
-
-        renderCard();
-
-    },200);
-
+  if(cardLocked)return;
+  setChoiceButtonsEnabled(false);
+  answers[answer].push(shuffledCards[currentIndex]);
+  gameCard.classList.add("card-out");
+  setTimeout(()=>{currentIndex++;gameCard.classList.remove("card-out");renderCard();},200);
 }
-
-
-/* =========================================================
-   검사 종료 → 최종9장
-========================================================= */
 
 function finishCardQuestions(){
-
-    selectionPool=
-    answers.positive.map(card=>({
-        ...card,
-        addedFromNeutral:false
-    }));
-
-
-    if(selectionPool.length<9){
-
-        const need=
-        9-selectionPool.length;
-
-        const neutral=
-        shuffle(answers.neutral)
-        .slice(0,need)
-        .map(card=>({
-            ...card,
-            addedFromNeutral:true
-        }));
-
-        selectionPool.push(...neutral);
-
-    }
-
-
-    if(selectionPool.length<9){
-
-        alert(
-        "좋아함/잘함과 보통 카드가 합쳐도 9장이 되지 않습니다."
-        );
-
-        restartCurrentTest();
-
-        return;
-    }
-
-
-    selectedFinalCards=
-    [...selectionPool];
-
-    showSelectionScreen();
-
+  selectionPool=answers.positive.map(card=>({...card,addedFromNeutral:false}));
+  if(selectionPool.length<9){
+    const need=9-selectionPool.length;
+    const neutral=shuffle(answers.neutral).slice(0,need).map(card=>({...card,addedFromNeutral:true}));
+    selectionPool.push(...neutral);
+  }
+  if(selectionPool.length<9){
+    alert("긍정 선택과 보통 카드가 합쳐도 9장이 되지 않습니다.");restartCurrentTest();return;
+  }
+  selectedFinalCards=[...selectionPool];
+  showSelectionScreen();
 }
-
-
-/* =========================================================
-   최종선택
-========================================================= */
-
 function showSelectionScreen(){
-
-    showScreen("selectionScreen");
-
-    selectionTitle.textContent=
-    currentTest==="interest"
-    ?
-    "내가 좋아하는 핵심 활동"
-    :
-    "내가 잘하는 핵심 활동";
-
-
-    if(selectionPool.length>9){
-
-        selectionDescription.innerHTML=
-        `선택한 카드가
-        <b>9장을 초과했습니다.</b>
-        <br>
-        상대적으로 덜 중요하다고 생각되는 카드를 눌러 제외해주세요.
-        <br>
-        제외한 카드는 마음이 바뀌면 다시 선택할 수 있습니다.`;
-
-    }
-
-    else{
-
-        selectionDescription.innerHTML=
-        `최종 선택된
-        <b>9장의 핵심 카드</b>를 확인해주세요.`;
-
-    }
-
-    renderSelectionCards();
-
+  showScreen("selectionScreen");
+  selectionTitle.textContent=currentTest==="interest"?"내가 좋아하는 핵심 활동":"내가 잘한다고 느끼는 핵심 활동";
+  if(selectionPool.length>9){
+    selectionDescription.innerHTML=`선택한 카드가 <b>9장을 초과했습니다.</b><br>상대적으로 덜 중요한 카드를 눌러 제외해주세요.<br>제외한 카드는 마음이 바뀌면 다시 선택할 수 있습니다.`;
+  }else{
+    selectionDescription.innerHTML=`최종 선택된 <b>9장의 핵심 카드</b>를 확인해주세요.`;
+  }
+  renderSelectionCards();
 }
-
-
 function renderSelectionCards(){
-
-    selectedGrid.innerHTML="";
-
-
-    selectionPool.forEach(card=>{
-
-        const selected=
-        selectedFinalCards.some(
-            x=>x.id===card.id
-        );
-
-        const div=
-        document.createElement("div");
-
-        div.className="mini-card";
-
-
-        if(!selected){
-
-            div.style.opacity=".32";
-
-            div.style.filter=
-            "grayscale(1)";
-
-        }
-
-
-        div.innerHTML=`
-
-        ${
-            card.addedFromNeutral
-            ?
-            `<div class="added-badge">
-            보통에서 보충
-            </div>`
-            :
-            ""
-        }
-
-        ${
-            selected &&
-            selectionPool.length>9
-            ?
-            `<div class="remove-label">
-            ×
-            </div>`
-            :
-            ""
-        }
-
-        <img src="cards/${card.file}">
-
-        <div class="mini-card-title">
-        ${card.name}
-        </div>
-
-        `;
-
-
-        if(selectionPool.length>9){
-
-            div.onclick=
-            ()=>toggleFinalCard(card.id);
-
-        }
-
-        selectedGrid.appendChild(div);
-
-    });
-
-
-    const count=
-    selectedFinalCards.length;
-
-    selectionCounter.textContent=
-    `${count} / 9`;
-
-
-    analyzeButton.disabled=
-    count!==9;
-
-
-    if(count>9){
-
-        analyzeButton.textContent=
-        `${count-9}장 더 제외시키세요`;
-
-    }
-
-    else if(count<9){
-
-        analyzeButton.textContent=
-        `${9-count}장 더 선택하세요`;
-
-    }
-
-    else{
-
-        analyzeButton.textContent=
-        "분석하기";
-
-    }
-
+  selectedGrid.innerHTML="";
+  selectionPool.forEach(card=>{
+    const selected=selectedFinalCards.some(x=>x.id===card.id);
+    const div=document.createElement("div");div.className="mini-card";
+    if(!selected){div.style.opacity=".32";div.style.filter="grayscale(1)";}
+    div.innerHTML=`
+      ${card.addedFromNeutral?`<div class="added-badge">보통에서 보충</div>`:""}
+      ${selected&&selectionPool.length>9?`<div class="remove-label">×</div>`:""}
+      <img src="cards/${card.file}">
+      <div class="mini-card-title">${card.name}</div>`;
+    if(selectionPool.length>9)div.onclick=()=>toggleFinalCard(card.id);
+    selectedGrid.appendChild(div);
+  });
+  const count=selectedFinalCards.length;
+  selectionCounter.textContent=`${count} / 9`;
+  analyzeButton.disabled=count!==9;
+  analyzeButton.textContent=count>9?`${count-9}장 더 제외시키세요`:count<9?`${9-count}장 더 선택하세요`:"분석하기";
 }
-
-
-/* =========================================================
-   자유롭게 제외/복구
-========================================================= */
-
 function toggleFinalCard(id){
-
-    const exists=
-    selectedFinalCards.some(
-        card=>card.id===id
-    );
-
-
-    if(exists){
-
-        selectedFinalCards=
-        selectedFinalCards.filter(
-            card=>card.id!==id
-        );
-
-    }
-
-    else{
-
-        const card=
-        selectionPool.find(
-            card=>card.id===id
-        );
-
-        if(card)
-            selectedFinalCards.push(card);
-
-    }
-
-
-    renderSelectionCards();
-
+  const exists=selectedFinalCards.some(card=>card.id===id);
+  if(exists)selectedFinalCards=selectedFinalCards.filter(card=>card.id!==id);
+  else{
+    const card=selectionPool.find(card=>card.id===id);
+    if(card)selectedFinalCards.push(card);
+  }
+  renderSelectionCards();
 }
-
-
-/* =========================================================
-   분석 화면
-========================================================= */
 
 function beginAnalysis(){
-
-    if(selectedFinalCards.length!==9){
-
-        toast(
-        "카드를 정확히 9장 선택해주세요."
-        );
-
-        return;
-    }
-
-    showScreen("analysisScreen");
-
-    const messages=[
-
-        "선택한 카드의 공통점을 찾고 있어요.",
-
-        "사물·사람·자료·아이디어 분포를 확인하고 있어요.",
-
-        "영역 간 점수 차이를 비교하고 있어요.",
-
-        "동률과 복합 성향을 분석하고 있어요.",
-
-        "결과를 완성하고 있어요."
-
-    ];
-
-
-    analysisProgressBar.style.width="0%";
-
-    let step=0;
-
-    analysisMessage.textContent=
-    messages[0];
-
-
-    const timer=
-    setInterval(()=>{
-
-        step++;
-
-        analysisProgressBar.style.width=
-        `${Math.min((step+1)*20,100)}%`;
-
-        if(messages[step])
-            analysisMessage.textContent=
-            messages[step];
-
-        if(step>=4)
-            clearInterval(timer);
-
-    },1000);
-
-
-    setTimeout(
-        calculateAndShowResult,
-        5100
-    );
-
+  if(selectedFinalCards.length!==9){toast("카드를 정확히 9장 선택해주세요.");return;}
+  showScreen("analysisScreen");
+  const messages=[
+    "선택한 카드의 공통점을 찾고 있어요.",
+    "사물·사람·자료·아이디어 분포를 확인하고 있어요.",
+    "실제 선택한 활동에서 진로 키워드를 찾고 있어요.",
+    "상위 영역의 조합과 동률을 분석하고 있어요.",
+    "학교생활과 진로탐색에 연결하고 있어요."
+  ];
+  analysisProgressBar.style.width="0%";let step=0;analysisMessage.textContent=messages[0];
+  const timer=setInterval(()=>{
+    step++;analysisProgressBar.style.width=`${Math.min((step+1)*20,100)}%`;
+    if(messages[step])analysisMessage.textContent=messages[step];
+    if(step>=4)clearInterval(timer);
+  },1000);
+  setTimeout(calculateAndShowResult,5100);
 }
-
-
-/* =========================================================
-   점수 계산
-========================================================= */
 
 function calculateScores(cards){
-
-    const scores={
-        things:0,
-        people:0,
-        data:0,
-        ideas:0
-    };
-
-    cards.forEach(card=>{
-        scores[card.domain]++;
-    });
-
-    return scores;
-
+  const scores={things:0,people:0,data:0,ideas:0};
+  cards.forEach(card=>scores[card.domain]++);
+  return scores;
 }
-
-
-/* =========================================================
-   핵심:
-   점수 구조 분석
-========================================================= */
 
 function analyzeScorePattern(scores){
+  const order=["things","people","data","ideas"];
+  const entries=order.map(key=>({key,score:scores[key]})).sort((a,b)=>b.score-a.score);
+  const highest=entries[0].score;
+  const topDomains=entries.filter(x=>x.score===highest);
+  const remaining=entries.filter(x=>x.score<highest);
+  let secondDomains=[];
+  if(remaining.length){
+    const secondScore=remaining[0].score;
+    secondDomains=remaining.filter(x=>x.score===secondScore);
+  }
+  const lowest=entries[entries.length-1].score;
+  const gap=highest-lowest;
+  let patternType="",patternTitle="",patternDescription="";
 
-    const entries=
-    Object.entries(scores)
-    .map(([key,score])=>({
-        key,
-        score
-    }))
-    .sort((a,b)=>b.score-a.score);
-
-
-    const highest=
-    entries[0].score;
-
-
-    const topDomains=
-    entries.filter(
-        x=>x.score===highest
-    );
-
-
-    const remaining=
-    entries.filter(
-        x=>x.score<highest
-    );
-
-
-    let secondDomains=[];
-
-
-    if(remaining.length>0){
-
-        const secondScore=
-        remaining[0].score;
-
-        secondDomains=
-        remaining.filter(
-            x=>x.score===secondScore
-        );
-
+  if(topDomains.length>=3){
+    patternType="balanced";patternTitle="🌈 다양한 활동 선호형";
+    patternDescription="여러 영역이 같은 수준으로 높게 나타났습니다. 한 가지 방식으로 나를 단정하기보다 다양한 활동에서 어떤 카드에 특히 끌렸는지 함께 보는 것이 좋습니다.";
+  }else if(topDomains.length===2){
+    patternType="dual";
+    const names=topDomains.map(x=>domainInfo[x.key].korean).join(" + ");
+    patternTitle=`🧩 ${names} 복합형`;
+    patternDescription="두 영역이 같은 점수로 가장 높습니다. 어느 한쪽을 억지로 1위로 정하지 않고 두 영역을 동등한 핵심 성향으로 해석합니다.";
+  }else{
+    const first=entries[0],second=entries[1],firstSecondGap=first.score-second.score;
+    if(firstSecondGap>=2){
+      patternType="clear";patternTitle=`🎯 ${domainInfo[first.key].korean} 중심형`;
+      patternDescription=`${domainInfo[first.key].korean} 영역이 비교적 뚜렷하게 높습니다. 다만 9장의 카드 안에서 나타난 상대적인 특징이므로 '고정된 유형'으로 단정하지 않습니다.`;
+    }else{
+      patternType="mixed";patternTitle=`🌱 ${domainInfo[first.key].korean} 중심 복합형`;
+      patternDescription=`${domainInfo[first.key].korean} 영역이 가장 높지만 상위 영역과 차이가 크지 않습니다. 1위뿐 아니라 함께 높게 나온 영역과 실제 선택 카드를 같이 보는 것이 좋습니다.`;
     }
+  }
 
+  if(topDomains.length===1&&gap<=1){
+    patternType="balanced";patternTitle="🌈 비교적 균형적인 성향";
+    patternDescription="네 영역의 카드 수 차이가 매우 작습니다. 특정 방식 하나보다 다양한 종류의 활동에 비교적 고르게 관심이나 강점을 느끼는 결과입니다.";
+  }
 
-    const lowest=
-    entries[entries.length-1].score;
-
-    const gap=
-    highest-lowest;
-
-
-    let patternType="";
-    let patternTitle="";
-    let patternDescription="";
-
-
-    /*
-       3개 이상 공동 1위
-    */
-
-    if(topDomains.length>=3){
-
-        patternType="balanced";
-
-        patternTitle=
-        "🌈 다양한 활동 선호형";
-
-
-        patternDescription=
-        `한 가지 영역에만 집중되기보다 여러 영역이 비슷하게 높게 나타났습니다.
-        다양한 방식의 활동에 관심이나 강점을 느끼는 편으로 볼 수 있습니다.`;
-
-    }
-
-
-    /*
-       2개 공동1위
-    */
-
-    else if(topDomains.length===2){
-
-        patternType="dual";
-
-        const names=
-        topDomains
-        .map(x=>
-            domainInfo[x.key].korean
-        )
-        .join(" + ");
-
-
-        patternTitle=
-        `🧩 ${names} 복합형`;
-
-
-        patternDescription=
-        `두 영역이 같은 점수로 가장 높게 나타났습니다.
-        한쪽만을 대표 성향으로 정하기보다는 두 영역의 특징을 함께 가진 복합 성향으로 보는 것이 자연스럽습니다.`;
-
-    }
-
-
-    /*
-       1위 한 개
-    */
-
-    else{
-
-        const first=
-        entries[0];
-
-        const second=
-        entries[1];
-
-        const firstSecondGap=
-        first.score-second.score;
-
-
-        /*
-           1위와 2위 차이가 2 이상
-        */
-
-        if(firstSecondGap>=2){
-
-            patternType="clear";
-
-            patternTitle=
-            `🎯 ${domainInfo[first.key].korean} 중심형`;
-
-
-            patternDescription=
-            `${domainInfo[first.key].korean} 영역이 다른 영역보다 비교적 뚜렷하게 높게 나타났습니다.
-            다만 이 결과는 현재 선택한 9장의 카드 안에서 나타난 상대적인 특징입니다.`;
-
-        }
-
-
-        /*
-           1위와 2위가 한 장 차이
-        */
-
-        else{
-
-            patternType="mixed";
-
-            patternTitle=
-            `🌱 ${domainInfo[first.key].korean} 중심 복합형`;
-
-
-            patternDescription=
-            `${domainInfo[first.key].korean} 영역이 가장 높지만 다른 상위 영역과 차이가 크지 않습니다.
-            한 가지 성향으로 단정하기보다는 상위 영역들을 함께 살펴보는 것이 좋습니다.`;
-
-        }
-
-    }
-
-
-    /*
-       3-2-2-2처럼 전체적으로 매우 고른 경우
-    */
-
-    if(
-        topDomains.length===1 &&
-        gap<=1
-    ){
-
-        patternType="balanced";
-
-        patternTitle=
-        "🌈 비교적 균형적인 성향";
-
-
-        patternDescription=
-        `네 영역의 선택 수 차이가 매우 작습니다.
-        특정 활동만 강하게 선호하기보다 여러 종류의 활동에 비교적 고르게 관심이나 강점을 느끼는 결과입니다.`;
-
-    }
-
-
-    return{
-
-        entries,
-        highest,
-        topDomains,
-        secondDomains,
-        patternType,
-        patternTitle,
-        patternDescription
-
-    };
-
+  return {entries,highest,topDomains,secondDomains,patternType,patternTitle,patternDescription};
 }
 
-
-/* =========================================================
-   조합 설명
-========================================================= */
-
-function getPairDescription(
-first,
-second,
-testType
-){
-
-    const pair=
-    [first,second]
-    .sort()
-    .join("-");
-
-
-    const data={
-
-        "people-things":{
-            interest:
-            "사람과 함께 움직이면서 실제 결과를 만들어내는 활동에 관심이 있을 수 있습니다.",
-            aptitude:
-            "사람들과 협력하면서 실제 업무를 실행하는 과정에서 강점이 나타날 수 있습니다."
-        },
-
-        "data-things":{
-            interest:
-            "실제 대상이나 시스템을 다루면서 자료와 원리를 확인하는 활동에 관심이 있을 수 있습니다.",
-            aptitude:
-            "구체적인 대상을 다루면서 자료를 분석하고 오류를 찾는 과정에서 강점이 나타날 수 있습니다."
-        },
-
-        "ideas-things":{
-            interest:
-            "새로운 생각을 실제 결과물로 구현하는 활동에 관심이 있을 수 있습니다.",
-            aptitude:
-            "아이디어를 실제 작품이나 결과물로 구현하는 과정에서 강점이 나타날 수 있습니다."
-        },
-
-        "data-people":{
-            interest:
-            "사람과 관련된 문제를 자료와 정보를 통해 이해하고 해결하는 활동에 관심이 있을 수 있습니다.",
-            aptitude:
-            "사람의 요구를 이해하면서 자료와 근거를 활용하는 과정에서 강점이 나타날 수 있습니다."
-        },
-
-        "ideas-people":{
-            interest:
-            "새로운 생각을 사람들에게 설명하거나 영향을 주는 활동에 관심이 있을 수 있습니다.",
-            aptitude:
-            "새로운 생각을 만들고 이를 다른 사람에게 전달하는 과정에서 강점이 나타날 수 있습니다."
-        },
-
-        "data-ideas":{
-            interest:
-            "자료를 분석하면서 새로운 원리나 해결책을 발견하는 활동에 관심이 있을 수 있습니다.",
-            aptitude:
-            "논리적 분석과 새로운 문제 해결을 함께 활용하는 과정에서 강점이 나타날 수 있습니다."
-        }
-
-    };
-
-
-    return data[pair]
-    ? data[pair][testType]
-    : "";
-
+function analyzeThemes(cards){
+  const counts={};
+  const evidence={};
+  cards.forEach(card=>{
+    const meta=cardInsights[card.name];
+    if(!meta)return;
+    meta.themes.forEach(theme=>{
+      counts[theme]=(counts[theme]||0)+1;
+      if(!evidence[theme])evidence[theme]=[];
+      evidence[theme].push(card.name);
+    });
+  });
+  return Object.entries(counts)
+    .map(([key,score])=>({key,score,cards:[...new Set(evidence[key])]}))
+    .sort((a,b)=>b.score-a.score || a.key.localeCompare(b.key));
 }
 
+function getNarrativeProfile(pattern){
+  if(pattern.patternType==="balanced") return balancedProfile;
+  if(pattern.topDomains.length===2){
+    const key=pattern.topDomains.map(x=>x.key).sort().join("-");
+    return pairProfiles[key]||balancedProfile;
+  }
+  const first=pattern.entries[0].key;
+  if(pattern.entries[1] && pattern.entries[0].score-pattern.entries[1].score<=1){
+    const key=[pattern.entries[0].key,pattern.entries[1].key].sort().join("-");
+    return pairProfiles[key]||singleProfiles[first];
+  }
+  return singleProfiles[first];
+}
 
-/* =========================================================
-   결과 계산
-========================================================= */
+function makeEvidenceSentence(cards,type){
+  const words=cards.slice(0,5).map(c=>`<b>${c.name}</b>`).join(" · ");
+  return type==="interest"
+    ? `특히 ${words} 같은 활동을 최종 카드로 남겼습니다. 결과는 이 실제 선택을 근거로 해석합니다.`
+    : `특히 ${words} 같은 활동을 '내가 잘한다고 느끼는 활동'으로 최종 선택했습니다. 결과는 이 자기인식을 근거로 해석합니다.`;
+}
+
+function getTopDomainSet(pattern){
+  const result=[...pattern.topDomains];
+  if(pattern.topDomains.length===1 && pattern.secondDomains.length) result.push(...pattern.secondDomains);
+  return result.slice(0,3);
+}
+
+function makeDomainInterpretation(domains,isInterest){
+  return domains.map((item,index)=>{
+    const d=domainInfo[item.key];
+    const label=index===0 && domains.length===1?"주요 영역":
+      (item.score===domains[0].score?"공동 주요 영역":"함께 나타난 영역");
+    return `<div class="info-card">
+      <h3>${d.icon} ${d.korean} · ${item.score}장</h3>
+      <p><b>${label}</b><br><br>${isInterest?d.interestDescription:d.aptitudeDescription}</p>
+    </div>`;
+  }).join("");
+}
+
+function makeSchoolLifeSection(profile,topDomains,type){
+  const first=domainInfo[topDomains[0].key];
+  const second=topDomains[1]?domainInfo[topDomains[1].key]:null;
+  const typeText=type==="interest"?"좋아하는 활동의 흐름":"잘한다고 느끼는 활동의 흐름";
+  return `
+  <section class="result-section">
+    <h2>🏫 학교에서는 이런 모습일 수 있어요</h2>
+    <div class="result-grid-three">
+      <div class="info-card">
+        <h3>수행평가·프로젝트</h3>
+        <p>${profile.school}</p>
+      </div>
+      <div class="info-card">
+        <h3>이럴 때 힘이 나요</h3>
+        <p>${first.shine}${second?`<br><br>${second.shine}`:""}</p>
+      </div>
+      <div class="info-card">
+        <h3>이럴 땐 답답할 수도</h3>
+        <p>${first.friction}${second?`<br><br>${second.friction}`:""}</p>
+      </div>
+    </div>
+    <p class="small" style="margin-top:14px">※ 위 문장은 '${typeText}'을 학생이 이해하기 쉽게 풀어 쓴 수업용 해석입니다.</p>
+  </section>`;
+}
+
+function makeThemeSection(themeRanking){
+  const top=themeRanking.slice(0,3);
+  if(!top.length)return "";
+  return `<section class="result-section">
+    <h2>🧭 네 카드에서 발견한 진로 키워드</h2>
+    <p class="small">4영역 점수만으로 직업을 정하지 않고, 실제로 선택한 카드들이 반복해서 가리키는 세부 활동을 함께 봅니다.</p>
+    <div class="result-grid-three">
+      ${top.map((t,i)=>{
+        const p=themeProfiles[t.key];
+        return `<div class="theme-card">
+          <div class="theme-score">${i===0?"가장 자주 연결됨":"함께 연결됨"} · ${t.score}회</div>
+          <h3>${p.icon} ${p.label}</h3>
+          <p>${p.description}</p>
+          <div class="evidence-chip-wrap" style="margin-top:12px">
+            ${t.cards.slice(0,4).map(c=>`<span class="evidence-chip">${c}</span>`).join("")}
+          </div>
+        </div>`;
+      }).join("")}
+    </div>
+  </section>`;
+}
+
+function makeCareerRecommendations(themeRanking){
+  const top=themeRanking.slice(0,3);
+  const majorMap=new Map(),jobMap=new Map();
+
+  top.forEach((t,index)=>{
+    const p=themeProfiles[t.key];
+    const weight=3-index;
+    p.majors.forEach(name=>majorMap.set(name,(majorMap.get(name)||0)+weight));
+    p.jobs.forEach(name=>jobMap.set(name,(jobMap.get(name)||0)+weight));
+  });
+
+  const majors=[...majorMap.entries()].sort((a,b)=>b[1]-a[1]).slice(0,10).map(x=>x[0]);
+  const jobs=[...jobMap.entries()].sort((a,b)=>b[1]-a[1]).slice(0,10).map(x=>x[0]);
+
+  return `<section class="result-section">
+    <h2>🎓 그래서 어떤 분야를 탐색해볼까?</h2>
+    <p class="small">아래는 '이 직업이 정답'이라는 뜻이 아니라, 네가 고른 활동과 비슷한 일이 많이 포함된 분야를 탐색해보라는 제안입니다.</p>
+    <div class="career-grid">
+      <div class="career-card">
+        <h3>탐색해볼 학과</h3>
+        <p>상위 진로 키워드를 조합해 넓은 전공 영역부터 살펴봅니다.</p>
+        <div class="tag-wrap">${majors.map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+      </div>
+      <div class="career-card">
+        <h3>탐색해볼 직업</h3>
+        <p>직업명보다 '그 직업에서 어떤 활동을 하는지'를 함께 확인해보세요.</p>
+        <div class="tag-wrap">${jobs.map(x=>`<span class="tag">${x}</span>`).join("")}</div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function makeReflectionSection(type){
+  const q1=type==="interest"
+    ?"9장 중 돈을 받지 않아도 한번 해보고 싶은 활동은 무엇인가?"
+    :"9장 중 다른 친구보다 내가 비교적 자신 있다고 느끼는 활동은 무엇인가?";
+  return `<section class="result-section">
+    <h2>🎯 결과보다 더 중요한 3가지 질문</h2>
+    <div class="reflection-box">
+      <ol>
+        <li>${q1}</li>
+        <li>내가 선택한 카드 중 최근 학교생활에서 실제로 해본 활동은 무엇인가?</li>
+        <li>오늘 나온 결과와 평소 내가 생각했던 내 모습은 얼마나 비슷한가?</li>
+      </ol>
+    </div>
+  </section>`;
+}
 
 function calculateAndShowResult(){
-
-    const scores=
-    calculateScores(
-        selectedFinalCards
-    );
-
-
-    const pattern=
-    analyzeScorePattern(scores);
-
-
-    const result={
-
-        type:currentTest,
-
-        cards:
-        selectedFinalCards,
-
-        scores,
-
-        pattern,
-
-        date:
-        new Date().toISOString()
-
-    };
-
-
-    localStorage.setItem(
-
-        currentTest==="interest"
-        ?
-        "predigerInterestResult"
-        :
-        "predigerAptitudeResult",
-
-        JSON.stringify(result)
-
-    );
-
-
-    renderResult(result);
-
-    showScreen("resultScreen");
-
+  const scores=calculateScores(selectedFinalCards);
+  const pattern=analyzeScorePattern(scores);
+  const themeRanking=analyzeThemes(selectedFinalCards);
+  const result={type:currentTest,cards:selectedFinalCards,scores,themeRanking,date:new Date().toISOString()};
+  localStorage.setItem(currentTest==="interest"?"predigerInterestResult":"predigerAptitudeResult",JSON.stringify(result));
+  renderResult(result);showScreen("resultScreen");
 }
 
-
-/* =========================================================
-   결과 렌더링
-========================================================= */
-
 function renderResult(result){
+  currentTest=result.type;selectedFinalCards=result.cards;
+  const scores=result.scores;
+  const pattern=analyzeScorePattern(scores);
+  const themeRanking=result.themeRanking&&result.themeRanking.length?result.themeRanking:analyzeThemes(result.cards);
+  const isInterest=result.type==="interest";
+  const topDomains=getTopDomainSet(pattern);
+  const profile=getNarrativeProfile(pattern);
+  const topCardEvidence=[...result.cards]
+    .sort((a,b)=>{
+      const sa=pattern.entries.find(x=>x.key===a.domain)?.score||0;
+      const sb=pattern.entries.find(x=>x.key===b.domain)?.score||0;
+      return sb-sa;
+    });
 
-    currentTest=result.type;
-
-    selectedFinalCards=result.cards;
-
-
-    const scores=result.scores;
-
-    const pattern=
-    analyzeScorePattern(scores);
-
-
-    const entries=
-    pattern.entries;
-
-
-    const topDomains=
-    pattern.topDomains;
-
-
-    const secondDomains=
-    pattern.secondDomains;
-
-
-    const isInterest=
-    result.type==="interest";
-
-
-    /*
-       상단 영역 표시
-    */
-
-    let mainDomainText="";
-
-
-    if(topDomains.length===1){
-
-        const first=
-        domainInfo[topDomains[0].key];
-
-        mainDomainText=
-        `${first.icon} ${first.korean}`;
-
-    }
-
-    else{
-
-        mainDomainText=
-        topDomains
-        .map(x=>{
-
-            const d=
-            domainInfo[x.key];
-
-            return `${d.icon} ${d.korean}`;
-
-        })
-        .join(" + ");
-
-    }
-
-
-    /*
-       해석 대상 영역
-    */
-
-    let interpretationDomains=
-    [...topDomains];
-
-
-    if(
-        topDomains.length===1 &&
-        secondDomains.length>0
-    ){
-
-        interpretationDomains.push(
-            ...secondDomains
-        );
-
-    }
-
-
-    /*
-       학과/직업 추천용 영역
-       최대 3개 사용
-    */
-
-    const recommendationKeys=
-    interpretationDomains
-    .slice(0,3)
-    .map(x=>x.key);
-
-
-    resultPage.innerHTML=`
-
+  resultPage.innerHTML=`
     <section class="result-top">
-
-        <div>
-        ${
-            isInterest
-            ?
-            "❤️ 흥미 검사 결과"
-            :
-            "⭐ 적성 검사 결과"
-        }
-        </div>
-
-        <h1>
-        ${mainDomainText}
-        </h1>
-
-        <p>
-        ${pattern.patternTitle}
-        <br><br>
-        ${pattern.patternDescription}
-        </p>
-
+      <span class="result-kicker">${isInterest?"❤️ 흥미 검사 결과":"⭐ 적성 검사 결과"}</span>
+      <h1>${profile.emoji} ${profile.title}</h1>
+      <p>${pattern.patternTitle}<br><br>${profile.summary||pattern.patternDescription}</p>
+      <div class="result-quote">“${profile.quote}”</div>
     </section>
 
-
     <section class="result-section">
-
-        <h2>📊 나의 4영역 분포</h2>
-
+      <h2>📊 나의 4영역 분포</h2>
+      <div class="domain-bars">
         ${makeDomainBar("things",scores.things)}
         ${makeDomainBar("people",scores.people)}
         ${makeDomainBar("data",scores.data)}
         ${makeDomainBar("ideas",scores.ideas)}
-
+      </div>
+      <p class="small notice" style="margin-top:18px">${pattern.patternDescription}</p>
     </section>
-
 
     <section class="result-section">
-
-        <h2>🔍 결과 해석</h2>
-
-        ${
-            makeInterpretation(
-                interpretationDomains,
-                isInterest
-            )
-        }
-
-        ${
-            makeCombinationInterpretation(
-                interpretationDomains,
-                result.type
-            )
-        }
-
+      <h2>🔍 왜 이런 결과가 나왔을까?</h2>
+      <div class="info-card evidence-card">
+        <p>${makeEvidenceSentence(topCardEvidence,result.type)}</p>
+      </div>
+      <div class="result-grid-two" style="margin-top:14px">
+        ${makeDomainInterpretation(topDomains,isInterest)}
+      </div>
     </section>
 
-
-    ${
-        isInterest
-        ?
-        makeInterestRecommendations(
-            recommendationKeys
-        )
-        :
-        makeAptitudeRecommendations(
-            recommendationKeys
-        )
-    }
-
+    ${makeSchoolLifeSection(profile,topDomains,result.type)}
+    ${makeThemeSection(themeRanking)}
+    ${makeCareerRecommendations(themeRanking)}
+    ${makeReflectionSection(result.type)}
 
     <section class="result-section">
-
-        <h2>
-        ${
-            isInterest
-            ?
-            "❤️ 내가 선택한 흥미 카드 9장"
-            :
-            "⭐ 내가 선택한 강점 카드 9장"
-        }
-        </h2>
-
-        <p class="small">
-        내가 선택한 카드를
-        사물·사람·자료·아이디어 영역별로 정리했습니다.
-        </p>
-
-        ${makeGroupedCards(
-            result.cards
-        )}
-
+      <h2>${isInterest?"❤️ 내가 선택한 흥미 카드 9장":"⭐ 내가 선택한 강점 카드 9장"}</h2>
+      <p class="small">결과의 출발점은 유형명이 아니라 실제로 내가 고른 9장의 활동입니다.</p>
+      ${makeGroupedCards(result.cards)}
     </section>
-
 
     <section class="result-section">
-
-        <h2>🌱 결과를 보는 방법</h2>
-
-        <p class="small">
-
-        이 결과는 한 사람의 진로나 능력을
-        하나의 유형으로 확정하기 위한 것이 아닙니다.
-
-        <br><br>
-
-        특히 카드 수가 한 장 정도 차이 나는 경우에는
-        이를 큰 차이로 해석하기보다
-        여러 영역이 함께 나타난 것으로 보는 것이 좋습니다.
-
-        <br><br>
-
-        내가 실제로 선택한 카드가 무엇인지,
-        그리고 그 활동을 왜 선택했는지를 함께 생각해보세요.
-
-        </p>
-
-        <div class="small">
-
-        ※ 본 프로그램은 사물·사람·자료·아이디어 활동 관점을 활용한
-        교육용 자기이해 활동입니다.
-        표준화된 심리검사의 진단 결과를 대신하지 않습니다.
-
-        </div>
-
+      <h2>🌱 결과를 보는 방법</h2>
+      <p class="small notice">
+        이 결과는 사물·사람·자료·아이디어의 활동 관점과 실제 선택 카드의 활동 특성을 이용한 교육용 자기이해 활동입니다.
+        학과·직업 추천은 선택 카드와 연결되는 진로 분야를 탐색하기 위한 예시이며, 특정 학과나 직업의 적합성을 판정하는 공식 진단이 아닙니다.
+        특히 1장 정도의 점수 차이는 큰 차이로 단정하지 않고 복합 성향으로 살펴보는 것이 좋습니다.
+      </p>
     </section>
-
 
     <div class="result-actions">
-
-        <button class="secondary-btn"
-        onclick="goHome()">
-        🏠 메인
-        </button>
-
-        <button class="primary-btn"
-        onclick="restartCurrentTest()">
-        🔄 다시 검사
-        </button>
-
-        <button class="primary-btn"
-        onclick="startTest(
-        '${isInterest ? "aptitude":"interest"}'
-        )">
-
-        ${
-            isInterest
-            ?
-            "⭐ 적성 검사하기"
-            :
-            "❤️ 흥미 검사하기"
-        }
-
-        </button>
-
-    </div>
-
-    `;
-
+      <button class="secondary-btn" onclick="goHome()">🏠 메인</button>
+      <button class="primary-btn" onclick="restartCurrentTest()">🔄 다시 검사</button>
+      <button class="primary-btn" onclick="startTest('${isInterest?"aptitude":"interest"}')">${isInterest?"⭐ 적성 검사하기":"❤️ 흥미 검사하기"}</button>
+    </div>`;
 }
-
-
-/* =========================================================
-   영역별 해석
-========================================================= */
-
-function makeInterpretation(
-domains,
-isInterest
-){
-
-    return domains
-    .map((item,index)=>{
-
-        const d=
-        domainInfo[item.key];
-
-        let label="";
-
-
-        if(index===0){
-
-            label=
-            domains.length>1 &&
-            domains[0].score===
-            domains[1].score
-            ?
-            "공동 주요 영역"
-            :
-            "주요 영역";
-
-        }
-
-        else{
-
-            label=
-            item.score===
-            domains[0].score
-            ?
-            "공동 주요 영역"
-            :
-            "함께 나타난 영역";
-
-        }
-
-
-        return `
-
-        <div class="info-card"
-        style="margin-bottom:14px">
-
-        <h3>
-        ${d.icon}
-        ${d.korean}
-        · ${item.score}장
-        </h3>
-
-        <p>
-        <b>${label}</b>
-        <br><br>
-
-        ${
-            isInterest
-            ?
-            d.interestDescription
-            :
-            d.aptitudeDescription
-        }
-        </p>
-
-        </div>
-
-        `;
-
-    })
-    .join("");
-
-}
-
-
-/* =========================================================
-   상위영역 조합 설명
-========================================================= */
-
-function makeCombinationInterpretation(
-domains,
-type
-){
-
-    if(domains.length<2)
-        return "";
-
-
-    const first=
-    domains[0].key;
-
-    const second=
-    domains[1].key;
-
-
-    const description=
-    getPairDescription(
-        first,
-        second,
-        type
-    );
-
-
-    if(!description)
-        return "";
-
-
-    const d1=
-    domainInfo[first];
-
-    const d2=
-    domainInfo[second];
-
-
-    return `
-
-    <div class="info-card">
-
-    <h3>
-    🧩
-    ${d1.korean}
-    +
-    ${d2.korean}
-    조합
-    </h3>
-
-    <p>
-    ${description}
-    </p>
-
-    </div>
-
-    `;
-
-}
-
-
-/* =========================================================
-   흥미 추천
-========================================================= */
-
-function makeInterestRecommendations(keys){
-
-    let majors=[];
-
-    let jobs=[];
-
-
-    keys.forEach(key=>{
-
-        majors.push(
-            ...domainInfo[key].majors
-            .slice(0,5)
-        );
-
-        jobs.push(
-            ...domainInfo[key].jobs
-            .slice(0,5)
-        );
-
-    });
-
-
-    majors=
-    [...new Set(majors)]
-    .slice(0,12);
-
-
-    jobs=
-    [...new Set(jobs)]
-    .slice(0,12);
-
-
-    return `
-
-    <section class="result-section">
-
-    <h2>🎓 탐색해볼 학과</h2>
-
-    <p class="small">
-    상위 영역의 활동 특성을 바탕으로
-    탐색해볼 수 있는 학과 예시입니다.
-    </p>
-
-    <div class="tag-wrap">
-
-    ${
-        majors.map(x=>
-        `<span class="tag">
-        ${x}
-        </span>`
-        ).join("")
-    }
-
-    </div>
-
-
-    <h2 style="margin-top:30px">
-    💼 탐색해볼 직업
-    </h2>
-
-    <div class="tag-wrap">
-
-    ${
-        jobs.map(x=>
-        `<span class="tag">
-        ${x}
-        </span>`
-        ).join("")
-    }
-
-    </div>
-
-    </section>
-
-    `;
-
-}
-
-
-/* =========================================================
-   적성 추천
-========================================================= */
-
-function makeAptitudeRecommendations(keys){
-
-    return `
-
-    <section class="result-section">
-
-    <h2>
-    🧭 나에게 잘 맞을 수 있는 활동 방식
-    </h2>
-
-    <div class="result-grid-two">
-
-    ${
-        keys.map(key=>{
-
-            const d=
-            domainInfo[key];
-
-            return `
-
-            <div class="info-card">
-
-            <h3>
-            ${d.icon}
-            ${d.korean}
-            </h3>
-
-            <p>
-            <b>일하는 방식</b>
-            <br>
-            ${d.workStyle}
-
-            <br><br>
-
-            <b>공부할 때</b>
-            <br>
-            ${d.study}
-
-            <br><br>
-
-            <b>팀 활동 역할</b>
-            <br>
-            ${d.teamRole}
-
-            </p>
-
-            </div>
-
-            `;
-
-        }).join("")
-    }
-
-    </div>
-
-    </section>
-
-    `;
-
-}
-
-
-/* =========================================================
-   결과 카드 그룹
-========================================================= */
-
-function makeGroupedCards(cards){
-
-    const order=[
-        "things",
-        "people",
-        "data",
-        "ideas"
-    ];
-
-
-    return order.map(key=>{
-
-        const d=
-        domainInfo[key];
-
-        const list=
-        cards.filter(
-            card=>card.domain===key
-        );
-
-
-        return `
-
-        <div class="domain-card-section"
-        style="
-        border-left:
-        5px solid ${d.color};
-        ">
-
-        <div class="domain-card-header">
-
-        <div class="domain-card-title">
-        ${d.icon}
-        ${d.korean}
-        </div>
-
-        <div class="domain-card-count"
-        style="background:${d.color}">
-        ${list.length}장
-        </div>
-
-        </div>
-
-        ${
-            list.length
-            ?
-            `
-
-            <div class="grouped-card-grid">
-
-            ${
-                list.map(card=>`
-
-                <div class="final-card">
-
-                <div
-                class="card-domain-badge"
-                style="background:${d.color}">
-
-                ${d.icon}
-                ${d.korean}
-
-                </div>
-
-                <img
-                src="cards/${card.file}">
-
-                <span class="final-card-title">
-                ${card.number}.
-                ${card.name}
-                </span>
-
-                </div>
-
-            `).join("")
-            }
-
-            </div>
-
-            `
-            :
-            `<div class="small">
-            선택한 카드가 없습니다.
-            </div>`
-        }
-
-        </div>
-
-        `;
-
-    }).join("");
-
-}
-
-
-/* =========================================================
-   그래프
-========================================================= */
 
 function makeDomainBar(key,count){
-
-    const d=
-    domainInfo[key];
-
-    const width=
-    count/9*100;
-
-
-    return `
-
-    <div class="domain-row">
-
-    <div>
-    ${d.icon}
-    <b>${d.korean}</b>
-    </div>
-
-    <div class="domain-track">
-
-    <div class="domain-value"
-    style="
-    width:${width}%;
-    background:${d.color};
-    ">
-    </div>
-
-    </div>
-
-    <div>
-    <b>${count}장</b>
-    </div>
-
-    </div>
-
-    `;
-
+  const d=domainInfo[key],width=count/9*100;
+  return `<div class="domain-row">
+    <div>${d.icon} <b>${d.korean}</b></div>
+    <div class="domain-track"><div class="domain-value" style="width:${width}%;background:${d.color}"></div></div>
+    <div><b>${count}장</b></div>
+  </div>`;
 }
 
-
-/* =========================================================
-   기타
-========================================================= */
-
-function restartCurrentTest(){
-
-    if(currentTest)
-        startTest(currentTest);
-    else
-        goHome();
-
+function makeGroupedCards(cards){
+  const order=["things","people","data","ideas"];
+  return order.map(key=>{
+    const d=domainInfo[key],list=cards.filter(card=>card.domain===key);
+    return `<div class="domain-card-section" style="border-left:5px solid ${d.color}">
+      <div class="domain-card-header">
+        <div class="domain-card-title">${d.icon} ${d.korean}</div>
+        <div class="domain-card-count" style="background:${d.color}">${list.length}장</div>
+      </div>
+      ${list.length?`<div class="grouped-card-grid">
+        ${list.map(card=>`<div class="final-card">
+          <div class="card-domain-badge" style="background:${d.color}">${d.icon} ${d.korean}</div>
+          <img src="cards/${card.file}">
+          <span class="final-card-title">${card.number}. ${card.name}</span>
+        </div>`).join("")}
+      </div>`:`<div class="small">선택한 카드가 없습니다.</div>`}
+    </div>`;
+  }).join("");
 }
 
-
-function confirmExit(){
-
-    if(confirm(
-        "검사를 종료하고 메인으로 돌아갈까요?"
-    ))
-        goHome();
-
-}
-
-
-function goHome(){
-
-    imageLoadToken++;
-
-    currentTest=null;
-
-    showScreen("homeScreen");
-
-    updatePreviousResults();
-
-}
-
-
+function restartCurrentTest(){if(currentTest)startTest(currentTest);else goHome();}
+function confirmExit(){if(confirm("검사를 종료하고 메인으로 돌아갈까요?"))goHome();}
+function goHome(){imageLoadToken++;currentTest=null;showScreen("homeScreen");updatePreviousResults();}
 function updatePreviousResults(){
-
-    let html="";
-
-    if(
-        localStorage.getItem(
-        "predigerInterestResult"
-        )
-    ){
-
-        html+=`
-
-        <button
-        onclick="loadStoredResult('interest')">
-
-        ❤️ 이전 흥미 결과
-
-        </button>
-
-        `;
-
-    }
-
-
-    if(
-        localStorage.getItem(
-        "predigerAptitudeResult"
-        )
-    ){
-
-        html+=`
-
-        <button
-        onclick="loadStoredResult('aptitude')">
-
-        ⭐ 이전 적성 결과
-
-        </button>
-
-        `;
-
-    }
-
-
-    previousResults.innerHTML=
-    html;
-
+  let html="";
+  if(localStorage.getItem("predigerInterestResult"))html+=`<button onclick="loadStoredResult('interest')">❤️ 이전 흥미 결과</button>`;
+  if(localStorage.getItem("predigerAptitudeResult"))html+=`<button onclick="loadStoredResult('aptitude')">⭐ 이전 적성 결과</button>`;
+  previousResults.innerHTML=html;
 }
-
-
 function loadStoredResult(type){
-
-    const key=
-    type==="interest"
-    ?
-    "predigerInterestResult"
-    :
-    "predigerAptitudeResult";
-
-
-    const data=
-    localStorage.getItem(key);
-
-
-    if(!data)
-        return;
-
-
-    const result=
-    JSON.parse(data);
-
-
-    renderResult(result);
-
-    showScreen("resultScreen");
-
+  const key=type==="interest"?"predigerInterestResult":"predigerAptitudeResult";
+  const data=localStorage.getItem(key);if(!data)return;
+  const result=JSON.parse(data);renderResult(result);showScreen("resultScreen");
 }
 
-
-/* =========================================================
-   키보드
-========================================================= */
-
-document.addEventListener(
-"keydown",
-event=>{
-
-    if(
-        !testScreen
-        .classList
-        .contains("active")
-    )
-        return;
-
-
-    if(cardLocked)
-        return;
-
-
-    if(event.key==="ArrowLeft")
-        answerCard("positive");
-
-
-    if(event.key==="ArrowDown")
-        answerCard("neutral");
-
-
-    if(event.key==="ArrowRight")
-        answerCard("negative");
-
+document.addEventListener("keydown",event=>{
+  if(!testScreen.classList.contains("active")||cardLocked)return;
+  if(event.key==="ArrowLeft")answerCard("positive");
+  if(event.key==="ArrowDown")answerCard("neutral");
+  if(event.key==="ArrowRight")answerCard("negative");
 });
 
-
-/* =========================================================
-   초기화
-========================================================= */
-
 setChoiceButtonsEnabled(false);
-
 updatePreviousResults();
-
 </script>
-
 </body>
 </html>
