@@ -8,10 +8,6 @@
 <title>카드로 이해하는 나의 흥미와 적성</title>
 
 <style>
-/* =========================================================
-   기본 설정
-========================================================= */
-
 * {
     box-sizing: border-box;
 }
@@ -25,29 +21,15 @@
     --primary: #6c63ff;
     --primary-soft: #eceaff;
 
-    --interest: #ff758f;
-    --interest-soft: #fff0f4;
-
-    --aptitude: #5a8dee;
-    --aptitude-soft: #eef5ff;
-
-    --good: #4caf84;
-    --normal: #ffb84d;
-    --bad: #f46f6f;
-
     --things: #eb9d45;
     --people: #e96c87;
     --data: #548bcf;
     --ideas: #866bce;
 
-    --shadow:
-        0 18px 45px rgba(34, 34, 70, 0.09);
-
-    --radius: 24px;
+    --shadow: 0 18px 45px rgba(34,34,70,.09);
 }
 
-html,
-body {
+html, body {
     margin: 0;
     min-height: 100%;
 }
@@ -66,7 +48,6 @@ body {
         var(--bg);
 
     color: var(--text);
-
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -91,7 +72,7 @@ img {
 
 .container {
     width: min(1040px, calc(100% - 32px));
-    margin: 0 auto;
+    margin: auto;
 }
 
 .small {
@@ -100,27 +81,17 @@ img {
     color: var(--sub);
 }
 
-.hidden {
-    display: none !important;
-}
-
 .logo-mark {
     width: 48px;
     height: 48px;
     border-radius: 16px;
-
-    background:
-        linear-gradient(135deg, #786fff, #ff83a1);
-
+    background: linear-gradient(135deg, #786fff, #ff83a1);
     display: grid;
     place-items: center;
-
     color: white;
     font-weight: 900;
     font-size: 21px;
-
-    box-shadow:
-        0 10px 22px rgba(108, 99, 255, .25);
+    box-shadow: 0 10px 22px rgba(108,99,255,.25);
 }
 
 
@@ -135,16 +106,11 @@ img {
 }
 
 .home-panel {
-    background: rgba(255,255,255,.9);
-    border: 1px solid rgba(255,255,255,.85);
-
+    background: rgba(255,255,255,.92);
     box-shadow: var(--shadow);
     border-radius: 34px;
-
     padding: 55px 50px;
-
     text-align: center;
-    backdrop-filter: blur(12px);
 }
 
 .home-logo {
@@ -152,7 +118,7 @@ img {
 }
 
 .home-panel h1 {
-    font-size: clamp(30px, 5vw, 49px);
+    font-size: clamp(30px,5vw,49px);
     letter-spacing: -2px;
     margin: 0 0 18px;
 }
@@ -164,18 +130,15 @@ img {
 .home-description {
     max-width: 720px;
     margin: 0 auto 35px;
-
-    font-size: 15px;
     line-height: 1.85;
     color: #727286;
 }
 
 .dimension-mini {
-    max-width: 570px;
+    max-width: 600px;
     margin: 28px auto;
-
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 9px;
 }
 
@@ -183,56 +146,40 @@ img {
     background: #f6f6fb;
     border-radius: 14px;
     padding: 12px 6px;
-
     font-size: 12px;
-    color: #69697c;
 }
 
 .dimension-mini b {
     display: block;
     font-size: 14px;
     margin-bottom: 3px;
-    color: var(--text);
 }
 
 .home-buttons {
+    max-width: 650px;
+    margin: 35px auto 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-
     gap: 18px;
-    max-width: 650px;
-
-    margin: 35px auto 0;
 }
 
 .start-btn {
-    border: 0;
+    border: none;
     border-radius: 22px;
-
     padding: 24px 20px;
-
     font-size: 20px;
     font-weight: 800;
-
     cursor: pointer;
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-}
-
-.start-btn:hover {
-    transform: translateY(-3px);
 }
 
 .start-btn.interest {
+    background: #fff0f4;
     color: #d94e71;
-    background: var(--interest-soft);
 }
 
 .start-btn.aptitude {
+    background: #eef5ff;
     color: #3973c6;
-    background: var(--aptitude-soft);
 }
 
 .start-btn .icon {
@@ -242,18 +189,15 @@ img {
 }
 
 .previous-results {
-    margin-top: 26px;
+    margin-top: 25px;
 }
 
 .previous-results button {
     border: none;
     background: transparent;
     color: var(--primary);
-
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
-
-    padding: 5px 10px;
 }
 
 
@@ -266,78 +210,56 @@ img {
 }
 
 .test-header {
-    width: 100%;
-    background: rgba(255,255,255,.88);
-    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,.9);
     border-bottom: 1px solid #ededf3;
 }
 
 .test-header-inner {
-    width: min(900px, calc(100% - 30px));
+    width: min(900px,calc(100% - 30px));
     height: 76px;
-
     margin: auto;
-
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 }
 
 .test-title {
     display: flex;
-    align-items: center;
     gap: 12px;
+    align-items: center;
 }
 
 .test-title-badge {
-    background: var(--primary-soft);
+    background: #eceaff;
     color: var(--primary);
-
     padding: 7px 12px;
     border-radius: 30px;
-
     font-size: 13px;
     font-weight: 800;
-}
-
-.test-title strong {
-    font-size: 17px;
 }
 
 .exit-btn {
     border: none;
     background: #f1f1f7;
-    color: #77778a;
-
     padding: 9px 13px;
     border-radius: 12px;
-
     cursor: pointer;
 }
 
 .progress-area {
-    width: min(900px, calc(100% - 30px));
+    width: min(900px,calc(100% - 30px));
     margin: 19px auto 0;
 }
 
 .progress-info {
     display: flex;
     justify-content: space-between;
-
     margin-bottom: 8px;
-
     font-size: 13px;
-    color: var(--sub);
-}
-
-.progress-info b {
-    color: var(--primary);
 }
 
 .progress-track {
-    width: 100%;
     height: 8px;
-
     background: #e7e7ee;
     border-radius: 50px;
     overflow: hidden;
@@ -346,70 +268,34 @@ img {
 .progress-bar {
     height: 100%;
     width: 0;
-
-    background:
-        linear-gradient(90deg, #6c63ff, #918cff);
-
-    border-radius: inherit;
-
-    transition: width .35s ease;
+    background: linear-gradient(90deg,#6c63ff,#918cff);
+    transition: width .3s;
 }
 
 .test-body {
-    flex: 1;
-
-    width: min(900px, calc(100% - 30px));
-    margin: 0 auto;
-
+    width: min(900px,calc(100% - 30px));
+    margin: auto;
     padding: 22px 0 30px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .instruction {
-    font-size: 15px;
-    color: var(--sub);
-
-    margin: 0 0 13px;
-
     text-align: center;
+    color: var(--sub);
 }
-
-.instruction strong {
-    color: var(--text);
-}
-
-
-/* =========================================================
-   메인 카드
-========================================================= */
 
 .game-card-wrap {
-    width: min(385px, 100%);
-    position: relative;
-    perspective: 1000px;
+    width: min(385px,100%);
 }
 
 .game-card {
-    position: relative;
-
-    width: 100%;
-
     background: white;
     border-radius: 25px;
-
     overflow: hidden;
-
-    box-shadow:
-        0 22px 50px rgba(35,35,70,.13);
-
-    border: 1px solid rgba(70,70,100,.07);
-
-    transition:
-        transform .20s ease,
-        opacity .20s ease;
+    box-shadow: 0 22px 50px rgba(35,35,70,.13);
+    transition: .2s;
 }
 
 .game-card.card-out {
@@ -419,140 +305,85 @@ img {
 
 .card-image-box {
     position: relative;
-
-    width: 100%;
-    aspect-ratio: 3 / 4;
-
+    aspect-ratio: 3/4;
     display: flex;
     align-items: center;
     justify-content: center;
-
     background: #fafafd;
 }
 
 .card-image-box img {
-    display: block;
     width: 100%;
     height: 100%;
-
     object-fit: contain;
-
-    opacity: 1;
-    transition: opacity .15s ease;
 }
-
-.card-image-box img.loading-image {
-    opacity: .12;
-}
-
-
-/* =========================================================
-   로딩 오버레이
-========================================================= */
 
 .card-loading {
     position: absolute;
     inset: 0;
-
     z-index: 10;
-
-    background: rgba(250,250,253,.90);
-
+    background: rgba(250,250,253,.92);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    gap: 14px;
-
-    color: #77778b;
-
-    font-size: 13px;
-    font-weight: 700;
+    gap: 13px;
+    font-weight: 800;
+    color: #777;
 }
 
 .loading-spinner {
     width: 38px;
     height: 38px;
-
-    border-radius: 50%;
-
     border: 4px solid #e3e2f0;
     border-top-color: var(--primary);
-
+    border-radius: 50%;
     animation: spin .7s linear infinite;
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
-
 
 .image-error {
     display: none;
-
     padding: 30px;
     text-align: center;
-
     color: #999;
     line-height: 1.7;
 }
 
-
 .card-bottom {
-    padding: 15px 18px 17px;
-
+    padding: 15px 18px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .card-number {
-    font-size: 12px;
     color: #aaa;
+    font-size: 12px;
 }
 
 .card-name {
     font-size: 17px;
-    font-weight: 800;
+    font-weight: 900;
 }
 
-
-/* =========================================================
-   선택 버튼
-========================================================= */
-
 .choice-buttons {
-    width: min(590px, 100%);
-
+    width: min(590px,100%);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
     gap: 11px;
-
     margin-top: 20px;
 }
 
 .choice-btn {
     border: none;
     border-radius: 17px;
-
     min-height: 62px;
-
     font-size: 16px;
     font-weight: 800;
-
     cursor: pointer;
-
-    transition:
-        transform .15s ease,
-        filter .15s ease,
-        opacity .15s ease;
-}
-
-.choice-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
 }
 
 .choice-btn.good {
@@ -570,30 +401,20 @@ img {
     color: #d95757;
 }
 
-
-/*
-   매우 중요:
-   이미지 로딩 / 카드 이동 중에는
-   버튼 자체를 비활성화한다.
-*/
-
 .choice-btn:disabled {
-    opacity: .38;
-    cursor: not-allowed;
-    transform: none;
-    filter: grayscale(.3);
+    opacity: .35;
     pointer-events: none;
 }
 
 .keyboard-help {
     margin-top: 13px;
-    font-size: 11px;
     color: #aaa;
+    font-size: 11px;
 }
 
 
 /* =========================================================
-   최종 9장 선택
+   최종선택
 ========================================================= */
 
 #selectionScreen {
@@ -602,13 +423,11 @@ img {
 }
 
 .selection-panel {
-    background: rgba(255,255,255,.93);
+    width: 100%;
+    background: white;
     border-radius: 30px;
     box-shadow: var(--shadow);
-
     padding: 35px;
-
-    width: 100%;
 }
 
 .selection-header {
@@ -616,75 +435,41 @@ img {
     margin-bottom: 28px;
 }
 
-.selection-header h2 {
-    margin: 0 0 10px;
-    font-size: 29px;
-}
-
-.selection-header p {
-    margin: 0;
-    color: var(--sub);
-    line-height: 1.65;
-}
-
 .selection-counter {
     display: inline-block;
-
     margin-top: 15px;
-
-    background: var(--primary-soft);
+    background: #eceaff;
     color: var(--primary);
-
     border-radius: 30px;
-
     padding: 9px 17px;
     font-weight: 900;
 }
 
 .selected-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5,1fr);
     gap: 14px;
 }
 
 .mini-card {
     position: relative;
-
-    background: #fff;
     border-radius: 17px;
     overflow: hidden;
-
-    border: 2px solid transparent;
-
-    box-shadow:
-        0 7px 20px rgba(30,30,60,.08);
-
+    background: white;
+    box-shadow: 0 7px 20px rgba(30,30,60,.08);
     cursor: pointer;
-
-    transition:
-        transform .15s ease,
-        border-color .15s ease;
-}
-
-.mini-card:hover {
-    transform: translateY(-3px);
-    border-color: #ff8ba3;
+    border: 2px solid transparent;
 }
 
 .mini-card img {
     width: 100%;
-    aspect-ratio: 3 / 4;
-
+    aspect-ratio: 3/4;
     object-fit: contain;
-    display: block;
-
-    background: #fafafa;
 }
 
 .mini-card-title {
-    padding: 9px 5px 11px;
+    padding: 8px;
     text-align: center;
-
     font-size: 12px;
     font-weight: 800;
 }
@@ -693,45 +478,33 @@ img {
     position: absolute;
     right: 7px;
     top: 7px;
-
     width: 25px;
     height: 25px;
-
     border-radius: 50%;
-
     display: grid;
     place-items: center;
-
     background: rgba(30,30,40,.72);
     color: white;
-
-    font-size: 14px;
-
-    z-index: 3;
 }
 
 .added-badge {
     position: absolute;
     left: 7px;
     top: 7px;
-
     background: #ffb84d;
     color: white;
-
     padding: 5px 7px;
     border-radius: 8px;
-
     font-size: 9px;
     font-weight: 800;
-
-    z-index: 3;
 }
 
-.selection-actions {
+.selection-actions,
+.result-actions {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 12px;
-
     margin-top: 30px;
 }
 
@@ -739,21 +512,15 @@ img {
 .secondary-btn {
     border: none;
     border-radius: 16px;
-
     padding: 15px 25px;
-
     font-size: 15px;
     font-weight: 800;
-
     cursor: pointer;
 }
 
 .primary-btn {
     background: var(--primary);
     color: white;
-
-    box-shadow:
-        0 10px 24px rgba(108,99,255,.22);
 }
 
 .primary-btn:disabled {
@@ -763,7 +530,6 @@ img {
 
 .secondary-btn {
     background: #eeeef5;
-    color: #66667a;
 }
 
 
@@ -774,140 +540,40 @@ img {
 #analysisScreen {
     justify-content: center;
     align-items: center;
-
-    text-align: center;
-
-    padding: 30px;
 }
 
 .analysis-box {
-    width: min(500px, 100%);
-
-    background: rgba(255,255,255,.92);
+    width: min(500px,calc(100% - 30px));
+    background: white;
     border-radius: 32px;
-
     padding: 55px 30px;
-
+    text-align: center;
     box-shadow: var(--shadow);
 }
 
-.card-stack-animation {
-    position: relative;
-
-    height: 170px;
-    width: 145px;
-
-    margin: 0 auto 30px;
+.analysis-icon {
+    font-size: 65px;
+    animation: pulse 1s infinite alternate;
 }
 
-.fake-card {
-    position: absolute;
-
-    width: 112px;
-    height: 150px;
-
-    top: 5px;
-    left: 16px;
-
-    border-radius: 16px;
-
-    background:
-        linear-gradient(135deg, #ffffff, #eeeefe);
-
-    border: 1px solid #deddec;
-
-    box-shadow:
-        0 10px 25px rgba(50,50,90,.1);
-}
-
-.fake-card:nth-child(1) {
-    animation: cardScan1 1.4s infinite ease-in-out;
-}
-
-.fake-card:nth-child(2) {
-    transform: rotate(8deg);
-    animation: cardScan2 1.4s infinite ease-in-out;
-}
-
-.fake-card:nth-child(3) {
-    transform: rotate(-8deg);
-    animation: cardScan3 1.4s infinite ease-in-out;
-}
-
-.fake-card:nth-child(4) {
-    transform: rotate(3deg);
-}
-
-.fake-card-symbol {
-    height: 100%;
-
-    display: grid;
-    place-items: center;
-
-    font-size: 44px;
-}
-
-@keyframes cardScan1 {
-    0%,100% {
-        transform: translateX(0) rotate(0);
-    }
-
-    50% {
-        transform: translateX(-25px) rotate(-8deg);
-    }
-}
-
-@keyframes cardScan2 {
-    0%,100% {
-        transform: translateX(0) rotate(8deg);
-    }
-
-    50% {
-        transform: translateX(28px) rotate(14deg);
-    }
-}
-
-@keyframes cardScan3 {
-    0%,100% {
-        transform: translateY(0) rotate(-8deg);
-    }
-
-    50% {
-        transform: translateY(-15px) rotate(-3deg);
-    }
-}
-
-.analysis-box h2 {
-    font-size: 28px;
-    margin: 0 0 9px;
-}
-
-.analysis-message {
-    min-height: 25px;
-
-    font-size: 14px;
-    color: var(--sub);
+@keyframes pulse {
+    from { transform: scale(.9); }
+    to { transform: scale(1.1); }
 }
 
 .analysis-progress {
     height: 8px;
-    background: #ededf4;
-
-    overflow: hidden;
-
-    border-radius: 50px;
-
     margin-top: 25px;
+    background: #ededf4;
+    border-radius: 50px;
+    overflow: hidden;
 }
 
-.analysis-progress > div {
+.analysis-progress div {
     height: 100%;
     width: 0;
-
-    background:
-        linear-gradient(90deg, #6c63ff, #ff7c9b);
-
-    transition: width .5s linear;
+    background: linear-gradient(90deg,#6c63ff,#ff7c9b);
+    transition: width .5s;
 }
 
 
@@ -921,83 +587,36 @@ img {
 }
 
 .result-page {
-    width: min(1000px, calc(100% - 30px));
+    width: min(1000px,calc(100% - 30px));
     margin: auto;
 }
 
 .result-top {
-    background:
-        linear-gradient(135deg, #6e67e9, #8a7cee);
-
+    background: linear-gradient(135deg,#6e67e9,#8a7cee);
     color: white;
-
     padding: 38px;
     border-radius: 30px;
-
-    box-shadow:
-        0 20px 40px rgba(70,60,170,.20);
-
-    position: relative;
-    overflow: hidden;
-}
-
-.result-top::after {
-    content: "";
-
-    position: absolute;
-
-    width: 220px;
-    height: 220px;
-
-    border-radius: 50%;
-
-    background: rgba(255,255,255,.09);
-
-    right: -60px;
-    top: -90px;
-}
-
-.result-type-label {
-    font-size: 13px;
-    font-weight: 800;
-
-    opacity: .85;
 }
 
 .result-top h1 {
-    margin: 9px 0 10px;
-
-    font-size: clamp(29px, 5vw, 44px);
+    margin: 8px 0 12px;
+    font-size: clamp(28px,5vw,44px);
 }
 
 .result-top p {
-    margin: 0;
-
-    max-width: 720px;
-
-    line-height: 1.7;
-    opacity: .92;
+    line-height: 1.75;
 }
 
 .result-section {
     background: white;
-
     margin-top: 20px;
     border-radius: 24px;
-
     padding: 30px;
-
-    box-shadow:
-        0 12px 30px rgba(40,40,80,.07);
+    box-shadow: 0 12px 30px rgba(40,40,80,.07);
 }
 
 .result-section h2 {
-    margin: 0 0 20px;
-    font-size: 22px;
-}
-
-.result-section h3 {
-    margin: 25px 0 10px;
+    margin-top: 0;
 }
 
 .domain-bars {
@@ -1008,66 +627,38 @@ img {
 
 .domain-row {
     display: grid;
-    grid-template-columns: 105px 1fr 52px;
-
-    align-items: center;
+    grid-template-columns: 100px 1fr 50px;
     gap: 12px;
-}
-
-.domain-name {
-    font-size: 14px;
-    font-weight: 800;
+    align-items: center;
 }
 
 .domain-track {
     height: 13px;
-
-    border-radius: 40px;
     background: #ededf3;
-
+    border-radius: 40px;
     overflow: hidden;
 }
 
 .domain-value {
     height: 100%;
-    width: 0;
-
     border-radius: inherit;
-
-    transition: width 1s ease;
-}
-
-.domain-score {
-    text-align: right;
-    font-size: 13px;
-    font-weight: 800;
 }
 
 .result-grid-two {
     display: grid;
     grid-template-columns: 1fr 1fr;
-
-    gap: 20px;
+    gap: 18px;
 }
 
 .info-card {
     background: #f8f8fc;
     border-radius: 18px;
-
     padding: 22px;
 }
 
-.info-card h3 {
-    margin: 0 0 12px;
-    font-size: 17px;
-}
-
 .info-card p {
-    font-size: 14px;
-    color: #666679;
-
     line-height: 1.75;
-    margin: 0;
+    color: #666679;
 }
 
 .tag-wrap {
@@ -1079,897 +670,475 @@ img {
 .tag {
     padding: 9px 12px;
     border-radius: 30px;
-
     background: #f1f0ff;
     color: #5e56c7;
-
     font-size: 13px;
     font-weight: 700;
 }
 
-
-/* =========================================================
-   결과 - 선택 카드 영역별 그룹
-========================================================= */
-
 .domain-card-section {
-    margin-top: 20px;
-
-    border-radius: 22px;
-
+    margin-top: 18px;
     padding: 20px;
-
+    border-radius: 20px;
     background: #fafafd;
-
-    border: 1px solid #eeeeF4;
-}
-
-.domain-card-section:first-child {
-    margin-top: 0;
 }
 
 .domain-card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
     margin-bottom: 15px;
-
-    gap: 10px;
 }
 
 .domain-card-title {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-
-    font-size: 18px;
     font-weight: 900;
+    font-size: 18px;
 }
 
 .domain-card-count {
-    border-radius: 30px;
-
-    padding: 6px 11px;
-
     color: white;
-
+    padding: 6px 11px;
+    border-radius: 20px;
     font-size: 12px;
     font-weight: 900;
 }
 
 .grouped-card-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(auto-fill, minmax(115px, 1fr));
-
+    grid-template-columns: repeat(auto-fill,minmax(115px,1fr));
     gap: 12px;
 }
 
 .final-card {
     position: relative;
-
     background: white;
-
     border-radius: 15px;
-
     padding: 7px;
-
-    box-shadow:
-        0 6px 18px rgba(30,30,60,.06);
-
-    border: 1px solid #eeeef3;
 }
 
 .final-card img {
     width: 100%;
     aspect-ratio: 3/4;
-
     object-fit: contain;
-
-    background: #fafafa;
-
-    border-radius: 10px;
-}
-
-.final-card span.card-title {
-    display: block;
-
-    text-align: center;
-
-    font-size: 11px;
-    font-weight: 800;
-
-    padding: 7px 2px 3px;
 }
 
 .card-domain-badge {
     position: absolute;
-
-    left: 12px;
     top: 12px;
-
-    z-index: 3;
-
-    border-radius: 30px;
-
-    padding: 5px 8px;
-
+    left: 12px;
     color: white;
-
+    padding: 5px 8px;
+    border-radius: 20px;
     font-size: 10px;
     font-weight: 900;
-
-    box-shadow:
-        0 3px 10px rgba(0,0,0,.12);
 }
 
-.empty-domain {
-    font-size: 13px;
-    color: #aaa;
-
-    padding: 8px 0;
+.final-card-title {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 7px;
 }
-
-
-/* =========================================================
-   기타 결과
-========================================================= */
-
-.result-notice {
-    margin-top: 17px;
-
-    font-size: 12px;
-    line-height: 1.7;
-
-    color: #9999aa;
-}
-
-.result-actions {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-
-    gap: 10px;
-
-    margin-top: 25px;
-}
-
-
-/* =========================================================
-   토스트
-========================================================= */
 
 .toast {
     position: fixed;
-
-    left: 50%;
     bottom: 25px;
-
-    transform:
-        translate(-50%, 30px);
-
-    background: rgba(32,32,45,.92);
-    color: white;
-
-    padding: 12px 19px;
-
-    border-radius: 40px;
-
-    font-size: 13px;
-
+    left: 50%;
+    transform: translate(-50%,30px);
     opacity: 0;
-    pointer-events: none;
-
+    background: rgba(30,30,40,.92);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
     transition: .3s;
-
-    z-index: 999;
+    z-index: 1000;
 }
 
 .toast.show {
     opacity: 1;
-
-    transform:
-        translate(-50%, 0);
+    transform: translate(-50%,0);
 }
 
 
-/* =========================================================
-   모바일
-========================================================= */
-
-@media (max-width: 760px) {
-
-    #homeScreen {
-        padding: 20px 0;
-    }
+@media(max-width:760px) {
 
     .home-panel {
         padding: 35px 20px;
-        border-radius: 26px;
     }
 
     .home-buttons {
         grid-template-columns: 1fr;
-        gap: 12px;
     }
 
     .dimension-mini {
         grid-template-columns: repeat(2,1fr);
     }
 
-    .test-header-inner {
-        height: 65px;
-    }
-
-    .test-title strong {
-        font-size: 14px;
-    }
-
     .game-card-wrap {
-        width: min(310px, 82vw);
-    }
-
-    .test-body {
-        padding-top: 13px;
+        width: min(310px,82vw);
     }
 
     .choice-buttons {
         position: sticky;
         bottom: 8px;
-
+        background: rgba(247,247,252,.92);
         padding: 7px;
-
-        background: rgba(247,247,252,.9);
-        backdrop-filter: blur(8px);
-
         border-radius: 20px;
-
-        z-index: 20;
-    }
-
-    .choice-btn {
-        min-height: 58px;
-
-        font-size: 14px;
-
-        padding: 8px 3px;
-    }
-
-    .keyboard-help {
-        display: none;
-    }
-
-    .selection-panel {
-        padding: 25px 15px;
     }
 
     .selected-grid {
         grid-template-columns: repeat(3,1fr);
-        gap: 9px;
-    }
-
-    .result-section {
-        padding: 22px 18px;
-    }
-
-    .result-top {
-        padding: 29px 23px;
     }
 
     .result-grid-two {
         grid-template-columns: 1fr;
     }
 
-    .domain-row {
-        grid-template-columns: 85px 1fr 42px;
-
-        gap: 8px;
-    }
-
     .grouped-card-grid {
-        grid-template-columns:
-            repeat(3, 1fr);
-
-        gap: 8px;
+        grid-template-columns: repeat(3,1fr);
     }
 
-    .domain-card-section {
-        padding: 14px;
-    }
-
-    .domain-card-title {
-        font-size: 16px;
-    }
-}
-
-
-@media (max-width: 430px) {
-
-    .game-card-wrap {
-        width: min(290px, 80vw);
-    }
-
-    .choice-btn {
-        min-height: 55px;
-        font-size: 13px;
-    }
-
-    .grouped-card-grid {
-        grid-template-columns:
-            repeat(3,1fr);
-    }
-
-}
-
-
-@media (max-height: 760px) and (min-width: 500px) {
-
-    .game-card-wrap {
-        width: 260px;
-    }
-
-    .card-bottom {
-        padding-top: 8px;
-        padding-bottom: 9px;
-    }
-
-    .choice-buttons {
-        margin-top: 10px;
-    }
-
-    .choice-btn {
-        min-height: 50px;
+    .result-section {
+        padding: 22px 18px;
     }
 }
 
 </style>
 </head>
 
-
 <body>
 
 
-<!-- ========================================================
-     메인
-========================================================= -->
-
 <section id="homeScreen" class="screen active">
 
-    <div class="container">
+<div class="container">
+<div class="home-panel">
 
-        <div class="home-panel">
+<div class="logo-mark home-logo">P</div>
 
-            <div class="logo-mark home-logo">
-                P
-            </div>
+<h1>
+카드로 이해하는<br>
+나의 <span>흥미와 적성</span>
+</h1>
 
-            <h1>
-                카드로 이해하는<br>
-                나의 <span>흥미와 적성</span>
-            </h1>
+<div class="home-description">
 
-            <div class="home-description">
+52장의 활동 카드를 통해
+내가 좋아하는 활동과 잘한다고 느끼는 활동을 찾아봅니다.
 
-                다양한 활동 카드를 보면서
-                내가 좋아하는 활동과
-                잘한다고 느끼는 활동을 선택해 보세요.
+<br><br>
 
-                <br><br>
+활동은
+<b>사물 · 사람 · 자료 · 아이디어</b>
+네 영역으로 살펴봅니다.
 
-                활동을
+</div>
 
-                <b>
-                    사물 · 사람 · 자료 · 아이디어
-                </b>
+<div class="dimension-mini">
 
-                네 가지 관점으로 살펴보면서
-                나에게 자연스러운 활동의 특징을 알아봅니다.
+<div><b>🔧 사물</b>만들고 다루기</div>
+<div><b>🤝 사람</b>소통하고 돕기</div>
+<div><b>📊 자료</b>분석하고 정리하기</div>
+<div><b>💡 아이디어</b>생각하고 창조하기</div>
 
-            </div>
+</div>
 
+<div class="home-buttons">
 
-            <div class="dimension-mini">
+<button class="start-btn interest"
+onclick="startTest('interest')">
+<span class="icon">❤️</span>
+흥미 검사
+<div class="small">내가 좋아하는 활동 찾기</div>
+</button>
 
-                <div>
-                    <b>🔧 사물</b>
-                    만들고 다루기
-                </div>
+<button class="start-btn aptitude"
+onclick="startTest('aptitude')">
+<span class="icon">⭐</span>
+적성 검사
+<div class="small">내가 잘하는 활동 찾기</div>
+</button>
 
-                <div>
-                    <b>🤝 사람</b>
-                    소통하고 돕기
-                </div>
+</div>
 
-                <div>
-                    <b>📊 자료</b>
-                    분석하고 정리하기
-                </div>
+<div id="previousResults" class="previous-results"></div>
 
-                <div>
-                    <b>💡 아이디어</b>
-                    생각하고 창조하기
-                </div>
-
-            </div>
-
-
-            <div class="home-buttons">
-
-                <button
-                    class="start-btn interest"
-                    onclick="startTest('interest')">
-
-                    <span class="icon">
-                        ❤️
-                    </span>
-
-                    흥미 검사
-
-                    <div class="small">
-                        내가 좋아하는 활동 찾기
-                    </div>
-
-                </button>
-
-
-                <button
-                    class="start-btn aptitude"
-                    onclick="startTest('aptitude')">
-
-                    <span class="icon">
-                        ⭐
-                    </span>
-
-                    적성 검사
-
-                    <div class="small">
-                        내가 잘하는 활동 찾기
-                    </div>
-
-                </button>
-
-            </div>
-
-
-            <div
-                id="previousResults"
-                class="previous-results">
-            </div>
-
-        </div>
-
-    </div>
+</div>
+</div>
 
 </section>
 
 
-
-<!-- ========================================================
-     검사
-========================================================= -->
 
 <section id="testScreen" class="screen">
 
-    <header class="test-header">
+<header class="test-header">
 
-        <div class="test-header-inner">
+<div class="test-header-inner">
 
-            <div class="test-title">
+<div class="test-title">
+<div id="testBadge" class="test-title-badge"></div>
+<strong>카드로 이해하는 나</strong>
+</div>
 
-                <div
-                    id="testBadge"
-                    class="test-title-badge">
-                </div>
+<button class="exit-btn" onclick="confirmExit()">
+나가기
+</button>
 
-                <strong>
-                    카드로 이해하는 나
-                </strong>
-
-            </div>
-
-            <button
-                class="exit-btn"
-                onclick="confirmExit()">
-                나가기
-            </button>
-
-        </div>
-
-    </header>
+</div>
+</header>
 
 
-    <div class="progress-area">
+<div class="progress-area">
 
-        <div class="progress-info">
+<div class="progress-info">
+<span>카드 진행</span>
+<b id="progressText">1 / 52</b>
+</div>
 
-            <span>
-                카드 진행
-            </span>
+<div class="progress-track">
+<div id="progressBar" class="progress-bar"></div>
+</div>
 
-            <b id="progressText">
-                1 / 52
-            </b>
-
-        </div>
-
-        <div class="progress-track">
-
-            <div
-                id="progressBar"
-                class="progress-bar">
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 
-    <main class="test-body">
+<main class="test-body">
 
-        <p
-            id="questionGuide"
-            class="instruction">
-        </p>
+<p id="questionGuide" class="instruction"></p>
 
+<div class="game-card-wrap">
 
-        <div class="game-card-wrap">
+<div id="gameCard" class="game-card">
 
-            <div
-                id="gameCard"
-                class="game-card">
+<div class="card-image-box">
 
-                <div class="card-image-box">
+<img id="cardImage" src="" alt="활동 카드">
 
-                    <img
-                        id="cardImage"
-                        src=""
-                        alt="활동 카드">
+<div id="cardLoading" class="card-loading">
+<div class="loading-spinner"></div>
+카드 불러오는 중...
+</div>
 
+<div id="imageError" class="image-error"></div>
 
-                    <div
-                        id="cardLoading"
-                        class="card-loading">
+</div>
 
-                        <div class="loading-spinner">
-                        </div>
+<div class="card-bottom">
+<span id="cardNumber" class="card-number"></span>
+<span id="cardName" class="card-name"></span>
+</div>
 
-                        <div>
-                            카드 불러오는 중...
-                        </div>
-
-                    </div>
+</div>
+</div>
 
 
-                    <div
-                        id="imageError"
-                        class="image-error">
-                    </div>
+<div class="choice-buttons">
 
-                </div>
+<button id="positiveButton"
+class="choice-btn good"
+onclick="answerCard('positive')">
+</button>
 
+<button id="neutralButton"
+class="choice-btn normal"
+onclick="answerCard('neutral')">
+😐 보통
+</button>
 
-                <div class="card-bottom">
+<button id="negativeButton"
+class="choice-btn bad"
+onclick="answerCard('negative')">
+</button>
 
-                    <span
-                        id="cardNumber"
-                        class="card-number">
-                    </span>
+</div>
 
-                    <span
-                        id="cardName"
-                        class="card-name">
-                    </span>
+<div class="keyboard-help">
+← 긍정 / ↓ 보통 / → 부정
+</div>
 
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="choice-buttons">
-
-            <button
-                id="positiveButton"
-                class="choice-btn good"
-                onclick="answerCard('positive')">
-            </button>
-
-            <button
-                id="neutralButton"
-                class="choice-btn normal"
-                onclick="answerCard('neutral')">
-
-                😐 보통
-
-            </button>
-
-            <button
-                id="negativeButton"
-                class="choice-btn bad"
-                onclick="answerCard('negative')">
-            </button>
-
-        </div>
-
-
-        <div class="keyboard-help">
-            PC에서는 ← / ↓ / → 키로도 선택할 수 있습니다.
-        </div>
-
-    </main>
+</main>
 
 </section>
 
 
-
-<!-- ========================================================
-     최종 선택
-========================================================= -->
 
 <section id="selectionScreen" class="screen">
 
-    <div class="container">
+<div class="container">
 
-        <div class="selection-panel">
+<div class="selection-panel">
 
-            <div class="selection-header">
+<div class="selection-header">
 
-                <h2 id="selectionTitle">
-                </h2>
+<h2 id="selectionTitle"></h2>
 
-                <p id="selectionDescription">
-                </p>
+<p id="selectionDescription"></p>
 
-                <div
-                    id="selectionCounter"
-                    class="selection-counter">
-                </div>
+<div id="selectionCounter"
+class="selection-counter">
+</div>
 
-            </div>
+</div>
 
+<div id="selectedGrid"
+class="selected-grid">
+</div>
 
-            <div
-                id="selectedGrid"
-                class="selected-grid">
-            </div>
+<div class="selection-actions">
 
+<button class="secondary-btn"
+onclick="restartCurrentTest()">
+처음부터 다시
+</button>
 
-            <div class="selection-actions">
+<button id="analyzeButton"
+class="primary-btn"
+onclick="beginAnalysis()">
+분석하기
+</button>
 
-                <button
-                    class="secondary-btn"
-                    onclick="restartCurrentTest()">
+</div>
 
-                    처음부터 다시
-
-                </button>
-
-                <button
-                    id="analyzeButton"
-                    class="primary-btn"
-                    onclick="beginAnalysis()">
-
-                    카드 분석하기
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
+</div>
+</div>
 
 </section>
 
 
-
-<!-- ========================================================
-     분석
-========================================================= -->
 
 <section id="analysisScreen" class="screen">
 
-    <div class="analysis-box">
+<div class="analysis-box">
 
-        <div class="card-stack-animation">
+<div class="analysis-icon">🃏</div>
 
-            <div class="fake-card">
-                <div class="fake-card-symbol">
-                    💡
-                </div>
-            </div>
+<h2>카드 분석중...</h2>
 
-            <div class="fake-card">
-                <div class="fake-card-symbol">
-                    📊
-                </div>
-            </div>
+<p id="analysisMessage" class="small"></p>
 
-            <div class="fake-card">
-                <div class="fake-card-symbol">
-                    🤝
-                </div>
-            </div>
+<div class="analysis-progress">
+<div id="analysisProgressBar"></div>
+</div>
 
-            <div class="fake-card">
-                <div class="fake-card-symbol">
-                    🔧
-                </div>
-            </div>
-
-        </div>
-
-
-        <h2>
-            카드 분석중...
-        </h2>
-
-
-        <div
-            id="analysisMessage"
-            class="analysis-message">
-        </div>
-
-
-        <div class="analysis-progress">
-
-            <div
-                id="analysisProgressBar">
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 
 
-
-<!-- ========================================================
-     결과
-========================================================= -->
 
 <section id="resultScreen" class="screen">
 
-    <main
-        id="resultPage"
-        class="result-page">
-    </main>
+<main id="resultPage" class="result-page"></main>
 
 </section>
 
 
-<div
-    id="toast"
-    class="toast">
-</div>
-
+<div id="toast" class="toast"></div>
 
 
 <script>
 
 /* =========================================================
-   카드 이름
+   카드
 ========================================================= */
 
 const cardNames = [
 
-    "조립",
-    "유지보수",
-    "도구이용",
-    "관리경작",
-    "수집",
-    "운용작동",
-    "제작",
-    "운송수송",
-    "구매구입",
-    "물류이동",
-    "현장관리",
-    "건축건설",
-    "과학기술실험",
+"조립",
+"유지보수",
+"도구이용",
+"관리경작",
+"수집",
+"운용작동",
+"제작",
+"운송수송",
+"구매구입",
+"물류이동",
+"현장관리",
+"건축건설",
+"과학기술실험",
 
-    "고객응대서비스",
-    "공동작업",
-    "판매영업",
-    "교제네트워킹",
-    "조율조화",
-    "통솔지지",
-    "상담코칭",
-    "팀웍격려",
-    "훈련육성",
-    "교육",
-    "사회복지봉사",
-    "협상",
-    "마찰해결중재",
+"고객응대서비스",
+"공동작업",
+"판매영업",
+"교제네트워킹",
+"조율조화",
+"통솔지지",
+"상담코칭",
+"팀웍격려",
+"훈련육성",
+"교육",
+"사회복지봉사",
+"협상",
+"마찰해결중재",
 
-    "회계",
-    "예산책정",
-    "판독조사",
-    "편집",
-    "분류정리",
-    "분석",
-    "요약통계",
-    "검토",
-    "단서수집탐색",
-    "기록",
-    "설계도안",
-    "연구",
-    "판정",
+"회계",
+"예산책정",
+"판독조사",
+"편집",
+"분류정리",
+"분석",
+"요약통계",
+"검토",
+"단서수집탐색",
+"기록",
+"설계도안",
+"연구",
+"판정",
 
-    "변론변호",
-    "설명해석",
-    "글쓰기",
-    "유추",
-    "문제해결",
-    "개념화",
-    "홍보마케팅",
-    "프리젠테이션",
-    "전략개발",
-    "개혁개척",
-    "관계결합창의",
-    "아이디어포착",
-    "발명"
+"변론변호",
+"설명해석",
+"글쓰기",
+"유추",
+"문제해결",
+"개념화",
+"홍보마케팅",
+"프리젠테이션",
+"전략개발",
+"개혁개척",
+"관계결합창의",
+"아이디어포착",
+"발명"
+
 ];
 
 
-/* =========================================================
-   카드 영역 분류
-
-   01~13 : 사물
-   14~26 : 사람
-   27~39 : 자료
-   40~52 : 아이디어
-========================================================= */
-
 function getDomain(id) {
 
-    if (id <= 13) {
-        return "things";
-    }
+    if (id <= 13) return "things";
 
-    if (id <= 26) {
-        return "people";
-    }
+    if (id <= 26) return "people";
 
-    if (id <= 39) {
-        return "data";
-    }
+    if (id <= 39) return "data";
 
     return "ideas";
 }
 
 
-/* =========================================================
-   카드 데이터
-========================================================= */
-
 const allCards =
-    cardNames.map((name, index) => {
+cardNames.map((name,index)=>{
 
-        const id =
-            index + 1;
+    const id = index + 1;
 
-        const number =
-            String(id).padStart(2, "0");
+    const number =
+        String(id).padStart(2,"0");
 
-        return {
+    return {
 
-            id,
+        id,
+        number,
+        name,
 
-            number,
+        domain:
+            getDomain(id),
 
-            name,
+        file:
+            `${number}. ${name}.png`
 
-            domain:
-                getDomain(id),
+    };
 
-            file:
-                `${number}. ${name}.png`
-        };
-    });
+});
 
 
 /* =========================================================
@@ -1978,228 +1147,200 @@ const allCards =
 
 const domainInfo = {
 
-    things: {
+things: {
 
-        korean: "사물",
+    korean:"사물",
+    english:"THINGS",
+    icon:"🔧",
+    color:"#eb9d45",
 
-        english: "THINGS",
+    interestDescription:
+    "직접 만들고 조작하고 움직이며 눈에 보이는 결과를 만들어내는 활동에 관심을 느끼는 경향이 있습니다.",
 
-        icon: "🔧",
+    aptitudeDescription:
+    "직접 조작하고 시험하며 실제 문제를 해결하는 과정에서 강점을 느끼는 경향이 있습니다.",
 
-        color: "#eb9d45",
+    majors:[
+        "기계공학",
+        "자동차공학",
+        "전기전자공학",
+        "로봇공학",
+        "건축공학",
+        "토목공학",
+        "산업공학",
+        "스마트팩토리",
+        "항공·드론"
+    ],
 
-        short:
-            "만들고, 조작하고, 직접 다루는 활동",
+    jobs:[
+        "기계공학기술자",
+        "로봇 엔지니어",
+        "자동차 연구원",
+        "전기전자 기술자",
+        "건축기술자",
+        "설비 엔지니어",
+        "드론 전문가"
+    ],
 
-        interestDescription:
-            "직접 만들고 움직이며 눈에 보이는 결과를 만들어내는 활동에서 흥미를 느끼는 경향이 있습니다.",
+    workStyle:
+    "구체적인 대상과 결과가 있는 상황에서 직접 해보고 수정하면서 일할 때 강점이 드러날 수 있습니다.",
 
-        aptitudeDescription:
-            "실제로 조작하고 시험하며 문제를 해결하는 과정에서 강점을 느끼는 경향이 있습니다.",
+    study:
+    "실습, 실험, 제작, 시뮬레이션처럼 직접 해보는 학습을 활용하면 좋습니다.",
 
-        majors: [
-            "기계공학",
-            "자동차공학",
-            "전기·전자공학",
-            "로봇공학",
-            "건축공학",
-            "토목공학",
-            "산업공학",
-            "스마트팩토리",
-            "농생명과학",
-            "항공·드론"
-        ],
+    teamRole:
+    "제작 · 구현 · 실험 · 현장 실행"
 
-        jobs: [
-            "기계공학기술자",
-            "자동차 연구원",
-            "로봇 엔지니어",
-            "전기전자 기술자",
-            "건축·토목 기술자",
-            "드론 전문가",
-            "설비 엔지니어",
-            "스마트팜 전문가"
-        ],
-
-        workStyle:
-            "말로만 이해하기보다 직접 해보고 결과를 확인하면서 일할 때 능력이 잘 드러날 수 있습니다. 구체적인 대상과 목표가 있는 일을 선호할 가능성이 높습니다.",
-
-        study:
-            "실습 → 결과 확인 → 수정 과정을 활용하세요. 이론도 직접 만들어보거나 실험해보면 이해가 더 쉬울 수 있습니다.",
-
-        teamRole:
-            "구현 담당 · 제작 담당 · 실험 담당 · 현장 실행 담당"
-    },
+},
 
 
-    people: {
+people: {
 
-        korean: "사람",
+    korean:"사람",
+    english:"PEOPLE",
+    icon:"🤝",
+    color:"#e96c87",
 
-        english: "PEOPLE",
+    interestDescription:
+    "사람과 관계를 맺고 대화하거나 돕고 협력하는 활동에 관심을 느끼는 경향이 있습니다.",
 
-        icon: "🤝",
+    aptitudeDescription:
+    "다른 사람과 의견을 나누고 관계를 조율하며 함께 목표를 달성하는 상황에서 강점을 느끼는 경향이 있습니다.",
 
-        color: "#e96c87",
+    majors:[
+        "교육학",
+        "심리학",
+        "사회복지학",
+        "간호학",
+        "경영학",
+        "상담학",
+        "유아교육",
+        "관광·호텔경영",
+        "사회학"
+    ],
 
-        short:
-            "소통하고, 돕고, 함께하는 활동",
+    jobs:[
+        "교사",
+        "상담사",
+        "사회복지사",
+        "간호사",
+        "인사담당자",
+        "교육전문가",
+        "영업 전문가"
+    ],
 
-        interestDescription:
-            "사람과 관계를 맺고 대화하거나 돕고 이끄는 활동에서 흥미를 느끼는 경향이 있습니다.",
+    workStyle:
+    "사람들과 이야기하고 협력하며 문제를 해결하는 환경에서 강점이 나타날 수 있습니다.",
 
-        aptitudeDescription:
-            "다른 사람과 의견을 나누고 협력하거나 관계를 조율하는 상황에서 강점을 느끼는 경향이 있습니다.",
+    study:
+    "토의, 발표, 친구에게 설명하기, 협력 프로젝트 등을 활용하면 좋습니다.",
 
-        majors: [
-            "교육학",
-            "심리학",
-            "사회복지학",
-            "간호학",
-            "경영학",
-            "관광·호텔경영",
-            "유아교육",
-            "상담학",
-            "사회학",
-            "인적자원개발"
-        ],
+    teamRole:
+    "팀장 · 발표 · 조정 · 상담 · 지원"
 
-        jobs: [
-            "교사",
-            "상담사",
-            "사회복지사",
-            "간호사",
-            "인사담당자",
-            "교육전문가",
-            "서비스기획자",
-            "영업·마케팅 전문가"
-        ],
-
-        workStyle:
-            "혼자 처리하는 업무보다 다른 사람과 상호작용하면서 목표를 달성하는 방식이 잘 맞을 수 있습니다.",
-
-        study:
-            "친구에게 설명하거나 모둠 토의, 발표, 질문과 답변을 활용하는 학습 방식이 도움이 될 수 있습니다.",
-
-        teamRole:
-            "팀장 · 발표자 · 조정자 · 상담·지원 담당"
-    },
+},
 
 
-    data: {
+data: {
 
-        korean: "자료",
+    korean:"자료",
+    english:"DATA",
+    icon:"📊",
+    color:"#548bcf",
 
-        english: "DATA",
+    interestDescription:
+    "정보를 수집하고 분류하며 비교·분석하고 정확하게 확인하는 활동에 관심을 느끼는 경향이 있습니다.",
 
-        icon: "📊",
+    aptitudeDescription:
+    "자료를 정확하게 확인하고 구조화하며 기준을 사용해 분석하고 판단하는 활동에서 강점을 느끼는 경향이 있습니다.",
 
-        color: "#548bcf",
+    majors:[
+        "통계학",
+        "데이터사이언스",
+        "컴퓨터공학",
+        "회계학",
+        "경제학",
+        "금융학",
+        "수학",
+        "경영정보학",
+        "정보보안"
+    ],
 
-        short:
-            "정리하고, 비교하고, 분석하는 활동",
+    jobs:[
+        "데이터 분석가",
+        "통계전문가",
+        "회계사",
+        "금융분석가",
+        "소프트웨어 개발자",
+        "정보보안 전문가",
+        "품질관리 전문가"
+    ],
 
-        interestDescription:
-            "정보를 수집하고 분류하거나 비교하고 검토하는 활동에서 흥미를 느끼는 경향이 있습니다.",
+    workStyle:
+    "자료와 기준을 바탕으로 차근차근 분석하고 오류나 차이를 찾아내는 방식에서 강점이 나타날 수 있습니다.",
 
-        aptitudeDescription:
-            "정보를 정확하게 확인하고 구조화하며 기준에 따라 판단하는 활동에서 강점을 느끼는 경향이 있습니다.",
+    study:
+    "표, 분류, 체크리스트, 그래프, 구조도를 활용하여 내용을 체계적으로 정리해보세요.",
 
-        majors: [
-            "통계학",
-            "데이터사이언스",
-            "컴퓨터공학",
-            "회계학",
-            "경제학",
-            "금융학",
-            "경영정보학",
-            "수학",
-            "행정학",
-            "정보보안"
-        ],
+    teamRole:
+    "자료조사 · 분석 · 기록 · 검토"
 
-        jobs: [
-            "데이터 분석가",
-            "회계사",
-            "금융분석가",
-            "통계전문가",
-            "소프트웨어 개발자",
-            "정보보안 전문가",
-            "품질관리 전문가",
-            "경영분석가"
-        ],
-
-        workStyle:
-            "자료와 기준이 명확한 환경에서 정보를 차근차근 분석하고 정리하는 방식이 잘 맞을 수 있습니다.",
-
-        study:
-            "표, 체크리스트, 구조도 등을 이용해 내용을 체계적으로 정리한 뒤 문제를 해결해보세요.",
-
-        teamRole:
-            "자료조사 담당 · 분석 담당 · 기록 담당 · 검토 담당"
-    },
+},
 
 
-    ideas: {
+ideas: {
 
-        korean: "아이디어",
+    korean:"아이디어",
+    english:"IDEAS",
+    icon:"💡",
+    color:"#866bce",
 
-        english: "IDEAS",
+    interestDescription:
+    "새로운 아이디어를 떠올리고 문제를 다른 관점에서 해석하며 새로운 해결책을 만드는 활동에 관심을 느끼는 경향이 있습니다.",
 
-        icon: "💡",
+    aptitudeDescription:
+    "새로운 개념을 이해하고 복잡한 문제를 해결하거나 새로운 방법을 생각하는 과정에서 강점을 느끼는 경향이 있습니다.",
 
-        color: "#866bce",
+    majors:[
+        "컴퓨터공학",
+        "인공지능",
+        "소프트웨어학",
+        "산업디자인",
+        "광고홍보학",
+        "미디어커뮤니케이션",
+        "법학",
+        "철학",
+        "콘텐츠학"
+    ],
 
-        short:
-            "생각하고, 해석하고, 새롭게 만드는 활동",
+    jobs:[
+        "AI 연구원",
+        "소프트웨어 개발자",
+        "서비스 기획자",
+        "UX·UI 디자이너",
+        "콘텐츠 기획자",
+        "광고기획자",
+        "연구원",
+        "전략기획자"
+    ],
 
-        interestDescription:
-            "새로운 아이디어를 떠올리거나 문제를 다른 관점에서 바라보고 해결책을 만드는 활동에 흥미를 느끼는 경향이 있습니다.",
+    workStyle:
+    "방법이 완전히 정해져 있지 않은 문제에서 스스로 해결책을 찾고 새로운 생각을 제안할 때 강점이 나타날 수 있습니다.",
 
-        aptitudeDescription:
-            "새로운 개념을 이해하거나 복잡한 문제를 해결하고 새로운 방법을 생각하는 상황에서 강점을 느끼는 경향이 있습니다.",
+    study:
+    "탐구, 프로젝트, 글쓰기, 설계, 문제 해결처럼 스스로 답을 만들어보는 학습을 활용하면 좋습니다.",
 
-        majors: [
-            "컴퓨터공학",
-            "인공지능",
-            "소프트웨어학",
-            "산업디자인",
-            "광고홍보학",
-            "미디어커뮤니케이션",
-            "법학",
-            "철학",
-            "콘텐츠학",
-            "창업·벤처경영"
-        ],
+    teamRole:
+    "아이디어 · 기획 · 문제해결 · 전략"
 
-        jobs: [
-            "AI 연구원",
-            "소프트웨어 개발자",
-            "서비스 기획자",
-            "UX·UI 디자이너",
-            "콘텐츠 기획자",
-            "광고기획자",
-            "변호사",
-            "연구원",
-            "전략기획자",
-            "창업가"
-        ],
-
-        workStyle:
-            "정답이나 방법이 완전히 정해져 있는 일보다 스스로 해결방법을 찾을 수 있는 과업에서 강점이 나타날 수 있습니다.",
-
-        study:
-            "왜 그런지 질문하고 여러 해결방법을 비교해보세요. 탐구, 프로젝트, 설계, 글쓰기처럼 스스로 답을 만드는 학습이 잘 맞을 수 있습니다.",
-
-        teamRole:
-            "아이디어 담당 · 기획 담당 · 문제해결 담당 · 전략 담당"
-    }
+}
 
 };
 
 
+
 /* =========================================================
-   상태값
+   상태
 ========================================================= */
 
 let currentTest = null;
@@ -2209,139 +1350,90 @@ let shuffledCards = [];
 let currentIndex = 0;
 
 let answers = {
-    positive: [],
-    neutral: [],
-    negative: []
+    positive:[],
+    neutral:[],
+    negative:[]
 };
 
 let selectionPool = [];
 
 let selectedFinalCards = [];
 
-
-/*
-   버튼 중복 입력 방지
-*/
-
 let cardLocked = true;
-
-
-/*
-   현재 이미지 로딩 식별 번호
-
-   이전 이미지의 onload 이벤트가
-   늦게 들어오는 경우를 방지한다.
-*/
 
 let imageLoadToken = 0;
 
 
 /* =========================================================
-   기본 함수
+   기본
 ========================================================= */
 
-function showScreen(screenId) {
+function showScreen(id){
 
     document
-        .querySelectorAll(".screen")
-        .forEach(screen => {
-
-            screen.classList.remove(
-                "active"
-            );
-
-        });
-
+    .querySelectorAll(".screen")
+    .forEach(el=>
+        el.classList.remove("active")
+    );
 
     document
-        .getElementById(screenId)
-        .classList.add("active");
+    .getElementById(id)
+    .classList.add("active");
 
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    window.scrollTo(0,0);
 }
 
 
-function shuffle(array) {
+function shuffle(array){
 
-    const copy = [...array];
+    const copy=[...array];
 
+    for(let i=copy.length-1;i>0;i--){
 
-    for (
-        let i = copy.length - 1;
-        i > 0;
-        i--
-    ) {
+        const j=
+        Math.floor(Math.random()*(i+1));
 
-        const j =
-            Math.floor(
-                Math.random() * (i + 1)
-            );
+        [copy[i],copy[j]]=
+        [copy[j],copy[i]];
 
-
-        [
-            copy[i],
-            copy[j]
-        ] = [
-            copy[j],
-            copy[i]
-        ];
     }
-
 
     return copy;
 }
 
 
-function toast(message) {
+function toast(message){
 
-    const el =
-        document.getElementById("toast");
+    const el=
+    document.getElementById("toast");
 
-
-    el.textContent =
-        message;
-
+    el.textContent=message;
 
     el.classList.add("show");
 
-
-    setTimeout(() => {
-
-        el.classList.remove("show");
-
-    }, 1800);
+    setTimeout(
+        ()=>el.classList.remove("show"),
+        1800
+    );
 }
 
 
-/* =========================================================
-   버튼 잠금 / 해제
-========================================================= */
+function setChoiceButtonsEnabled(enabled){
 
-function setChoiceButtonsEnabled(enabled) {
-
-    const ids = [
+    [
         "positiveButton",
         "neutralButton",
         "negativeButton"
-    ];
-
-
-    ids.forEach(id => {
+    ]
+    .forEach(id=>{
 
         document
-            .getElementById(id)
-            .disabled =
-            !enabled;
+        .getElementById(id)
+        .disabled=!enabled;
 
     });
 
-
-    cardLocked =
-        !enabled;
+    cardLocked=!enabled;
 }
 
 
@@ -2349,95 +1441,65 @@ function setChoiceButtonsEnabled(enabled) {
    검사 시작
 ========================================================= */
 
-function startTest(type) {
+function startTest(type){
 
-    currentTest = type;
+    currentTest=type;
 
-    shuffledCards =
-        shuffle(allCards);
+    shuffledCards=
+    shuffle(allCards);
 
-    currentIndex = 0;
+    currentIndex=0;
 
-    answers = {
-        positive: [],
-        neutral: [],
-        negative: []
+    answers={
+        positive:[],
+        neutral:[],
+        negative:[]
     };
 
-    selectionPool = [];
+    selectionPool=[];
 
-    selectedFinalCards = [];
-
+    selectedFinalCards=[];
 
     setChoiceButtonsEnabled(false);
 
 
-    if (
-        type === "interest"
-    ) {
+    if(type==="interest"){
 
-        document
-            .getElementById("testBadge")
-            .textContent =
-            "❤️ 흥미 검사";
+        testBadge.textContent=
+        "❤️ 흥미 검사";
 
+        questionGuide.innerHTML=
+        `이 활동을 내가
+        <strong>얼마나 좋아하는지</strong>
+        생각해 보세요.`;
 
-        document
-            .getElementById("questionGuide")
-            .innerHTML =
+        positiveButton.textContent=
+        "❤️ 좋아함";
 
-            `이 활동을 내가
-             <strong>얼마나 좋아하는지</strong>
-             생각해 보세요.`;
-
-
-        document
-            .getElementById("positiveButton")
-            .innerHTML =
-            "❤️ 좋아함";
-
-
-        document
-            .getElementById("negativeButton")
-            .innerHTML =
-            "🙅 싫어함";
+        negativeButton.textContent=
+        "🙅 싫어함";
 
     }
 
-    else {
+    else{
 
-        document
-            .getElementById("testBadge")
-            .textContent =
-            "⭐ 적성 검사";
+        testBadge.textContent=
+        "⭐ 적성 검사";
 
+        questionGuide.innerHTML=
+        `이 활동을 내가
+        <strong>얼마나 잘하는지</strong>
+        생각해 보세요.`;
 
-        document
-            .getElementById("questionGuide")
-            .innerHTML =
+        positiveButton.textContent=
+        "⭐ 잘함";
 
-            `이 활동을 내가
-             <strong>얼마나 잘하는지</strong>
-             생각해 보세요.`;
+        negativeButton.textContent=
+        "😅 잘못함";
 
-
-        document
-            .getElementById("positiveButton")
-            .innerHTML =
-            "⭐ 잘함";
-
-
-        document
-            .getElementById("negativeButton")
-            .innerHTML =
-            "😅 잘못함";
     }
 
-
-    showScreen(
-        "testScreen"
-    );
-
+    showScreen("testScreen");
 
     renderCard();
 }
@@ -2445,849 +1507,436 @@ function startTest(type) {
 
 /* =========================================================
    카드 출력
-
-   핵심 변경:
-   이미지가 실제 로드된 뒤에만 버튼 활성화
 ========================================================= */
 
-function renderCard() {
+function renderCard(){
 
-    if (
-        currentIndex >=
-        shuffledCards.length
-    ) {
+    if(currentIndex>=52){
 
         finishCardQuestions();
 
         return;
     }
 
-
-    /*
-       새 카드 시작 시
-       무조건 버튼 잠금
-    */
-
     setChoiceButtonsEnabled(false);
 
+    const card=
+    shuffledCards[currentIndex];
 
-    const card =
-        shuffledCards[currentIndex];
+    cardNumber.textContent=
+    `${card.number} / 52`;
 
-
-    document
-        .getElementById("cardNumber")
-        .textContent =
-        `${card.number} / 52`;
-
-
-    document
-        .getElementById("cardName")
-        .textContent =
-        card.name;
-
-
-    const img =
-        document.getElementById(
-            "cardImage"
-        );
-
-
-    const error =
-        document.getElementById(
-            "imageError"
-        );
-
-
-    const loading =
-        document.getElementById(
-            "cardLoading"
-        );
-
-
-    /*
-       로딩번호 증가
-    */
+    cardName.textContent=
+    card.name;
 
     imageLoadToken++;
 
-    const thisToken =
-        imageLoadToken;
+    const token=imageLoadToken;
+
+    cardLoading.style.display="flex";
+
+    imageError.style.display="none";
+
+    cardImage.style.display="block";
 
 
-    /*
-       초기 상태
-    */
+    cardImage.onload=()=>{
 
-    loading.style.display =
-        "flex";
-
-    error.style.display =
-        "none";
-
-    img.style.display =
-        "block";
-
-    img.classList.add(
-        "loading-image"
-    );
-
-
-    /*
-       이미지가 정상 로드된 경우
-    */
-
-    img.onload = () => {
-
-        /*
-           현재 카드가 아니라
-           이전 카드 이미지의 이벤트라면 무시
-        */
-
-        if (
-            thisToken !==
-            imageLoadToken
-        ) {
+        if(token!==imageLoadToken)
             return;
-        }
 
-
-        loading.style.display =
-            "none";
-
-
-        img.classList.remove(
-            "loading-image"
-        );
-
-
-        /*
-           이 시점에서만
-           버튼 활성화
-        */
+        cardLoading.style.display="none";
 
         setChoiceButtonsEnabled(true);
-
-
-        /*
-           다음 카드 미리 불러오기
-        */
 
         preloadNextCard();
 
     };
 
 
-    /*
-       이미지 오류
-    */
+    cardImage.onerror=()=>{
 
-    img.onerror = () => {
-
-        if (
-            thisToken !==
-            imageLoadToken
-        ) {
+        if(token!==imageLoadToken)
             return;
-        }
 
+        cardLoading.style.display="none";
 
-        loading.style.display =
-            "none";
+        cardImage.style.display="none";
 
+        imageError.style.display="block";
 
-        img.style.display =
-            "none";
-
-
-        error.style.display =
-            "block";
-
-
-        error.innerHTML =
-
-            `<b>
-                ${card.number}.
-                ${card.name}
-             </b>
-
-             <br><br>
-
-             카드 이미지를 찾지 못했습니다.
-
-             <br>
-
-             cards/${card.file}
-
-             <br><br>
-
-             이미지 없이도 선택은 가능합니다.`;
-
-
-        /*
-           이미지 오류가 나더라도
-           검사는 계속할 수 있도록 버튼 활성화
-        */
+        imageError.innerHTML=
+        `<b>${card.number}. ${card.name}</b>
+        <br><br>
+        카드 이미지를 찾지 못했습니다.
+        <br>
+        ${card.file}`;
 
         setChoiceButtonsEnabled(true);
 
     };
 
 
-    /*
-       이미지 지정
-    */
-
-    img.src =
-        "cards/" +
-        card.file;
+    cardImage.src=
+    "cards/"+card.file;
 
 
-    /*
-       진행률
-    */
+    progressBar.style.width=
+    `${currentIndex/52*100}%`;
 
-    const percentage =
+    progressText.textContent=
+    `${currentIndex+1} / 52`;
 
-        (currentIndex / 52)
-        * 100;
-
-
-    document
-        .getElementById(
-            "progressBar"
-        )
-        .style.width =
-        `${percentage}%`;
+}
 
 
-    document
-        .getElementById(
-            "progressText"
-        )
-        .textContent =
-        `${currentIndex + 1} / 52`;
+function preloadNextCard(){
+
+    if(currentIndex+1>=52)
+        return;
+
+    const img=new Image();
+
+    img.src=
+    "cards/"+
+    shuffledCards[currentIndex+1].file;
+
 }
 
 
 /* =========================================================
-   다음 카드 프리로드
-
-   사용자가 현재 카드를 보는 동안
-   다음 이미지를 미리 브라우저 캐시에 넣음
+   카드 응답
 ========================================================= */
 
-function preloadNextCard() {
+function answerCard(answer){
 
-    const nextIndex =
-        currentIndex + 1;
-
-
-    if (
-        nextIndex >=
-        shuffledCards.length
-    ) {
+    if(cardLocked)
         return;
-    }
-
-
-    const next =
-        shuffledCards[nextIndex];
-
-
-    const preloadImage =
-        new Image();
-
-
-    preloadImage.src =
-        "cards/" +
-        next.file;
-}
-
-
-/* =========================================================
-   카드 선택
-========================================================= */
-
-function answerCard(answer) {
-
-    /*
-       이미지 로딩중 또는
-       이미 선택된 상태면 무시
-    */
-
-    if (cardLocked) {
-        return;
-    }
-
-
-    if (
-        currentIndex >= 52
-    ) {
-        return;
-    }
-
-
-    /*
-       클릭한 즉시 잠금
-    */
 
     setChoiceButtonsEnabled(false);
 
-
-    const card =
-        shuffledCards[currentIndex];
-
-
-    answers[answer].push(card);
-
-
-    const gameCard =
-        document.getElementById(
-            "gameCard"
-        );
-
-
-    gameCard.classList.add(
-        "card-out"
+    answers[answer].push(
+        shuffledCards[currentIndex]
     );
 
+    gameCard.classList.add("card-out");
 
-    /*
-       카드 이동 애니메이션 후
-       다음 카드로 이동
-    */
-
-    setTimeout(() => {
+    setTimeout(()=>{
 
         currentIndex++;
-
 
         gameCard.classList.remove(
             "card-out"
         );
 
-
         renderCard();
 
-    }, 200);
+    },200);
+
 }
 
 
 /* =========================================================
-   검사 완료
+   검사 종료 → 최종9장
 ========================================================= */
 
-function finishCardQuestions() {
+function finishCardQuestions(){
 
-    setChoiceButtonsEnabled(false);
-
-
-    document
-        .getElementById(
-            "progressBar"
-        )
-        .style.width =
-        "100%";
+    selectionPool=
+    answers.positive.map(card=>({
+        ...card,
+        addedFromNeutral:false
+    }));
 
 
-    /*
-       좋아함 / 잘함 카드
-    */
+    if(selectionPool.length<9){
 
-    selectionPool =
-        answers.positive.map(card => ({
+        const need=
+        9-selectionPool.length;
 
+        const neutral=
+        shuffle(answers.neutral)
+        .slice(0,need)
+        .map(card=>({
             ...card,
-
-            addedFromNeutral: false
-
+            addedFromNeutral:true
         }));
 
-
-    /*
-       9장 미만이면
-       보통에서 보충
-    */
-
-    if (
-        selectionPool.length < 9
-    ) {
-
-        const needed =
-            9 -
-            selectionPool.length;
-
-
-        const neutralShuffled =
-            shuffle(
-                answers.neutral
-            );
-
-
-        const additional =
-            neutralShuffled
-                .slice(0, needed)
-                .map(card => ({
-
-                    ...card,
-
-                    addedFromNeutral: true
-
-                }));
-
-
-        selectionPool.push(
-            ...additional
-        );
-
-
-        /*
-           보통까지 넣어도
-           9장이 안 되는 매우 특수한 경우
-        */
-
-        if (
-            selectionPool.length < 9
-        ) {
-
-            alert(
-
-                "핵심 카드 9장을 만들 수 없습니다.\n\n'좋아함/잘함' 또는 '보통' 카드를 조금 더 선택하여 다시 검사해주세요."
-
-            );
-
-
-            restartCurrentTest();
-
-            return;
-        }
-    }
-
-
-    selectedFinalCards =
-        [...selectionPool];
-
-
-    showSelectionScreen();
-}
-
-
-/* =========================================================
-   최종 카드 선택 화면
-========================================================= */
-
-function showSelectionScreen() {
-
-    showScreen(
-        "selectionScreen"
-    );
-
-
-    const title =
-        document.getElementById(
-            "selectionTitle"
-        );
-
-
-    const description =
-        document.getElementById(
-            "selectionDescription"
-        );
-
-
-    if (
-        currentTest ===
-        "interest"
-    ) {
-
-        title.textContent =
-            "내가 좋아하는 핵심 활동";
+        selectionPool.push(...neutral);
 
     }
 
-    else {
 
-        title.textContent =
-            "내가 잘하는 핵심 활동";
-    }
+    if(selectionPool.length<9){
 
-
-    /*
-       9장 초과
-    */
-
-    if (
-        selectionPool.length > 9
-    ) {
-
-        description.innerHTML =
-
-            `선택한 카드가
-             <b>9장을 초과했습니다.</b>
-
-             <br>
-
-             상대적으로 덜 중요하다고 생각되는 카드를 눌러 제외하여
-
-             <b>정확히 9장</b>
-
-             을 남겨주세요.
-
-             <br>
-
-             제외한 카드를 다시 누르면 복구할 수 있습니다.`;
-
-    }
-
-    else {
-
-        const addedCount =
-            selectionPool.filter(
-                card =>
-                    card.addedFromNeutral
-            ).length;
-
-
-        if (
-            addedCount > 0
-        ) {
-
-            description.innerHTML =
-
-                `선호 카드가 9장보다 적어
-
-                 <b>
-                    보통으로 선택한 카드에서
-                    ${addedCount}장
-                 </b>
-
-                 을 보충했습니다.
-
-                 <br>
-
-                 아래 9장의 활동을 바탕으로 결과를 분석합니다.`;
-
-        }
-
-        else {
-
-            description.innerHTML =
-
-                `좋아요!
-
-                 <b>정확히 9장</b>
-
-                 의 핵심 카드를 선택했습니다.
-
-                 <br>
-
-                 이제 카드의 공통점을 분석합니다.`;
-        }
-    }
-
-
-    renderSelectionCards();
-}
-
-
-/* =========================================================
-   최종 카드 렌더링
-========================================================= */
-
-function renderSelectionCards() {
-
-    const grid =
-        document.getElementById(
-            "selectedGrid"
+        alert(
+        "좋아함/잘함과 보통 카드가 합쳐도 9장이 되지 않습니다."
         );
 
-
-    grid.innerHTML = "";
-
-
-    selectionPool.forEach(card => {
-
-        const selected =
-            selectedFinalCards.some(
-                selectedCard =>
-                    selectedCard.id ===
-                    card.id
-            );
-
-
-        const div =
-            document.createElement(
-                "div"
-            );
-
-
-        div.className =
-            "mini-card";
-
-
-        if (!selected) {
-
-            div.style.opacity =
-                ".32";
-
-            div.style.filter =
-                "grayscale(1)";
-        }
-
-
-        div.innerHTML = `
-
-            ${
-                card.addedFromNeutral
-                ?
-                `
-                <div class="added-badge">
-                    보통에서 보충
-                </div>
-                `
-                :
-                ""
-            }
-
-            ${
-                selected &&
-                selectionPool.length > 9
-                ?
-                `
-                <div class="remove-label">
-                    ×
-                </div>
-                `
-                :
-                ""
-            }
-
-            <img
-                src="cards/${card.file}"
-                alt="${card.name}">
-
-            <div class="mini-card-title">
-                ${card.name}
-            </div>
-
-        `;
-
-
-        if (
-            selectionPool.length > 9
-        ) {
-
-            div.onclick = () => {
-
-                toggleFinalCard(
-                    card.id
-                );
-
-            };
-        }
-
-
-        grid.appendChild(div);
-    });
-
-
-    const count =
-        selectedFinalCards.length;
-
-
-    document
-        .getElementById(
-            "selectionCounter"
-        )
-        .textContent =
-        `${count} / 9`;
-
-
-    const analyzeButton =
-        document.getElementById(
-            "analyzeButton"
-        );
-
-
-    analyzeButton.disabled =
-        count !== 9;
-
-
-    analyzeButton.textContent =
-        count === 9
-        ?
-        "9장 분석하기"
-        :
-        `${9 - count}장 더 선택하세요`;
-}
-
-
-/* =========================================================
-   카드 제외 / 복구
-========================================================= */
-
-function toggleFinalCard(id) {
-
-    const exists =
-        selectedFinalCards.some(
-            card =>
-                card.id === id
-        );
-
-
-    if (exists) {
-
-        selectedFinalCards =
-            selectedFinalCards.filter(
-                card =>
-                    card.id !== id
-            );
-
-    }
-
-    else {
-
-        if (
-            selectedFinalCards.length >= 9
-        ) {
-
-            toast(
-                "이미 9장을 선택했습니다."
-            );
-
-            return;
-        }
-
-
-        const card =
-            selectionPool.find(
-                card =>
-                    card.id === id
-            );
-
-
-        selectedFinalCards.push(card);
-    }
-
-
-    renderSelectionCards();
-}
-
-
-/* =========================================================
-   분석
-========================================================= */
-
-function beginAnalysis() {
-
-    if (
-        selectedFinalCards.length !== 9
-    ) {
-
-        toast(
-            "카드를 정확히 9장 선택해주세요."
-        );
+        restartCurrentTest();
 
         return;
     }
 
 
-    showScreen(
-        "analysisScreen"
+    selectedFinalCards=
+    [...selectionPool];
+
+    showSelectionScreen();
+
+}
+
+
+/* =========================================================
+   최종선택
+========================================================= */
+
+function showSelectionScreen(){
+
+    showScreen("selectionScreen");
+
+    selectionTitle.textContent=
+    currentTest==="interest"
+    ?
+    "내가 좋아하는 핵심 활동"
+    :
+    "내가 잘하는 핵심 활동";
+
+
+    if(selectionPool.length>9){
+
+        selectionDescription.innerHTML=
+        `선택한 카드가
+        <b>9장을 초과했습니다.</b>
+        <br>
+        상대적으로 덜 중요하다고 생각되는 카드를 눌러 제외해주세요.
+        <br>
+        제외한 카드는 마음이 바뀌면 다시 선택할 수 있습니다.`;
+
+    }
+
+    else{
+
+        selectionDescription.innerHTML=
+        `최종 선택된
+        <b>9장의 핵심 카드</b>를 확인해주세요.`;
+
+    }
+
+    renderSelectionCards();
+
+}
+
+
+function renderSelectionCards(){
+
+    selectedGrid.innerHTML="";
+
+
+    selectionPool.forEach(card=>{
+
+        const selected=
+        selectedFinalCards.some(
+            x=>x.id===card.id
+        );
+
+        const div=
+        document.createElement("div");
+
+        div.className="mini-card";
+
+
+        if(!selected){
+
+            div.style.opacity=".32";
+
+            div.style.filter=
+            "grayscale(1)";
+
+        }
+
+
+        div.innerHTML=`
+
+        ${
+            card.addedFromNeutral
+            ?
+            `<div class="added-badge">
+            보통에서 보충
+            </div>`
+            :
+            ""
+        }
+
+        ${
+            selected &&
+            selectionPool.length>9
+            ?
+            `<div class="remove-label">
+            ×
+            </div>`
+            :
+            ""
+        }
+
+        <img src="cards/${card.file}">
+
+        <div class="mini-card-title">
+        ${card.name}
+        </div>
+
+        `;
+
+
+        if(selectionPool.length>9){
+
+            div.onclick=
+            ()=>toggleFinalCard(card.id);
+
+        }
+
+        selectedGrid.appendChild(div);
+
+    });
+
+
+    const count=
+    selectedFinalCards.length;
+
+    selectionCounter.textContent=
+    `${count} / 9`;
+
+
+    analyzeButton.disabled=
+    count!==9;
+
+
+    if(count>9){
+
+        analyzeButton.textContent=
+        `${count-9}장 더 제외시키세요`;
+
+    }
+
+    else if(count<9){
+
+        analyzeButton.textContent=
+        `${9-count}장 더 선택하세요`;
+
+    }
+
+    else{
+
+        analyzeButton.textContent=
+        "분석하기";
+
+    }
+
+}
+
+
+/* =========================================================
+   자유롭게 제외/복구
+========================================================= */
+
+function toggleFinalCard(id){
+
+    const exists=
+    selectedFinalCards.some(
+        card=>card.id===id
     );
 
 
-    const bar =
-        document.getElementById(
-            "analysisProgressBar"
+    if(exists){
+
+        selectedFinalCards=
+        selectedFinalCards.filter(
+            card=>card.id!==id
         );
 
+    }
 
-    const message =
-        document.getElementById(
-            "analysisMessage"
+    else{
+
+        const card=
+        selectionPool.find(
+            card=>card.id===id
         );
 
+        if(card)
+            selectedFinalCards.push(card);
 
-    bar.style.width =
-        "0%";
+    }
 
 
-    const messages = [
+    renderSelectionCards();
+
+}
+
+
+/* =========================================================
+   분석 화면
+========================================================= */
+
+function beginAnalysis(){
+
+    if(selectedFinalCards.length!==9){
+
+        toast(
+        "카드를 정확히 9장 선택해주세요."
+        );
+
+        return;
+    }
+
+    showScreen("analysisScreen");
+
+    const messages=[
 
         "선택한 카드의 공통점을 찾고 있어요.",
 
-        "사물·사람·자료·아이디어 영역을 비교하고 있어요.",
+        "사물·사람·자료·아이디어 분포를 확인하고 있어요.",
 
-        currentTest === "interest"
-            ?
-            "흥미가 나타나는 활동 패턴을 분석하고 있어요."
-            :
-            "강점이 나타나는 활동 패턴을 분석하고 있어요.",
+        "영역 간 점수 차이를 비교하고 있어요.",
 
-        "선택한 카드의 특징을 정리하고 있어요.",
+        "동률과 복합 성향을 분석하고 있어요.",
 
-        "결과를 완성하고 있어요!"
+        "결과를 완성하고 있어요."
 
     ];
 
 
-    message.textContent =
-        messages[0];
+    analysisProgressBar.style.width="0%";
+
+    let step=0;
+
+    analysisMessage.textContent=
+    messages[0];
 
 
-    let step = 0;
+    const timer=
+    setInterval(()=>{
+
+        step++;
+
+        analysisProgressBar.style.width=
+        `${Math.min((step+1)*20,100)}%`;
+
+        if(messages[step])
+            analysisMessage.textContent=
+            messages[step];
+
+        if(step>=4)
+            clearInterval(timer);
+
+    },1000);
 
 
-    setTimeout(() => {
+    setTimeout(
+        calculateAndShowResult,
+        5100
+    );
 
-        bar.style.width =
-            "20%";
-
-    }, 100);
-
-
-    const interval =
-        setInterval(() => {
-
-            step++;
-
-
-            bar.style.width =
-                `${Math.min(
-                    (step + 1) * 20,
-                    100
-                )}%`;
-
-
-            if (
-                messages[step]
-            ) {
-
-                message.textContent =
-                    messages[step];
-            }
-
-
-            if (
-                step >= 4
-            ) {
-
-                clearInterval(
-                    interval
-                );
-
-            }
-
-        }, 1000);
-
-
-    setTimeout(() => {
-
-        calculateAndShowResult();
-
-    }, 5100);
 }
 
 
@@ -3295,122 +1944,290 @@ function beginAnalysis() {
    점수 계산
 ========================================================= */
 
-function calculateScores(cards) {
+function calculateScores(cards){
 
-    const scores = {
-
-        things: 0,
-        people: 0,
-        data: 0,
-        ideas: 0
-
+    const scores={
+        things:0,
+        people:0,
+        data:0,
+        ideas:0
     };
 
-
-    cards.forEach(card => {
-
-        scores[
-            card.domain
-        ]++;
-
+    cards.forEach(card=>{
+        scores[card.domain]++;
     });
 
-
     return scores;
+
 }
 
 
 /* =========================================================
-   성향 조합
+   핵심:
+   점수 구조 분석
 ========================================================= */
 
-function getCombinationDescription(
-    first,
-    second,
-    testType
-) {
+function analyzeScorePattern(scores){
 
-    const pair =
-        [first, second]
-        .sort()
-        .join("-");
+    const entries=
+    Object.entries(scores)
+    .map(([key,score])=>({
+        key,
+        score
+    }))
+    .sort((a,b)=>b.score-a.score);
 
 
-    const combinations = {
+    const highest=
+    entries[0].score;
 
-        "people-things": {
 
+    const topDomains=
+    entries.filter(
+        x=>x.score===highest
+    );
+
+
+    const remaining=
+    entries.filter(
+        x=>x.score<highest
+    );
+
+
+    let secondDomains=[];
+
+
+    if(remaining.length>0){
+
+        const secondScore=
+        remaining[0].score;
+
+        secondDomains=
+        remaining.filter(
+            x=>x.score===secondScore
+        );
+
+    }
+
+
+    const lowest=
+    entries[entries.length-1].score;
+
+    const gap=
+    highest-lowest;
+
+
+    let patternType="";
+    let patternTitle="";
+    let patternDescription="";
+
+
+    /*
+       3개 이상 공동 1위
+    */
+
+    if(topDomains.length>=3){
+
+        patternType="balanced";
+
+        patternTitle=
+        "🌈 다양한 활동 선호형";
+
+
+        patternDescription=
+        `한 가지 영역에만 집중되기보다 여러 영역이 비슷하게 높게 나타났습니다.
+        다양한 방식의 활동에 관심이나 강점을 느끼는 편으로 볼 수 있습니다.`;
+
+    }
+
+
+    /*
+       2개 공동1위
+    */
+
+    else if(topDomains.length===2){
+
+        patternType="dual";
+
+        const names=
+        topDomains
+        .map(x=>
+            domainInfo[x.key].korean
+        )
+        .join(" + ");
+
+
+        patternTitle=
+        `🧩 ${names} 복합형`;
+
+
+        patternDescription=
+        `두 영역이 같은 점수로 가장 높게 나타났습니다.
+        한쪽만을 대표 성향으로 정하기보다는 두 영역의 특징을 함께 가진 복합 성향으로 보는 것이 자연스럽습니다.`;
+
+    }
+
+
+    /*
+       1위 한 개
+    */
+
+    else{
+
+        const first=
+        entries[0];
+
+        const second=
+        entries[1];
+
+        const firstSecondGap=
+        first.score-second.score;
+
+
+        /*
+           1위와 2위 차이가 2 이상
+        */
+
+        if(firstSecondGap>=2){
+
+            patternType="clear";
+
+            patternTitle=
+            `🎯 ${domainInfo[first.key].korean} 중심형`;
+
+
+            patternDescription=
+            `${domainInfo[first.key].korean} 영역이 다른 영역보다 비교적 뚜렷하게 높게 나타났습니다.
+            다만 이 결과는 현재 선택한 9장의 카드 안에서 나타난 상대적인 특징입니다.`;
+
+        }
+
+
+        /*
+           1위와 2위가 한 장 차이
+        */
+
+        else{
+
+            patternType="mixed";
+
+            patternTitle=
+            `🌱 ${domainInfo[first.key].korean} 중심 복합형`;
+
+
+            patternDescription=
+            `${domainInfo[first.key].korean} 영역이 가장 높지만 다른 상위 영역과 차이가 크지 않습니다.
+            한 가지 성향으로 단정하기보다는 상위 영역들을 함께 살펴보는 것이 좋습니다.`;
+
+        }
+
+    }
+
+
+    /*
+       3-2-2-2처럼 전체적으로 매우 고른 경우
+    */
+
+    if(
+        topDomains.length===1 &&
+        gap<=1
+    ){
+
+        patternType="balanced";
+
+        patternTitle=
+        "🌈 비교적 균형적인 성향";
+
+
+        patternDescription=
+        `네 영역의 선택 수 차이가 매우 작습니다.
+        특정 활동만 강하게 선호하기보다 여러 종류의 활동에 비교적 고르게 관심이나 강점을 느끼는 결과입니다.`;
+
+    }
+
+
+    return{
+
+        entries,
+        highest,
+        topDomains,
+        secondDomains,
+        patternType,
+        patternTitle,
+        patternDescription
+
+    };
+
+}
+
+
+/* =========================================================
+   조합 설명
+========================================================= */
+
+function getPairDescription(
+first,
+second,
+testType
+){
+
+    const pair=
+    [first,second]
+    .sort()
+    .join("-");
+
+
+    const data={
+
+        "people-things":{
             interest:
-                "사람과 함께 움직이면서 실제 결과를 만들어내는 활동에 관심이 높은 조합입니다.",
-
+            "사람과 함께 움직이면서 실제 결과를 만들어내는 활동에 관심이 있을 수 있습니다.",
             aptitude:
-                "사람들과 협력하면서 실제 업무를 실행하는 방식에서 강점을 느낄 수 있습니다."
+            "사람들과 협력하면서 실제 업무를 실행하는 과정에서 강점이 나타날 수 있습니다."
         },
 
-
-        "data-things": {
-
+        "data-things":{
             interest:
-                "실제 사물이나 시스템을 다루면서 정확한 자료와 원리를 확인하는 활동에 관심이 높은 조합입니다.",
-
+            "실제 대상이나 시스템을 다루면서 자료와 원리를 확인하는 활동에 관심이 있을 수 있습니다.",
             aptitude:
-                "구체적인 대상을 다루면서 자료를 분석하고 오류를 찾아내는 방식에 강점이 있을 수 있습니다."
+            "구체적인 대상을 다루면서 자료를 분석하고 오류를 찾는 과정에서 강점이 나타날 수 있습니다."
         },
 
-
-        "ideas-things": {
-
+        "ideas-things":{
             interest:
-                "새로운 아이디어를 실제 결과물로 구현하는 활동을 좋아할 가능성이 높은 조합입니다.",
-
+            "새로운 생각을 실제 결과물로 구현하는 활동에 관심이 있을 수 있습니다.",
             aptitude:
-                "새로운 생각을 실제 작품이나 결과물로 구현하는 능력이 강점이 될 수 있습니다."
+            "아이디어를 실제 작품이나 결과물로 구현하는 과정에서 강점이 나타날 수 있습니다."
         },
 
-
-        "data-people": {
-
+        "data-people":{
             interest:
-                "사람과 관련된 문제를 자료와 정보를 이용해 해결하는 활동에 관심이 있는 조합입니다.",
-
+            "사람과 관련된 문제를 자료와 정보를 통해 이해하고 해결하는 활동에 관심이 있을 수 있습니다.",
             aptitude:
-                "사람의 요구를 이해하면서 자료와 근거를 이용해 판단하는 능력이 강점이 될 수 있습니다."
+            "사람의 요구를 이해하면서 자료와 근거를 활용하는 과정에서 강점이 나타날 수 있습니다."
         },
 
-
-        "ideas-people": {
-
+        "ideas-people":{
             interest:
-                "사람들에게 새로운 생각을 설명하거나 영향을 주는 활동에 관심이 높은 조합입니다.",
-
+            "새로운 생각을 사람들에게 설명하거나 영향을 주는 활동에 관심이 있을 수 있습니다.",
             aptitude:
-                "새로운 생각을 만들고 이를 다른 사람에게 전달하는 능력이 강점이 될 수 있습니다."
+            "새로운 생각을 만들고 이를 다른 사람에게 전달하는 과정에서 강점이 나타날 수 있습니다."
         },
 
-
-        "data-ideas": {
-
+        "data-ideas":{
             interest:
-                "자료를 분석하면서 새로운 원리나 해결책을 발견하는 활동에 관심이 높은 조합입니다.",
-
+            "자료를 분석하면서 새로운 원리나 해결책을 발견하는 활동에 관심이 있을 수 있습니다.",
             aptitude:
-                "논리적 분석과 새로운 문제해결을 함께 사용하는 활동에서 강점이 나타날 수 있습니다."
+            "논리적 분석과 새로운 문제 해결을 함께 활용하는 과정에서 강점이 나타날 수 있습니다."
         }
 
     };
 
 
-    if (
-        combinations[pair]
-    ) {
+    return data[pair]
+    ? data[pair][testType]
+    : "";
 
-        return combinations[pair][
-            testType
-        ];
-    }
-
-
-    return "";
 }
 
 
@@ -3418,525 +2235,613 @@ function getCombinationDescription(
    결과 계산
 ========================================================= */
 
-function calculateAndShowResult() {
+function calculateAndShowResult(){
 
-    const scores =
-        calculateScores(
-            selectedFinalCards
-        );
-
-
-    const ranking =
-        Object.entries(scores)
-        .sort(
-            (a,b) =>
-                b[1] - a[1]
-        );
+    const scores=
+    calculateScores(
+        selectedFinalCards
+    );
 
 
-    const result = {
+    const pattern=
+    analyzeScorePattern(scores);
 
-        type:
-            currentTest,
+
+    const result={
+
+        type:currentTest,
 
         cards:
-            selectedFinalCards,
+        selectedFinalCards,
 
         scores,
 
-        ranking,
+        pattern,
 
         date:
-            new Date()
-                .toISOString()
+        new Date().toISOString()
 
     };
 
 
-    if (
-        currentTest ===
-        "interest"
-    ) {
+    localStorage.setItem(
 
-        localStorage.setItem(
+        currentTest==="interest"
+        ?
+        "predigerInterestResult"
+        :
+        "predigerAptitudeResult",
 
-            "predigerInterestResult",
+        JSON.stringify(result)
 
-            JSON.stringify(
-                result
-            )
-
-        );
-
-    }
-
-    else {
-
-        localStorage.setItem(
-
-            "predigerAptitudeResult",
-
-            JSON.stringify(
-                result
-            )
-
-        );
-    }
+    );
 
 
     renderResult(result);
 
+    showScreen("resultScreen");
 
-    showScreen(
-        "resultScreen"
-    );
 }
 
 
 /* =========================================================
-   결과
+   결과 렌더링
 ========================================================= */
 
-function renderResult(result) {
+function renderResult(result){
 
-    currentTest =
-        result.type;
+    currentTest=result.type;
 
-
-    selectedFinalCards =
-        result.cards;
+    selectedFinalCards=result.cards;
 
 
-    const scores =
-        result.scores;
+    const scores=result.scores;
+
+    const pattern=
+    analyzeScorePattern(scores);
 
 
-    const ranking =
-        Object.entries(scores)
-        .sort(
-            (a,b) =>
-                b[1] - a[1]
+    const entries=
+    pattern.entries;
+
+
+    const topDomains=
+    pattern.topDomains;
+
+
+    const secondDomains=
+    pattern.secondDomains;
+
+
+    const isInterest=
+    result.type==="interest";
+
+
+    /*
+       상단 영역 표시
+    */
+
+    let mainDomainText="";
+
+
+    if(topDomains.length===1){
+
+        const first=
+        domainInfo[topDomains[0].key];
+
+        mainDomainText=
+        `${first.icon} ${first.korean}`;
+
+    }
+
+    else{
+
+        mainDomainText=
+        topDomains
+        .map(x=>{
+
+            const d=
+            domainInfo[x.key];
+
+            return `${d.icon} ${d.korean}`;
+
+        })
+        .join(" + ");
+
+    }
+
+
+    /*
+       해석 대상 영역
+    */
+
+    let interpretationDomains=
+    [...topDomains];
+
+
+    if(
+        topDomains.length===1 &&
+        secondDomains.length>0
+    ){
+
+        interpretationDomains.push(
+            ...secondDomains
         );
 
-
-    const firstKey =
-        ranking[0][0];
+    }
 
 
-    const secondKey =
-        ranking[1][0];
+    /*
+       학과/직업 추천용 영역
+       최대 3개 사용
+    */
+
+    const recommendationKeys=
+    interpretationDomains
+    .slice(0,3)
+    .map(x=>x.key);
 
 
-    const first =
-        domainInfo[firstKey];
+    resultPage.innerHTML=`
+
+    <section class="result-top">
+
+        <div>
+        ${
+            isInterest
+            ?
+            "❤️ 흥미 검사 결과"
+            :
+            "⭐ 적성 검사 결과"
+        }
+        </div>
+
+        <h1>
+        ${mainDomainText}
+        </h1>
+
+        <p>
+        ${pattern.patternTitle}
+        <br><br>
+        ${pattern.patternDescription}
+        </p>
+
+    </section>
 
 
-    const second =
-        domainInfo[secondKey];
+    <section class="result-section">
+
+        <h2>📊 나의 4영역 분포</h2>
+
+        ${makeDomainBar("things",scores.things)}
+        ${makeDomainBar("people",scores.people)}
+        ${makeDomainBar("data",scores.data)}
+        ${makeDomainBar("ideas",scores.ideas)}
+
+    </section>
 
 
-    const isInterest =
-        result.type ===
-        "interest";
+    <section class="result-section">
+
+        <h2>🔍 결과 해석</h2>
+
+        ${
+            makeInterpretation(
+                interpretationDomains,
+                isInterest
+            )
+        }
+
+        ${
+            makeCombinationInterpretation(
+                interpretationDomains,
+                result.type
+            )
+        }
+
+    </section>
 
 
-    const explanation =
+    ${
         isInterest
         ?
-        first.interestDescription
+        makeInterestRecommendations(
+            recommendationKeys
+        )
         :
-        first.aptitudeDescription;
+        makeAptitudeRecommendations(
+            recommendationKeys
+        )
+    }
 
 
-    const comboText =
-        getCombinationDescription(
+    <section class="result-section">
 
-            firstKey,
+        <h2>
+        ${
+            isInterest
+            ?
+            "❤️ 내가 선택한 흥미 카드 9장"
+            :
+            "⭐ 내가 선택한 강점 카드 9장"
+        }
+        </h2>
 
-            secondKey,
+        <p class="small">
+        내가 선택한 카드를
+        사물·사람·자료·아이디어 영역별로 정리했습니다.
+        </p>
 
-            result.type
+        ${makeGroupedCards(
+            result.cards
+        )}
 
-        );
+    </section>
 
 
-    const page =
-        document.getElementById(
-            "resultPage"
-        );
+    <section class="result-section">
 
+        <h2>🌱 결과를 보는 방법</h2>
 
-    page.innerHTML = `
+        <p class="small">
 
-        <section class="result-top">
+        이 결과는 한 사람의 진로나 능력을
+        하나의 유형으로 확정하기 위한 것이 아닙니다.
 
-            <div class="result-type-label">
+        <br><br>
 
-                ${
-                    isInterest
-                    ?
-                    "❤️ 흥미 검사 결과"
-                    :
-                    "⭐ 적성 검사 결과"
-                }
+        특히 카드 수가 한 장 정도 차이 나는 경우에는
+        이를 큰 차이로 해석하기보다
+        여러 영역이 함께 나타난 것으로 보는 것이 좋습니다.
 
-            </div>
+        <br><br>
 
+        내가 실제로 선택한 카드가 무엇인지,
+        그리고 그 활동을 왜 선택했는지를 함께 생각해보세요.
 
-            <h1>
+        </p>
 
-                ${first.icon}
+        <div class="small">
 
-                ${first.korean}
+        ※ 본 프로그램은 사물·사람·자료·아이디어 활동 관점을 활용한
+        교육용 자기이해 활동입니다.
+        표준화된 심리검사의 진단 결과를 대신하지 않습니다.
 
-                <span style="
-                    font-size:.55em;
-                    opacity:.75;
-                ">
-                    ${first.english}
-                </span>
+        </div>
 
-            </h1>
+    </section>
 
 
-            <p>
+    <div class="result-actions">
 
-                ${
-                    isInterest
-                    ?
-                    `선택한 카드에서는
-                     <b>${first.korean}</b>
-                     영역의 흥미가 가장 많이 나타났습니다.`
-                    :
-                    `선택한 카드에서는
-                     <b>${first.korean}</b>
-                     영역의 강점을 가장 많이 선택했습니다.`
-                }
+        <button class="secondary-btn"
+        onclick="goHome()">
+        🏠 메인
+        </button>
 
-                <br>
+        <button class="primary-btn"
+        onclick="restartCurrentTest()">
+        🔄 다시 검사
+        </button>
 
-                두 번째 영역은
-
-                <b>
-                    ${second.icon}
-                    ${second.korean}
-                </b>
-
-                입니다.
-
-            </p>
-
-        </section>
-
-
-
-        <section class="result-section">
-
-            <h2>
-                📌 나의 카드 분포
-            </h2>
-
-            <p class="small">
-                최종 선택한 9장의 카드가
-                어떤 영역에 속하는지 보여줍니다.
-            </p>
-
-
-            <div class="domain-bars">
-
-                ${makeDomainBar(
-                    "things",
-                    scores.things
-                )}
-
-                ${makeDomainBar(
-                    "people",
-                    scores.people
-                )}
-
-                ${makeDomainBar(
-                    "data",
-                    scores.data
-                )}
-
-                ${makeDomainBar(
-                    "ideas",
-                    scores.ideas
-                )}
-
-            </div>
-
-        </section>
-
-
-
-        <section class="result-section">
-
-            <h2>
-
-                ${
-                    isInterest
-                    ?
-                    "🔍 나는 어떤 활동에 끌릴까?"
-                    :
-                    "🔍 나는 어떻게 일할 때 강점이 나타날까?"
-                }
-
-            </h2>
-
-
-            <div class="result-grid-two">
-
-                <div class="info-card">
-
-                    <h3>
-
-                        ${first.icon}
-
-                        1순위
-
-                        ${first.korean}
-
-                    </h3>
-
-
-                    <p>
-                        ${explanation}
-                    </p>
-
-                </div>
-
-
-                <div class="info-card">
-
-                    <h3>
-
-                        ${second.icon}
-
-                        2순위
-
-                        ${second.korean}
-
-                    </h3>
-
-
-                    <p>
-
-                        ${
-                            isInterest
-                            ?
-                            second.interestDescription
-                            :
-                            second.aptitudeDescription
-                        }
-
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            ${
-                comboText
-                ?
-                `
-
-                <div
-                    class="info-card"
-                    style="margin-top:20px">
-
-                    <h3>
-                        🧩 두 영역을 함께 보면
-                    </h3>
-
-                    <p>
-                        ${comboText}
-                    </p>
-
-                </div>
-
-                `
-                :
-                ""
-            }
-
-        </section>
-
-
+        <button class="primary-btn"
+        onclick="startTest(
+        '${isInterest ? "aptitude":"interest"}'
+        )">
 
         ${
             isInterest
             ?
-            makeInterestSection(
-                firstKey,
-                secondKey
-            )
+            "⭐ 적성 검사하기"
             :
-            makeAptitudeSection(
-                firstKey,
-                secondKey
-            )
+            "❤️ 흥미 검사하기"
         }
 
+        </button>
 
-
-        <section class="result-section">
-
-            <h2>
-
-                ${
-                    isInterest
-                    ?
-                    "❤️ 내가 선택한 흥미 카드 9장"
-                    :
-                    "⭐ 내가 선택한 강점 카드 9장"
-                }
-
-            </h2>
-
-            <p class="small">
-
-                아래에서는 내가 선택한 카드를
-
-                <b>
-                    사물 · 사람 · 자료 · 아이디어
-                </b>
-
-                영역별로 다시 정리했습니다.
-
-            </p>
-
-
-            ${makeGroupedCardResult(
-                result.cards
-            )}
-
-        </section>
-
-
-
-        <section class="result-section">
-
-            <h2>
-                🌱 결과를 어떻게 활용하면 좋을까요?
-            </h2>
-
-            <p class="small">
-
-                이 결과는 직업이나 학과를
-                하나로 결정하기 위한 것이 아닙니다.
-
-                <br><br>
-
-                어떤 활동을 좋아하고,
-                어떤 방식에서 강점을 느끼는지를
-                살펴보는 자기이해 자료로 활용해보세요.
-
-                <br><br>
-
-                경험과 학습이 늘어나면
-                흥미와 적성에 대한 생각도 달라질 수 있습니다.
-
-            </p>
-
-
-            <div class="result-notice">
-
-                ※ 본 프로그램은
-                사물·사람·자료·아이디어 활동 관점을 활용한
-                교육용 자기이해 카드 활동입니다.
-                표준화된 심리검사의 진단 결과를 대신하지 않습니다.
-
-            </div>
-
-        </section>
-
-
-
-        <div class="result-actions">
-
-            <button
-                class="secondary-btn"
-                onclick="goHome()">
-
-                🏠 메인으로
-
-            </button>
-
-
-            <button
-                class="primary-btn"
-                onclick="restartCurrentTest()">
-
-                🔄 다시 검사하기
-
-            </button>
-
-
-            ${
-                isInterest
-                ?
-                `
-
-                <button
-                    class="primary-btn"
-                    onclick="startTest('aptitude')">
-
-                    ⭐ 적성 검사도 해보기
-
-                </button>
-
-                `
-                :
-                `
-
-                <button
-                    class="primary-btn"
-                    onclick="startTest('interest')">
-
-                    ❤️ 흥미 검사도 해보기
-
-                </button>
-
-                `
-            }
-
-        </div>
+    </div>
 
     `;
 
-
-    /*
-       결과 막대 애니메이션
-    */
-
-    setTimeout(() => {
-
-        document
-            .querySelectorAll(
-                ".domain-value"
-            )
-            .forEach(el => {
-
-                el.style.width =
-                    el.dataset.width;
-
-            });
-
-    }, 150);
 }
 
 
 /* =========================================================
-   결과 - 선택 카드 영역별 그룹화
-
-   이번 수정의 핵심
+   영역별 해석
 ========================================================= */
 
-function makeGroupedCardResult(cards) {
+function makeInterpretation(
+domains,
+isInterest
+){
 
-    const domainOrder = [
+    return domains
+    .map((item,index)=>{
+
+        const d=
+        domainInfo[item.key];
+
+        let label="";
+
+
+        if(index===0){
+
+            label=
+            domains.length>1 &&
+            domains[0].score===
+            domains[1].score
+            ?
+            "공동 주요 영역"
+            :
+            "주요 영역";
+
+        }
+
+        else{
+
+            label=
+            item.score===
+            domains[0].score
+            ?
+            "공동 주요 영역"
+            :
+            "함께 나타난 영역";
+
+        }
+
+
+        return `
+
+        <div class="info-card"
+        style="margin-bottom:14px">
+
+        <h3>
+        ${d.icon}
+        ${d.korean}
+        · ${item.score}장
+        </h3>
+
+        <p>
+        <b>${label}</b>
+        <br><br>
+
+        ${
+            isInterest
+            ?
+            d.interestDescription
+            :
+            d.aptitudeDescription
+        }
+        </p>
+
+        </div>
+
+        `;
+
+    })
+    .join("");
+
+}
+
+
+/* =========================================================
+   상위영역 조합 설명
+========================================================= */
+
+function makeCombinationInterpretation(
+domains,
+type
+){
+
+    if(domains.length<2)
+        return "";
+
+
+    const first=
+    domains[0].key;
+
+    const second=
+    domains[1].key;
+
+
+    const description=
+    getPairDescription(
+        first,
+        second,
+        type
+    );
+
+
+    if(!description)
+        return "";
+
+
+    const d1=
+    domainInfo[first];
+
+    const d2=
+    domainInfo[second];
+
+
+    return `
+
+    <div class="info-card">
+
+    <h3>
+    🧩
+    ${d1.korean}
+    +
+    ${d2.korean}
+    조합
+    </h3>
+
+    <p>
+    ${description}
+    </p>
+
+    </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   흥미 추천
+========================================================= */
+
+function makeInterestRecommendations(keys){
+
+    let majors=[];
+
+    let jobs=[];
+
+
+    keys.forEach(key=>{
+
+        majors.push(
+            ...domainInfo[key].majors
+            .slice(0,5)
+        );
+
+        jobs.push(
+            ...domainInfo[key].jobs
+            .slice(0,5)
+        );
+
+    });
+
+
+    majors=
+    [...new Set(majors)]
+    .slice(0,12);
+
+
+    jobs=
+    [...new Set(jobs)]
+    .slice(0,12);
+
+
+    return `
+
+    <section class="result-section">
+
+    <h2>🎓 탐색해볼 학과</h2>
+
+    <p class="small">
+    상위 영역의 활동 특성을 바탕으로
+    탐색해볼 수 있는 학과 예시입니다.
+    </p>
+
+    <div class="tag-wrap">
+
+    ${
+        majors.map(x=>
+        `<span class="tag">
+        ${x}
+        </span>`
+        ).join("")
+    }
+
+    </div>
+
+
+    <h2 style="margin-top:30px">
+    💼 탐색해볼 직업
+    </h2>
+
+    <div class="tag-wrap">
+
+    ${
+        jobs.map(x=>
+        `<span class="tag">
+        ${x}
+        </span>`
+        ).join("")
+    }
+
+    </div>
+
+    </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   적성 추천
+========================================================= */
+
+function makeAptitudeRecommendations(keys){
+
+    return `
+
+    <section class="result-section">
+
+    <h2>
+    🧭 나에게 잘 맞을 수 있는 활동 방식
+    </h2>
+
+    <div class="result-grid-two">
+
+    ${
+        keys.map(key=>{
+
+            const d=
+            domainInfo[key];
+
+            return `
+
+            <div class="info-card">
+
+            <h3>
+            ${d.icon}
+            ${d.korean}
+            </h3>
+
+            <p>
+            <b>일하는 방식</b>
+            <br>
+            ${d.workStyle}
+
+            <br><br>
+
+            <b>공부할 때</b>
+            <br>
+            ${d.study}
+
+            <br><br>
+
+            <b>팀 활동 역할</b>
+            <br>
+            ${d.teamRole}
+
+            </p>
+
+            </div>
+
+            `;
+
+        }).join("")
+    }
+
+    </div>
+
+    </section>
+
+    `;
+
+}
+
+
+/* =========================================================
+   결과 카드 그룹
+========================================================= */
+
+function makeGroupedCards(cards){
+
+    const order=[
         "things",
         "people",
         "data",
@@ -3944,815 +2849,290 @@ function makeGroupedCardResult(cards) {
     ];
 
 
-    return domainOrder
-        .map(domainKey => {
+    return order.map(key=>{
 
-            const domain =
-                domainInfo[
-                    domainKey
-                ];
-
-
-            /*
-               현재 영역의 카드만 추출
-            */
-
-            const domainCards =
-                cards.filter(
-                    card =>
-                        card.domain ===
-                        domainKey
-                );
-
-
-            return `
-
-                <div
-                    class="domain-card-section"
-                    style="
-                        border-left:
-                        5px solid
-                        ${domain.color};
-                    ">
-
-                    <div class="domain-card-header">
-
-                        <div class="domain-card-title">
-
-                            ${domain.icon}
-
-                            ${domain.korean}
-
-                            <span
-                                style="
-                                    font-size:11px;
-                                    color:#999;
-                                    font-weight:700;
-                                ">
-
-                                ${domain.english}
-
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="domain-card-count"
-                            style="
-                                background:
-                                ${domain.color};
-                            ">
-
-                            ${domainCards.length}장
-
-                        </div>
-
-                    </div>
-
-
-                    ${
-                        domainCards.length > 0
-                        ?
-                        `
-
-                        <div class="grouped-card-grid">
-
-                            ${
-                                domainCards
-                                .map(card => `
-
-                                    <div class="final-card">
-
-                                        <div
-                                            class="card-domain-badge"
-                                            style="
-                                                background:
-                                                ${domain.color};
-                                            ">
-
-                                            ${domain.icon}
-
-                                            ${domain.korean}
-
-                                        </div>
-
-
-                                        <img
-                                            src="cards/${card.file}"
-                                            alt="${card.name}">
-
-
-                                        <span class="card-title">
-
-                                            ${card.number}.
-
-                                            ${card.name}
-
-                                        </span>
-
-                                    </div>
-
-                                `)
-                                .join("")
-                            }
-
-                        </div>
-
-                        `
-                        :
-                        `
-
-                        <div class="empty-domain">
-
-                            이 영역에서 선택한 카드는 없습니다.
-
-                        </div>
-
-                        `
-                    }
-
-                </div>
-
-            `;
-
-        })
-        .join("");
-}
-
-
-/* =========================================================
-   막대그래프
-========================================================= */
-
-function makeDomainBar(
-    key,
-    count
-) {
-
-    const domain =
+        const d=
         domainInfo[key];
 
-
-    const percent =
-        (count / 9)
-        * 100;
-
-
-    return `
-
-        <div class="domain-row">
-
-            <div class="domain-name">
-
-                ${domain.icon}
-
-                ${domain.korean}
-
-            </div>
+        const list=
+        cards.filter(
+            card=>card.domain===key
+        );
 
 
-            <div class="domain-track">
+        return `
 
-                <div
-                    class="domain-value"
-                    data-width="${percent}%"
-                    style="
-                        width:0;
-                        background:
-                        ${domain.color};
-                    ">
-                </div>
+        <div class="domain-card-section"
+        style="
+        border-left:
+        5px solid ${d.color};
+        ">
 
-            </div>
+        <div class="domain-card-header">
 
+        <div class="domain-card-title">
+        ${d.icon}
+        ${d.korean}
+        </div>
 
-            <div class="domain-score">
-                ${count}장
-            </div>
+        <div class="domain-card-count"
+        style="background:${d.color}">
+        ${list.length}장
+        </div>
 
         </div>
 
-    `;
+        ${
+            list.length
+            ?
+            `
+
+            <div class="grouped-card-grid">
+
+            ${
+                list.map(card=>`
+
+                <div class="final-card">
+
+                <div
+                class="card-domain-badge"
+                style="background:${d.color}">
+
+                ${d.icon}
+                ${d.korean}
+
+                </div>
+
+                <img
+                src="cards/${card.file}">
+
+                <span class="final-card-title">
+                ${card.number}.
+                ${card.name}
+                </span>
+
+                </div>
+
+            `).join("")
+            }
+
+            </div>
+
+            `
+            :
+            `<div class="small">
+            선택한 카드가 없습니다.
+            </div>`
+        }
+
+        </div>
+
+        `;
+
+    }).join("");
+
 }
 
 
 /* =========================================================
-   흥미 결과
+   그래프
 ========================================================= */
 
-function makeInterestSection(
-    firstKey,
-    secondKey
-) {
+function makeDomainBar(key,count){
 
-    const first =
-        domainInfo[firstKey];
+    const d=
+    domainInfo[key];
 
-
-    const second =
-        domainInfo[secondKey];
-
-
-    const majors =
-        uniqueArray([
-
-            ...first.majors.slice(0,6),
-
-            ...second.majors.slice(0,4)
-
-        ]);
-
-
-    const jobs =
-        uniqueArray([
-
-            ...first.jobs.slice(0,6),
-
-            ...second.jobs.slice(0,4)
-
-        ]);
+    const width=
+    count/9*100;
 
 
     return `
 
-        <section class="result-section">
+    <div class="domain-row">
 
-            <h2>
-                🎓 이런 학과를 탐색해보세요
-            </h2>
+    <div>
+    ${d.icon}
+    <b>${d.korean}</b>
+    </div>
 
-            <p class="small">
+    <div class="domain-track">
 
-                현재 선택한 카드와 연결해서
-                탐색해볼 수 있는 대표적인 학과입니다.
+    <div class="domain-value"
+    style="
+    width:${width}%;
+    background:${d.color};
+    ">
+    </div>
 
-                <br>
+    </div>
 
-                특정 학과가 반드시 적합하다는 의미는 아닙니다.
+    <div>
+    <b>${count}장</b>
+    </div>
 
-            </p>
-
-
-            <div class="tag-wrap">
-
-                ${
-                    majors
-                    .map(item =>
-
-                        `<span class="tag">
-                            ${item}
-                         </span>`
-
-                    )
-                    .join("")
-                }
-
-            </div>
-
-
-            <h3>
-                💼 함께 살펴볼 직업
-            </h3>
-
-
-            <div class="tag-wrap">
-
-                ${
-                    jobs
-                    .map(item =>
-
-                        `<span class="tag">
-                            ${item}
-                         </span>`
-
-                    )
-                    .join("")
-                }
-
-            </div>
-
-        </section>
-
-
-
-        <section class="result-section">
-
-            <h2>
-                🚀 고등학교에서 이렇게 탐색해보세요
-            </h2>
-
-
-            <div class="result-grid-two">
-
-                <div class="info-card">
-
-                    <h3>
-                        동아리·프로젝트
-                    </h3>
-
-                    <p>
-
-                        학과 이름만 조사하기보다
-                        그 분야에서 실제로 하는 활동을 경험해보세요.
-
-                        프로젝트, 동아리,
-                        진로체험이나 탐구활동을 통해
-                        흥미가 지속되는지 확인하는 것이 좋습니다.
-
-                    </p>
-
-                </div>
-
-
-                <div class="info-card">
-
-                    <h3>
-                        진로 탐색
-                    </h3>
-
-                    <p>
-
-                        내가 고른 카드가
-                        어떤 활동을 의미하는지 다시 살펴보고,
-                        비슷한 활동이 많이 포함된
-                        학과와 직업을 찾아보세요.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
+    </div>
 
     `;
+
 }
 
 
 /* =========================================================
-   적성 결과
+   기타
 ========================================================= */
 
-function makeAptitudeSection(
-    firstKey,
-    secondKey
-) {
-
-    const first =
-        domainInfo[firstKey];
-
-
-    const second =
-        domainInfo[secondKey];
-
-
-    return `
-
-        <section class="result-section">
-
-            <h2>
-                🧭 나에게 맞는 일하는 방법
-            </h2>
-
-
-            <div class="result-grid-two">
-
-                <div class="info-card">
-
-                    <h3>
-                        🛠 업무 방식
-                    </h3>
-
-                    <p>
-                        ${first.workStyle}
-                    </p>
-
-                </div>
-
-
-                <div class="info-card">
-
-                    <h3>
-                        📚 학습 방식
-                    </h3>
-
-                    <p>
-                        ${first.study}
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="info-card"
-                style="margin-top:20px">
-
-                <h3>
-                    👥 팀 프로젝트에서 추천 역할
-                </h3>
-
-                <p>
-
-                    1순위 영역에서는
-
-                    <b>
-                        ${first.teamRole}
-                    </b>
-
-                    등의 역할을 시도해볼 수 있습니다.
-
-                    <br><br>
-
-                    두 번째 영역인
-
-                    <b>
-                        ${second.korean}
-                    </b>
-
-                    의 강점도 함께 활용하면
-
-                    ${second.teamRole}
-
-                    등의 역할도 경험해볼 수 있습니다.
-
-                </p>
-
-            </div>
-
-        </section>
-
-
-
-        <section class="result-section">
-
-            <h2>
-                💡 강점을 더 키우는 방법
-            </h2>
-
-
-            <div class="result-grid-two">
-
-                <div class="info-card">
-
-                    <h3>
-                        경험하면서 발견하기
-                    </h3>
-
-                    <p>
-
-                        지금 잘한다고 느끼는 활동은
-                        지금까지의 경험에도 영향을 받습니다.
-
-                        새로운 활동에 도전하면서
-                        새로운 강점을 발견할 수도 있습니다.
-
-                    </p>
-
-                </div>
-
-
-                <div class="info-card">
-
-                    <h3>
-                        흥미와 비교하기
-                    </h3>
-
-                    <p>
-
-                        좋아하면서 잘하는 것,
-                        좋아하지만 아직 잘하지 못하는 것,
-                        잘하지만 별로 좋아하지 않는 것을
-                        구분해보세요.
-
-                        흥미와 적성을 함께 살펴보면
-                        자기 이해에 도움이 됩니다.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    `;
-}
-
-
-/* =========================================================
-   중복 제거
-========================================================= */
-
-function uniqueArray(array) {
-
-    return [
-        ...new Set(array)
-    ];
-}
-
-
-/* =========================================================
-   재시작
-========================================================= */
-
-function restartCurrentTest() {
-
-    if (!currentTest) {
-
+function restartCurrentTest(){
+
+    if(currentTest)
+        startTest(currentTest);
+    else
         goHome();
 
-        return;
-    }
-
-
-    startTest(
-        currentTest
-    );
 }
 
 
-/* =========================================================
-   나가기
-========================================================= */
+function confirmExit(){
 
-function confirmExit() {
-
-    const result =
-        confirm(
-
-            "검사를 종료하고 메인 화면으로 돌아갈까요?\n현재 진행 내용은 저장되지 않습니다."
-
-        );
-
-
-    if (result) {
-
+    if(confirm(
+        "검사를 종료하고 메인으로 돌아갈까요?"
+    ))
         goHome();
-    }
+
 }
 
 
-function goHome() {
-
-    /*
-       로딩 중이던 이미지 이벤트 무효화
-    */
+function goHome(){
 
     imageLoadToken++;
 
+    currentTest=null;
 
-    currentTest =
-        null;
-
-
-    setChoiceButtonsEnabled(
-        false
-    );
-
-
-    showScreen(
-        "homeScreen"
-    );
-
+    showScreen("homeScreen");
 
     updatePreviousResults();
+
 }
 
 
-/* =========================================================
-   이전 결과
-========================================================= */
+function updatePreviousResults(){
 
-function updatePreviousResults() {
+    let html="";
 
-    const area =
-        document.getElementById(
-            "previousResults"
-        );
-
-
-    const interest =
+    if(
         localStorage.getItem(
-            "predigerInterestResult"
-        );
-
-
-    const aptitude =
-        localStorage.getItem(
-            "predigerAptitudeResult"
-        );
-
-
-    let html =
-        "";
-
-
-    if (
-        interest ||
-        aptitude
-    ) {
-
-        html += `
-
-            <div
-                class="small"
-                style="margin-bottom:5px">
-
-                저장된 검사 결과
-
-            </div>
-
-        `;
-    }
-
-
-    if (interest) {
-
-        html += `
-
-            <button
-                onclick="loadStoredResult('interest')">
-
-                ❤️ 이전 흥미 결과 보기
-
-            </button>
-
-        `;
-    }
-
-
-    if (aptitude) {
-
-        html += `
-
-            <button
-                onclick="loadStoredResult('aptitude')">
-
-                ⭐ 이전 적성 결과 보기
-
-            </button>
-
-        `;
-    }
-
-
-    area.innerHTML =
-        html;
-}
-
-
-/* =========================================================
-   이전 결과 불러오기
-========================================================= */
-
-function loadStoredResult(type) {
-
-    const key =
-        type === "interest"
-        ?
         "predigerInterestResult"
-        :
-        "predigerAptitudeResult";
+        )
+    ){
+
+        html+=`
+
+        <button
+        onclick="loadStoredResult('interest')">
+
+        ❤️ 이전 흥미 결과
+
+        </button>
+
+        `;
+
+    }
 
 
-    const stored =
+    if(
         localStorage.getItem(
-            key
-        );
+        "predigerAptitudeResult"
+        )
+    ){
+
+        html+=`
+
+        <button
+        onclick="loadStoredResult('aptitude')">
+
+        ⭐ 이전 적성 결과
+
+        </button>
+
+        `;
+
+    }
 
 
-    if (!stored) {
+    previousResults.innerHTML=
+    html;
 
-        toast(
-            "저장된 결과가 없습니다."
-        );
+}
 
+
+function loadStoredResult(type){
+
+    const key=
+    type==="interest"
+    ?
+    "predigerInterestResult"
+    :
+    "predigerAptitudeResult";
+
+
+    const data=
+    localStorage.getItem(key);
+
+
+    if(!data)
         return;
-    }
 
 
-    try {
-
-        const result =
-            JSON.parse(
-                stored
-            );
+    const result=
+    JSON.parse(data);
 
 
-        renderResult(
-            result
-        );
+    renderResult(result);
 
+    showScreen("resultScreen");
 
-        showScreen(
-            "resultScreen"
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            error
-        );
-
-
-        toast(
-            "결과를 불러오지 못했습니다."
-        );
-    }
 }
 
 
 /* =========================================================
    키보드
-
-   버튼이 활성 상태일 때만 작동
 ========================================================= */
 
 document.addEventListener(
-    "keydown",
-    event => {
+"keydown",
+event=>{
 
-        const testScreen =
-            document.getElementById(
-                "testScreen"
-            );
-
-
-        if (
-            !testScreen
-                .classList
-                .contains("active")
-        ) {
-
-            return;
-        }
+    if(
+        !testScreen
+        .classList
+        .contains("active")
+    )
+        return;
 
 
-        /*
-           로딩중이면 키보드도 무시
-        */
-
-        if (cardLocked) {
-            return;
-        }
+    if(cardLocked)
+        return;
 
 
-        if (
-            event.key ===
-            "ArrowLeft"
-        ) {
+    if(event.key==="ArrowLeft")
+        answerCard("positive");
 
-            event.preventDefault();
 
-            answerCard(
-                "positive"
-            );
+    if(event.key==="ArrowDown")
+        answerCard("neutral");
 
-        }
 
-        else if (
-            event.key ===
-            "ArrowDown"
-        ) {
+    if(event.key==="ArrowRight")
+        answerCard("negative");
 
-            event.preventDefault();
-
-            answerCard(
-                "neutral"
-            );
-
-        }
-
-        else if (
-            event.key ===
-            "ArrowRight"
-        ) {
-
-            event.preventDefault();
-
-            answerCard(
-                "negative"
-            );
-
-        }
-
-    }
-);
+});
 
 
 /* =========================================================
    초기화
 ========================================================= */
 
-setChoiceButtonsEnabled(
-    false
-);
-
+setChoiceButtonsEnabled(false);
 
 updatePreviousResults();
 
