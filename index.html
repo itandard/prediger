@@ -3,28 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>프레디저 흥미적성 검사</title>
+  <title>프레디저 흥미 적성 카드검사</title>
   <style>
     :root {
-      --primary: #4f46e5;
-      --primary-hover: #4338ca;
-      --bg-color: #f3f4f6;
-      --card-bg: #ffffff;
-      --text-main: #1f2937;
-      --text-muted: #6b7280;
-      
-      /* 유형별 색상 */
-      --color-things: #ef4444; /* 사물 - 빨강 */
-      --color-people: #f59e0b; /* 사람 - 노랑/주황 */
-      --color-data: #10b981;   /* 자료 - 초록 */
-      --color-ideas: #3b82f6;  /* 사고 - 파랑 */
+      --primary-color: #4A90E2;
+      --red-color: #FF5252;
+      --blue-color: #448AFF;
+      --yellow-color: #FFC107;
+      --green-color: #4CAF50;
+      --bg-color: #F4F7F9;
+      --card-bg: #FFFFFF;
+      --text-main: #333333;
+      --text-muted: #666666;
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -35,57 +32,67 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 16px;
+      padding: 12px;
     }
 
     .app-container {
       width: 100%;
       max-width: 480px;
+      min-height: 90vh;
       background: var(--card-bg);
       border-radius: 20px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      min-height: 640px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
+      overflow: hidden;
       position: relative;
     }
 
-    /* Screen Management */
     .screen {
       display: none;
       flex-direction: column;
-      height: 100%;
       flex: 1;
       padding: 24px 20px;
+      animation: fadeIn 0.3s ease;
     }
 
     .screen.active {
       display: flex;
     }
 
-    /* Typography & General Styles */
-    h1 {
-      font-size: 1.6rem;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 홈 화면 */
+    .home-title {
+      font-size: 24px;
       font-weight: 800;
       text-align: center;
-      color: #111827;
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      text-align: center;
+      margin-top: 20px;
       margin-bottom: 12px;
+      color: #1A2530;
+      line-height: 1.3;
     }
 
-    p.subtitle {
-      text-align: center;
+    .home-intro {
+      font-size: 13px;
       color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 24px;
-      line-height: 1.5;
+      line-height: 1.6;
+      background: #F8FAFC;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      margin-bottom: 30px;
+    }
+
+    .home-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: auto;
+      margin-bottom: 20px;
     }
 
     .btn {
@@ -93,158 +100,51 @@
       padding: 16px;
       border: none;
       border-radius: 14px;
-      font-size: 1.05rem;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       gap: 8px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .btn:active {
       transform: scale(0.98);
     }
 
-    .btn-primary {
-      background-color: var(--primary);
-      color: white;
-    }
+    .btn-primary { background: var(--primary-color); color: white; }
+    .btn-secondary { background: #34495E; color: white; }
 
-    .btn-primary:hover {
-      background-color: var(--primary-hover);
-    }
-
-    .btn-outline {
-      background-color: transparent;
-      border: 2px solid #e5e7eb;
-      color: #374151;
-    }
-
-    /* Step 1: Start Screen */
-    .start-screen {
-      justify-content: space-between;
-      text-align: center;
-      padding-top: 40px;
-      padding-bottom: 30px;
-    }
-
-    .logo-badge {
-      width: 80px;
-      height: 80px;
-      background: #e0e7ff;
-      color: var(--primary);
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.2rem;
-      font-weight: 900;
-      margin: 0 auto 20px;
-    }
-
-    .guide-box {
-      background-color: #f9fafb;
-      border: 1px solid #f3f4f6;
-      border-radius: 16px;
-      padding: 20px;
-      text-align: left;
-      font-size: 0.9rem;
-      color: #4b5563;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .guide-box ul {
-      padding-left: 18px;
-      margin-top: 8px;
-    }
-
-    /* Step 2: Select Mode Screen */
-    .mode-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-top: 20px;
-    }
-
-    .mode-card {
-      background: #f9fafb;
-      border: 2px solid #e5e7eb;
-      border-radius: 16px;
-      padding: 20px;
-      cursor: pointer;
-      transition: all 0.2s;
-      position: relative;
-    }
-
-    .mode-card:hover {
-      border-color: var(--primary);
-      background: #e0e7ff33;
-    }
-
-    .mode-card.completed {
-      border-color: #10b981;
-      background: #ecfdf5;
-    }
-
-    .mode-card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .mode-card p {
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-
-    .status-tag {
-      font-size: 0.75rem;
-      padding: 4px 8px;
-      border-radius: 8px;
-      font-weight: 600;
-    }
-
-    .status-tag.pending {
-      background: #f3f4f6;
-      color: #6b7280;
-    }
-
-    .status-tag.done {
-      background: #10b981;
-      color: white;
-    }
-
-    /* Step 3: Card Selection Testing Screen */
-    .test-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    /* 진행도 바 */
+    .progress-bar-container {
+      width: 100%;
+      height: 8px;
+      background: #E2E8F0;
+      border-radius: 4px;
+      overflow: hidden;
       margin-bottom: 12px;
     }
 
-    .progress-bar-bg {
-      width: 100%;
-      height: 8px;
-      background: #e5e7eb;
-      border-radius: 4px;
-      margin-bottom: 16px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
+    .progress-bar {
       height: 100%;
-      background: var(--primary);
+      background: var(--primary-color);
       width: 0%;
       transition: width 0.2s ease;
     }
 
-    .card-stage {
+    .progress-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: right;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    /* 카드 영역 */
+    .card-display-area {
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -253,493 +153,512 @@
       position: relative;
     }
 
-    .card-container {
-      width: 230px;
-      height: 326px; /* 1054:1492 ratio */
+    .card-wrapper {
+      width: 240px;
+      height: 330px;
+      background: #FFFFFF;
       border-radius: 16px;
-      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
-      overflow: hidden;
-      background: #f3f4f6;
-      position: relative;
-      transition: transform 0.2s;
-    }
-
-    .card-container img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .card-fallback {
-      display: none;
-      width: 100%;
-      height: 100%;
-      padding: 20px;
-      background: #ffffff;
-      border: 3px solid #3b82f6;
-      border-radius: 16px;
+      border: 2px solid #E2E8F0;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .card-fallback-text {
+      display: none;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
       text-align: center;
     }
 
-    .card-fallback .card-num {
-      font-size: 0.9rem;
-      color: #6b7280;
-      margin-bottom: 8px;
-    }
-
-    .card-fallback .card-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #1f2937;
-      margin-bottom: 12px;
-    }
-
-    .card-fallback .card-category {
-      font-size: 0.85rem;
-      padding: 4px 12px;
-      border-radius: 12px;
-      background: #eff6ff;
-      color: #2563eb;
-      font-weight: 600;
-    }
-
-    .selection-counter {
-      margin-top: 12px;
-      margin-bottom: 16px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #374151;
-      background: #f3f4f6;
-      padding: 6px 16px;
-      border-radius: 20px;
-    }
-
-    .action-buttons {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .btn-action {
-      flex: 1;
-      padding: 14px 0;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      color: white;
-      transition: transform 0.1s, opacity 0.2s;
-    }
-
-    .btn-like { background-color: #10b981; }      /* 좋아 */
-    .btn-dislike { background-color: #ef4444; }   /* 싫어 */
-    .btn-neutral { background-color: #6b7280; }   /* 모르겠어 */
-
-    /* Step 4: Adjust Selection Screen */
-    .adjust-grid {
+    /* 선택 버튼 */
+    .choice-btn-group {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      max-height: 380px;
+      margin-top: 20px;
+    }
+
+    .choice-btn {
+      padding: 14px 0;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      color: white;
+      transition: transform 0.1s;
+    }
+
+    .choice-btn:active { transform: scale(0.95); }
+    .btn-pos { background-color: #2ECC71; }
+    .btn-neu { background-color: #95A5A6; }
+    .btn-neg { background-color: #E74C3C; }
+
+    /* 추가 / 조정 화면 스타일 */
+    .adjust-header {
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .adjust-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      max-height: 50vh;
       overflow-y: auto;
       padding: 4px;
+      margin-bottom: 16px;
+    }
+
+    .grid-card-item {
+      aspect-ratio: 3/4;
+      border: 2px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      background: white;
+      transition: all 0.2s;
+    }
+
+    .grid-card-item.selected {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px var(--primary-color);
+      background: #EBF8FF;
+    }
+
+    .grid-card-item img {
+      width: 100%;
+      height: 80%;
+      object-fit: contain;
+    }
+
+    .grid-card-item .card-name {
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 2px;
+      word-break: keep-all;
+    }
+
+    /* 로딩 애니메이션 */
+    .loading-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #E2E8F0;
+      border-top-color: var(--primary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* 결과 페이지 */
+    .result-title-area {
+      text-align: center;
       margin-bottom: 20px;
     }
 
-    .adjust-item {
-      position: relative;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 2px solid transparent;
-      cursor: pointer;
-      aspect-ratio: 1054 / 1492;
-      background: #e5e7eb;
-    }
-
-    .adjust-item.selected-for-remove {
-      border-color: #ef4444;
-      opacity: 0.5;
-    }
-
-    .adjust-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .adjust-item .fallback-text {
-      padding: 8px;
-      text-align: center;
-      font-size: 0.8rem;
-      font-weight: bold;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-    }
-
-    .adjust-item .remove-badge {
-      position: absolute;
-      top: 4px;
-      right: 4px;
-      background: #ef4444;
-      color: white;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: bold;
-    }
-
-    /* Step 5: Result Screen */
-    .result-section {
-      margin-bottom: 24px;
-    }
-
-    .result-section h3 {
-      font-size: 1.1rem;
-      margin-bottom: 12px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #f3f4f6;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .type-scores {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    .score-box {
-      padding: 12px;
-      border-radius: 12px;
-      color: white;
-      text-align: center;
-    }
-
-    .score-box.things { background-color: var(--color-things); }
-    .score-box.people { background-color: var(--color-people); }
-    .score-box.data   { background-color: var(--color-data); }
-    .score-box.ideas  { background-color: var(--color-ideas); }
-
-    .score-box .type-title { font-size: 0.85rem; opacity: 0.9; }
-    .score-box .type-count { font-size: 1.4rem; font-weight: 800; margin-top: 2px; }
-
-    .career-box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 12px;
-    }
-
-    .career-box h4 {
-      color: var(--primary);
-      font-size: 1rem;
+    .result-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: #EBF8FF;
+      color: var(--primary-color);
+      font-size: 13px;
+      font-weight: 700;
       margin-bottom: 8px;
     }
 
-    .career-box p {
-      font-size: 0.9rem;
-      color: #475569;
-      line-height: 1.5;
+    .result-main-type {
+      font-size: 22px;
+      font-weight: 800;
     }
 
-    .cards-mini-grid {
+    .type-counts {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .type-box {
+      border-radius: 10px;
+      padding: 10px 4px;
+      text-align: center;
+      color: white;
+    }
+
+    .type-box.red { background: var(--red-color); }
+    .type-box.blue { background: var(--blue-color); }
+    .type-box.yellow { background: var(--yellow-color); color: #333; }
+    .type-box.green { background: var(--green-color); }
+
+    .type-box .type-label { font-size: 11px; font-weight: 600; opacity: 0.9; }
+    .type-box .type-val { font-size: 18px; font-weight: 800; margin-top: 2px; }
+
+    .result-section {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .result-section h4 {
+      font-size: 15px;
+      color: #1E293B;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .result-section p, .result-section ul {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .result-section ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .result-section li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 4px;
+    }
+
+    .result-section li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .selected-9cards {
+      display: flex;
+      flex-wrap: wrap;
       gap: 6px;
       margin-top: 8px;
     }
 
-    .mini-card {
-      font-size: 0.75rem;
-      padding: 6px;
-      background: #fff;
-      border: 1px solid #e5e7eb;
+    .tag-card {
+      font-size: 11px;
+      background: #E2E8F0;
+      padding: 4px 8px;
       border-radius: 6px;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .badge {
-      font-size: 0.75rem;
-      padding: 2px 8px;
-      border-radius: 10px;
-      background: #e0e7ff;
-      color: var(--primary);
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
 
   <div class="app-container">
-    
-    <!-- 1. 메인 시작 화면 -->
-    <div id="screen-start" class="screen start-screen active">
-      <div>
-        <div class="logo-badge">P</div>
-        <h1>프레디저 흥미적성검사</h1>
-        <p class="subtitle">나의 흥미와 적성을 카드 게임처럼 쉽고 신나게 진단해보세요.</p>
-        
-        <div class="guide-box">
-          <strong>💡 검사 진행 안내</strong>
-          <ul>
-            <li>총 52장의 카드가 무작위로 제시됩니다.</li>
-            <li>흥미(좋아하는 것)와 적성(잘하는 것)을 각각 진단합니다.</li>
-            <li>최종적으로 **각 9장**의 카드를 선택하게 됩니다.</li>
-            <li>선택한 결과를 바탕으로 나만의 진로 유형이 추천됩니다.</li>
-          </ul>
+
+    <div id="screen-home" class="screen active">
+      <h1 class="home-title">카드로 이해하는<br>나의 흥미와 적성</h1>
+      
+      <div class="home-intro">
+        <p><strong>프레디저(Prediger) 검사란?</strong></p>
+        <p style="margin-top:6px;">데일 프레디저 박사의 진로 이론에 기초한 검사로, 진로 진단을 4가지 영역(사물, 사람, 자료, 사고)으로 직관적으로 구분하여 나에게 딱 맞는 학과, 직업, 일하는 방식을 탐색하도록 도와줍니다.</p>
+      </div>
+
+      <div class="home-btn-group">
+        <button class="btn btn-primary" onclick="startTest('interest')">
+          🎯 흥미 검사 시작하기
+        </button>
+        <button class="btn btn-secondary" onclick="startTest('aptitude')">
+          ⚡ 적성 검사 시작하기
+        </button>
+      </div>
+    </div>
+
+    <div id="screen-test" class="screen">
+      <div class="progress-bar-container">
+        <div id="progress-bar" class="progress-bar"></div>
+      </div>
+      <div id="progress-text" class="progress-text">1 / 52</div>
+
+      <div class="card-display-area">
+        <div class="card-wrapper">
+          <img id="card-image" class="card-img" src="" alt="카드 이미지" onerror="handleImageError()">
+          <div id="card-fallback" class="card-fallback-text"></div>
         </div>
       </div>
 
-      <button class="btn btn-primary" onclick="showScreen('screen-mode')">
-        검사 시작하기 🚀
+      <div class="choice-btn-group">
+        <button id="btn-neg" class="choice-btn btn-neg" onclick="chooseCard('negative')">싫어함</button>
+        <button id="btn-neu" class="choice-btn btn-neu" onclick="chooseCard('neutral')">보통</button>
+        <button id="btn-pos" class="choice-btn btn-pos" onclick="chooseCard('positive')">좋아함</button>
+      </div>
+    </div>
+
+    <div id="screen-under" class="screen">
+      <h2 class="adjust-header">추가 카드 선택</h2>
+      <p id="under-desc" class="adjust-sub"></p>
+
+      <div id="under-grid" class="card-grid"></div>
+
+      <button id="btn-under-confirm" class="btn btn-primary" onclick="confirmUnderSelection()" disabled>
+        선택 완료 (0/0)
       </button>
     </div>
 
-    <!-- 2. 검사 선택 화면 (흥미 vs 적성) -->
-    <div id="screen-mode" class="screen">
-      <h2>검사 모드 선택</h2>
-      <p class="subtitle">진행할 검사를 선택해주세요.<br>두 검사를 모두 마치면 종합 진단이 완성됩니다.</p>
+    <div id="screen-over" class="screen">
+      <h2 class="adjust-header">카드 정리하기</h2>
+      <p id="over-desc" class="adjust-sub">9장이 되도록 제외할 카드를 클릭하여 해제해 주세요.</p>
 
-      <div class="mode-cards">
-        <div class="mode-card" id="mode-interest-card" onclick="startTest('interest')">
-          <h3>
-            1. 흥미 검사 (좋아하는 것)
-            <span class="status-tag pending" id="tag-interest">미완료</span>
-          </h3>
-          <p>내가 마음 끌리고 즐겁게 할 수 있는 카드를 선택합니다.</p>
-        </div>
+      <div id="over-grid" class="card-grid"></div>
 
-        <div class="mode-card" id="mode-aptitude-card" onclick="startTest('aptitude')">
-          <h3>
-            2. 적성 검사 (잘하는 것)
-            <span class="status-tag pending" id="tag-aptitude">미완료</span>
-          </h3>
-          <p>내가 남들보다 잘하거나 능숙하게 해낼 수 있는 카드를 선택합니다.</p>
-        </div>
-      </div>
+      <button id="btn-over-confirm" class="btn btn-primary" onclick="confirmOverSelection()">
+        최종 9장 확정하기
+      </button>
+    </div>
 
-      <div style="margin-top: auto; padding-top: 20px;">
-        <button id="btn-view-report" class="btn btn-primary" onclick="showScreen('screen-result')" style="display: none;">
-          📊 종합 결과 리포트 보기
-        </button>
+    <div id="screen-loading" class="screen">
+      <div class="loading-container">
+        <div class="spinner"></div>
+        <div class="loading-text">카드 분석 중...</div>
       </div>
     </div>
 
-    <!-- 3. 카드 판정 진행 화면 -->
-    <div id="screen-test" class="screen">
-      <div class="test-header">
-        <span id="test-title" style="font-weight:700; font-size:1rem; color:var(--primary);">흥미 검사</span>
-        <span id="test-progress-text" style="font-size:0.85rem; color:var(--text-muted);">1 / 52</span>
+    <div id="screen-result" class="screen">
+      <div class="result-title-area">
+        <span id="result-badge" class="result-badge">흥미 검사 결과</span>
+        <h2 id="result-main-type" class="result-main-type">사물 유형 (Red)</h2>
       </div>
 
-      <div class="progress-bar-bg">
-        <div id="test-progress-bar" class="progress-bar-fill"></div>
-      </div>
-
-      <div class="card-stage">
-        <div class="card-container" id="card-box">
-          <img id="card-img" src="" alt="카드 이미지" onerror="handleImageError()">
-          <div id="card-fallback" class="card-fallback">
-            <div class="card-num" id="fallback-num">No.01</div>
-            <div class="card-title" id="fallback-title">조립</div>
-            <div class="card-category" id="fallback-cat">사물 (Things)</div>
-          </div>
+      <div class="type-counts">
+        <div class="type-box red">
+          <div class="type-label">사물(Red)</div>
+          <div id="cnt-red" class="type-val">0</div>
         </div>
-
-        <div class="selection-counter">
-          현재 선택된 카드: <span id="like-count" style="color:var(--primary); font-size:1.1rem;">0</span> / 9 장
+        <div class="type-box blue">
+          <div class="type-label">사람(Blue)</div>
+          <div id="cnt-blue" class="type-val">0</div>
+        </div>
+        <div class="type-box yellow">
+          <div class="type-label">자료(Yellow)</div>
+          <div id="cnt-yellow" class="type-val">0</div>
+        </div>
+        <div class="type-box green">
+          <div class="type-label">사고(Green)</div>
+          <div id="cnt-green" class="type-val">0</div>
         </div>
       </div>
 
-      <div class="action-buttons">
-        <button class="btn-action btn-dislike" onclick="handleChoice('dislike')">👎 싫어</button>
-        <button class="btn-action btn-neutral" onclick="handleChoice('neutral')">🤔 모르겠어</button>
-        <button class="btn-action btn-like" onclick="handleChoice('like')">👍 좋아</button>
-      </div>
-    </div>
+      <div id="result-details"></div>
 
-    <!-- 4. 카드 조정 화면 (초과시 빼기 / 부족시 추가) -->
-    <div id="screen-adjust" class="screen">
-      <h2 id="adjust-title">카드를 9장으로 맞춰주세요</h2>
-      <p id="adjust-subtitle" class="subtitle">선택된 카드가 9장을 초과했습니다.<br>제외할 카드를 클릭하여 9장으로 만드세요.</p>
-
-      <div id="adjust-grid" class="adjust-grid">
-        <!-- JS로 동적 생성 -->
-      </div>
-
-      <div style="margin-top: auto;">
-        <button id="adjust-confirm-btn" class="btn btn-primary" onclick="confirmAdjustment()">
-          확인 완료 (<span id="adjust-count">0</span>/9)
-        </button>
-      </div>
-    </div>
-
-    <!-- 5. 결과 리포트 화면 -->
-    <div id="screen-result" class="screen" style="overflow-y: auto;">
-      <h2>검사 결과 리포트</h2>
-      <p class="subtitle">당신의 프레디저 유형 진단 결과입니다.</p>
-
-      <!-- 흥미 결과 -->
-      <div class="result-section" id="res-interest-section">
-        <h3>1. 흥미 (좋아하는 분야) <span class="badge" id="res-interest-top"></span></h3>
-        <div class="type-scores">
-          <div class="score-box things">
-            <div class="type-title">사물 (Things)</div>
-            <div class="type-count" id="score-int-things">0</div>
-          </div>
-          <div class="score-box people">
-            <div class="type-title">사람 (People)</div>
-            <div class="type-count" id="score-int-people">0</div>
-          </div>
-          <div class="score-box data">
-            <div class="type-title">자료 (Data)</div>
-            <div class="type-count" id="score-int-data">0</div>
-          </div>
-          <div class="score-box ideas">
-            <div class="type-title">사고 (Ideas)</div>
-            <div class="type-count" id="score-int-ideas">0</div>
-          </div>
-        </div>
-
-        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; color:#4b5563;">선택한 9개 흥미 카드:</div>
-        <div id="grid-int-cards" class="cards-mini-grid"></div>
-      </div>
-
-      <!-- 적성 결과 -->
-      <div class="result-section" id="res-aptitude-section">
-        <h3>2. 적성 (잘하는 분야) <span class="badge" id="res-aptitude-top"></span></h3>
-        <div class="type-scores">
-          <div class="score-box things">
-            <div class="type-title">사물 (Things)</div>
-            <div class="type-count" id="score-apt-things">0</div>
-          </div>
-          <div class="score-box people">
-            <div class="type-title">사람 (People)</div>
-            <div class="type-count" id="score-apt-people">0</div>
-          </div>
-          <div class="score-box data">
-            <div class="type-title">자료 (Data)</div>
-            <div class="type-count" id="score-apt-data">0</div>
-          </div>
-          <div class="score-box ideas">
-            <div class="type-title">사고 (Ideas)</div>
-            <div class="type-count" id="score-apt-ideas">0</div>
-          </div>
-        </div>
-
-        <div style="font-size: 0.85rem; font-weight: bold; margin-bottom: 4px; color:#4b5563;">선택한 9개 적성 카드:</div>
-        <div id="grid-apt-cards" class="cards-mini-grid"></div>
-      </div>
-
-      <!-- 종합 추천 진로 -->
       <div class="result-section">
-        <h3>3. 추천 진로 및 직업군</h3>
-        <div id="career-recommendation" class="career-box">
-          <!-- JS dynamic recommendation -->
-        </div>
+        <h4>📌 내가 선택한 9가지 카드</h4>
+        <div id="selected-tags" class="selected-9cards"></div>
       </div>
 
-      <button class="btn btn-outline" onclick="showScreen('screen-mode')" style="margin-top: 10px;">
-        ↩️ 메인으로 돌아가기
+      <button class="btn btn-primary" style="margin-top: 10px;" onclick="goHome()">
+        메인으로 돌아가기
       </button>
     </div>
 
   </div>
 
   <script>
-    // 1. 카드 데이터베이스 (52장)
-    const CARD_DATA = [
-      // 사물 (Things) 1 ~ 13
-      { id: 1, name: "조립", file: "01. 조립.png", type: "Things", typeName: "사물" },
-      { id: 2, name: "유지보수", file: "02. 유지보수.png", type: "Things", typeName: "사물" },
-      { id: 3, name: "도구이용", file: "03. 도구이용.png", type: "Things", typeName: "사물" },
-      { id: 4, name: "관리경작", file: "04. 관리경작.png", type: "Things", typeName: "사물" },
-      { id: 5, name: "수집", file: "05. 수집.png", type: "Things", typeName: "사물" },
-      { id: 6, name: "운용작동", file: "06. 운용작동.png", type: "Things", typeName: "사물" },
-      { id: 7, name: "제작", file: "07. 제작.png", type: "Things", typeName: "사물" },
-      { id: 8, name: "운송수송", file: "08. 운송수송.png", type: "Things", typeName: "사물" },
-      { id: 9, name: "구매구입", file: "09. 구매구입.png", type: "Things", typeName: "사물" },
-      { id: 10, name: "물류이동", file: "10. 물류이동.png", type: "Things", typeName: "사물" },
-      { id: 11, name: "현장관리", file: "11. 현장관리.png", type: "Things", typeName: "사물" },
-      { id: 12, name: "건축건설", file: "12. 건축건설.png", type: "Things", typeName: "사물" },
-      { id: 13, name: "과학기술실험", file: "13. 과학기술실험.png", type: "Things", typeName: "사물" },
+    // 52개 카드 데이터 정의 (1-13 Red, 14-26 Blue, 27-39 Yellow, 40-52 Green)
+    const cardsData = [
+      { id: 1, name: "조립", type: "red", file: "01. 조립.png" },
+      { id: 2, name: "유지보수", type: "red", file: "02. 유지보수.png" },
+      { id: 3, name: "도구이용", type: "red", file: "03. 도구이용.png" },
+      { id: 4, name: "관리경작", type: "red", file: "04. 관리경작.png" },
+      { id: 5, name: "수집", type: "red", file: "05. 수집.png" },
+      { id: 6, name: "운용작동", type: "red", file: "06. 운용작동.png" },
+      { id: 7, name: "제작", type: "red", file: "07. 제작.png" },
+      { id: 8, name: "운송수송", type: "red", file: "08. 운송수송.png" },
+      { id: 9, name: "구매구입", type: "red", file: "09. 구매구입.png" },
+      { id: 10, name: "물류이동", type: "red", file: "10. 물류이동.png" },
+      { id: 11, name: "현장관리", type: "red", file: "11. 현장관리.png" },
+      { id: 12, name: "건축건설", type: "red", file: "12. 건축건설.png" },
+      { id: 13, name: "과학기술실험", type: "red", file: "13. 과학기술실험.png" },
 
-      // 사람 (People) 14 ~ 26
-      { id: 14, name: "고객응대서비스", file: "14. 고객응대서비스.png", type: "People", typeName: "사람" },
-      { id: 15, name: "공동작업", file: "15. 공동작업.png", type: "People", typeName: "사람" },
-      { id: 16, name: "판매영업", file: "16. 판매영업.png", type: "People", typeName: "사람" },
-      { id: 17, name: "교제네트워킹", file: "17. 교제네트워킹.png", type: "People", typeName: "사람" },
-      { id: 18, name: "조율조화", file: "18. 조율조화.png", type: "People", typeName: "사람" },
-      { id: 19, name: "통솔지지", file: "19. 통솔지지.png", type: "People", typeName: "사람" },
-      { id: 20, name: "상담코칭", file: "20. 상담코칭.png", type: "People", typeName: "사람" },
-      { id: 21, name: "팀워크격려", file: "21. 팀워크격려.png", type: "People", typeName: "사람" },
-      { id: 22, name: "훈련육성", file: "22. 훈련육성.png", type: "People", typeName: "사람" },
-      { id: 23, name: "교육", file: "23. 교육.png", type: "People", typeName: "사람" },
-      { id: 24, name: "사회복지봉사", file: "24. 사회복지봉사.png", type: "People", typeName: "사람" },
-      { id: 25, name: "협상", file: "25. 협상.png", type: "People", typeName: "사람" },
-      { id: 26, name: "마찰해결중재", file: "26. 마찰해결중재.png", type: "People", typeName: "사람" },
+      { id: 14, name: "고객응대서비스", type: "blue", file: "14. 고객응대서비스.png" },
+      { id: 15, name: "공동작업", type: "blue", file: "15. 공동작업.png" },
+      { id: 16, name: "판매영업", type: "blue", file: "16. 판매영업.png" },
+      { id: 17, name: "교제네트워킹", type: "blue", file: "17. 교제네트워킹.png" },
+      { id: 18, name: "조율조화", type: "blue", file: "18. 조율조화.png" },
+      { id: 19, name: "통솔지지", type: "blue", file: "19. 통솔지지.png" },
+      { id: 20, name: "상담코칭", type: "blue", file: "20. 상담코칭.png" },
+      { id: 21, name: "팀웍격려", type: "blue", file: "21. 팀웍격려.png" },
+      { id: 22, name: "훈련육성", type: "blue", file: "22. 훈련육성.png" },
+      { id: 23, name: "교육", type: "blue", file: "23. 교육.png" },
+      { id: 24, name: "사회복지봉사", type: "blue", file: "24. 사회복지봉사.png" },
+      { id: 25, name: "협상", type: "blue", file: "25. 협상.png" },
+      { id: 26, name: "마찰해결중재", type: "blue", file: "26. 마찰해결중재.png" },
 
-      // 자료 (Data) 27 ~ 39
-      { id: 27, name: "회계", file: "27. 회계.png", type: "Data", typeName: "자료" },
-      { id: 28, name: "예산책정", file: "28. 예산책정.png", type: "Data", typeName: "자료" },
-      { id: 29, name: "판독조사", file: "29. 판독조사.png", type: "Data", typeName: "자료" },
-      { id: 30, name: "편집", file: "30. 편집.png", type: "Data", typeName: "자료" },
-      { id: 31, name: "분류정리", file: "31. 분류정리.png", type: "Data", typeName: "자료" },
-      { id: 32, name: "분석", file: "32. 분석.png", type: "Data", typeName: "자료" },
-      { id: 33, name: "요약통계", file: "33. 요약통계.png", type: "Data", typeName: "자료" },
-      { id: 34, name: "검토", file: "34. 검토.png", type: "Data", typeName: "자료" },
-      { id: 35, name: "단서수집탐색", file: "35. 단서수집탐색.png", type: "Data", typeName: "자료" },
-      { id: 36, name: "기록", file: "36. 기록.png", type: "Data", typeName: "자료" },
-      { id: 37, name: "설계도안", file: "37. 설계도안.png", type: "Data", typeName: "자료" },
-      { id: 38, name: "연구", file: "38. 연구.png", type: "Data", typeName: "자료" },
-      { id: 39, name: "판정", file: "39. 판정.png", type: "Data", typeName: "자료" },
+      { id: 27, name: "회계", type: "yellow", file: "27. 회계.png" },
+      { id: 28, name: "예산책정", type: "yellow", file: "28. 예산책정.png" },
+      { id: 29, name: "판독조사", type: "yellow", file: "29. 판독조사.png" },
+      { id: 30, name: "편집", type: "yellow", file: "30. 편집.png" },
+      { id: 31, name: "분류정리", type: "yellow", file: "31. 분류정리.png" },
+      { id: 32, name: "분석", type: "yellow", file: "32. 분석.png" },
+      { id: 33, name: "요약통계", type: "yellow", file: "33. 요약통계.png" },
+      { id: 34, name: "검토", type: "yellow", file: "34. 검토.png" },
+      { id: 35, name: "단서수집탐색", type: "yellow", file: "35. 단서수집탐색.png" },
+      { id: 36, name: "기록", type: "yellow", file: "36. 기록.png" },
+      { id: 37, name: "설계도안", type: "yellow", file: "37. 설계도안.png" },
+      { id: 38, name: "연구", type: "yellow", file: "38. 연구.png" },
+      { id: 39, name: "판정", type: "yellow", file: "39. 판정.png" },
 
-      // 사고 (Ideas) 40 ~ 52
-      { id: 40, name: "변론변호", file: "40. 변론변호.png", type: "Ideas", typeName: "사고" },
-      { id: 41, name: "설명해석", file: "41. 설명해석.png", type: "Ideas", typeName: "사고" },
-      { id: 42, name: "글쓰기", file: "42. 글쓰기.png", type: "Ideas", typeName: "사고" },
-      { id: 43, name: "유추", file: "43. 유추.png", type: "Ideas", typeName: "사고" },
-      { id: 44, name: "문제해결", file: "44. 문제해결.png", type: "Ideas", typeName: "사고" },
-      { id: 45, name: "개념화", file: "45. 개념화.png", type: "Ideas", typeName: "사고" },
-      { id: 46, name: "홍보마케팅", file: "46. 홍보마케팅.png", type: "Ideas", typeName: "사고" },
-      { id: 47, name: "프리젠테이션", file: "47. 프리젠테이션.png", type: "Ideas", typeName: "사고" },
-      { id: 48, name: "전략개발", file: "48. 전략개발.png", type: "Ideas", typeName: "사고" },
-      { id: 49, name: "개혁개척", file: "49. 개혁개척.png", type: "Ideas", typeName: "사고" },
-      { id: 50, name: "관계결합창의", file: "50. 관계결합창의.png", type: "Ideas", typeName: "사고" },
-      { id: 51, name: "아이디어포착", file: "51. 아이디어포착.png", type: "Ideas", typeName: "사고" },
-      { id: 52, name: "발명", file: "52. 발명.png", type: "Ideas", typeName: "사고" }
+      { id: 40, name: "변론변호", type: "green", file: "40. 변론변호.png" },
+      { id: 41, name: "설명해석", type: "green", file: "41. 설명해석.png" },
+      { id: 42, name: "글쓰기", type: "green", file: "42. 글쓰기.png" },
+      { id: 43, name: "유추", type: "green", file: "43. 유추.png" },
+      { id: 44, name: "문제해결", type: "green", file: "44. 문제해결.png" },
+      { id: 45, name: "개념화", type: "green", file: "45. 개념화.png" },
+      { id: 46, name: "홍보마케팅", type: "green", file: "46. 홍보마케팅.png" },
+      { id: 47, name: "프리젠테이션", type: "green", file: "47. 프리젠테이션.png" },
+      { id: 48, name: "전략개발", type: "green", file: "48. 전략개발.png" },
+      { id: 49, name: "개혁개척", type: "green", file: "49. 개혁개척.png" },
+      { id: 50, name: "관계결합창의", type: "green", file: "50. 관계결합창의.png" },
+      { id: 51, name: "아이디어포착", type: "green", file: "51. 아이디어포착.png" },
+      { id: 52, name: "발명", type: "green", file: "52. 발명.png" }
     ];
 
-    // 상태 관리
-    let currentMode = null; // 'interest' | 'aptitude'
-    let deck = [];
+    // 유형별 정보 (흥미: 학과/직업, 적성: 일하는 방식)
+    const typeInfoData = {
+      red: {
+        name: "사물 유형 (Red / Things)",
+        color: "var(--red-color)",
+        interest: {
+          desc: "구체적이고 실용적인 기계, 도구, 물건을 다루는 것에 흥미가 높습니다.",
+          majors: ["기계공학과", "건축공학과", "전기전자공학과", "농업생명과학과", "항공운항과", "컴퓨터하드웨어학과"],
+          jobs: ["로봇공학자", "건축가", "기계엔지니어", "항공기정비사", "스마트팜전문가", "실험실연구원"]
+        },
+        aptitude: {
+          desc: "직접 몸으로 체득하거나 도구와 장비를 활용하여 눈에 보이는 확실한 성과를 만들어내는 환경에서 뛰어난 적성을 보입니다.",
+          workStyle: [
+            "관념적 대화보다 실질적인 도구나 시스템을 다룰 때 효율이 극대화됩니다.",
+            "명확한 과업과 보상이 주어지는 현장 중심 작업에 강합니다.",
+            "문제 발생 시 직접 원인을 찾아 고치고 조립하는 과정을 선호합니다."
+          ]
+        }
+      },
+      blue: {
+        name: "사람 유형 (Blue / People)",
+        color: "var(--blue-color)",
+        interest: {
+          desc: "사람들과 관계를 맺고 소통하며 타인을 돕거나 가르치는 일에 흥미가 높습니다.",
+          majors: ["교육학과", "심리학과", "사회복지학과", "간호학과", "경영학과(HR)", "미디어커뮤니케이션학과"],
+          jobs: ["초·중등교사", "전문상담사", "사회복지사", "인사담당자(HRD)", "호텔리어", "고객경험(CX)매니저"]
+        },
+        aptitude: {
+          desc: "타인의 감정을 잘 이해하고 동기부여하며, 팀 구성원 간의 협력과 조화를 이끌어내는 데 탁월한 능력을 갖추고 있습니다.",
+          workStyle: [
+            "혼자 일하기보다 팀 단위로 협력하고 소통하는 환경을 선호합니다.",
+            "상대방의 니즈를 파악하여 코칭하거나 조율하는 역할에서 빛을 발합니다.",
+            "긍정적인 관계 형성을 통해 조직의 분위기를 활성화합니다."
+          ]
+        }
+      },
+      yellow: {
+        name: "자료 유형 (Yellow / Data)",
+        color: "var(--yellow-color)",
+        interest: {
+          desc: "데이터, 숫자, 기록을 정리하고 분석하며 체계적으로 관리하는 것에 흥미가 높습니다.",
+          majors: ["경영학과", "회계학과", "통계학과", "금융보험학과", "문헌정보학과", "빅데이터분석학과"],
+          jobs: ["공인회계사", "데이터분석가", "금융자산관리사", "행정공무원", "정보관리사", "품질관리(QC)전문가"]
+        },
+        aptitude: {
+          desc: "규칙과 체계가 명확한 환경에서 자료를 철저히 검토하고 오류 없이 정밀하게 처리하는 능력이 우수합니다.",
+          workStyle: [
+            "체계적인 매뉴얼과 정돈된 프로세스가 갖춰진 곳에서 최고의 성과를 냅니다.",
+            "세밀한 부분까지 놓치지 않고 꼼꼼하게 기록 및 체크합니다.",
+            "리스크를 최소화하고 정확하고 확실한 데이터를 기반으로 일합니다."
+          ]
+        }
+      },
+      green: {
+        name: "사고 유형 (Green / Ideas)",
+        color: "var(--green-color)",
+        interest: {
+          desc: "새로운 아이디어를 구상하고 기획하며 창의적으로 문제를 해결하는 것에 흥미가 높습니다.",
+          majors: ["시각디자인학과", "소프트웨어학과", "신문방송학과", "광고홍보학과", "법학과", "철학과/창업학과"],
+          jobs: ["서비스기획자", "광고카피라이터", "소프트웨어개발자", "변호사", "브랜드마케터", "스타트업창업가"]
+        },
+        aptitude: {
+          desc: "기존 틀에 매이지 않고 새로운 방식을 고안하며, 복잡한 문제의 본질을 파악하여 논리적으로 해결하는 역량이 뛰어납니다.",
+          workStyle: [
+            "자율성이 보장되고 창의적인 아이디어를 자유롭게 제안하는 환경을 선호합니다.",
+            "비판적 생각과 유추를 통해 차별화된 전략 및 개혁안을 도출합니다.",
+            "새로운 프로젝트를 기획하고 구조를 잡는 초기 단계에 강합니다."
+          ]
+        }
+      }
+    };
+
+    // 상태 변수
+    let currentMode = 'interest'; // 'interest' or 'aptitude'
+    let shuffledDeck = [];
     let currentIndex = 0;
     
-    let likes = [];
-    let neutrals = [];
-    let dislikes = [];
+    let selectedPositives = [];
+    let selectedNeutrals = [];
+    let selectedNegatives = [];
 
-    // 결과 저장소
-    const results = {
-      interest: null, // Array of 9 cards
-      aptitude: null  // Array of 9 cards
-    };
+    let tempSelectedFromNeutrals = [];
+    let tempSelectedForTrim = [];
+    let final9Cards = [];
 
     // 화면 전환 함수
     function showScreen(screenId) {
@@ -747,274 +666,266 @@
       document.getElementById(screenId).classList.add('active');
     }
 
-    // 배열 셔플 (Fisher-Yates)
-    function shuffle(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    // 이미지 없을 때 대체 UI
-    function handleImageError() {
-      document.getElementById('card-img').style.display = 'none';
-      document.getElementById('card-fallback').style.display = 'flex';
-    }
-
-    // 테스트 시작
-    function startTest(mode, customDeck = null) {
+    // 검사 시작
+    function startTest(mode) {
       currentMode = mode;
-      document.getElementById('test-title').innerText = 
-        mode === 'interest' ? '1. 흥미 검사 (좋아하는 것)' : '2. 적성 검사 (잘하는 것)';
-
-      if (customDeck) {
-        deck = customDeck;
-      } else {
-        deck = shuffle(CARD_DATA);
-        likes = [];
-        neutrals = [];
-        dislikes = [];
-      }
-
+      shuffledDeck = [...cardsData].sort(() => Math.random() - 0.5);
       currentIndex = 0;
-      updateCardUI();
+      selectedPositives = [];
+      selectedNeutrals = [];
+      selectedNegatives = [];
+
+      // 버튼 텍스트 설정
+      const btnPos = document.getElementById('btn-pos');
+      const btnNeg = document.getElementById('btn-neg');
+      if(mode === 'interest') {
+        btnPos.textContent = '좋아함';
+        btnNeg.textContent = '싫어함';
+      } else {
+        btnPos.textContent = '잘함';
+        btnNeg.textContent = '잘못함';
+      }
+
       showScreen('screen-test');
+      updateCardUI();
     }
 
-    // 현재 카드 UI 업데이트
+    // 카드 UI 업데이트
     function updateCardUI() {
-      if (currentIndex >= deck.length) {
-        handleTestCompletion();
-        return;
-      }
+      const card = shuffledDeck[currentIndex];
+      const imgEl = document.getElementById('card-image');
+      const fallbackEl = document.getElementById('card-fallback');
 
-      const card = deck[currentIndex];
-      const imgPath = `./cards/${card.file}`;
+      imgEl.style.display = 'block';
+      fallbackEl.style.display = 'none';
+      imgEl.src = `cards/${card.file}`;
 
-      const cardImg = document.getElementById('card-img');
-      const fallback = document.getElementById('card-fallback');
-
-      cardImg.style.display = 'block';
-      fallback.style.display = 'none';
-      cardImg.src = imgPath;
-
-      // Fallback 데이터 준비
-      document.getElementById('fallback-num').innerText = `No.${String(card.id).padStart(2, '0')}`;
-      document.getElementById('fallback-title').innerText = card.name;
-      document.getElementById('fallback-cat').innerText = `${card.typeName} (${card.type})`;
-
-      // 진행률 & 카운트
-      document.getElementById('test-progress-text').innerText = `${currentIndex + 1} / ${deck.length}`;
-      document.getElementById('test-progress-bar').style.width = `${((currentIndex + 1) / deck.length) * 100}%`;
-      document.getElementById('like-count').innerText = likes.length;
+      document.getElementById('progress-bar').style.width = `${((currentIndex) / 52) * 100}%`;
+      document.getElementById('progress-text').textContent = `${currentIndex + 1} / 52`;
     }
 
-    // 버튼 선택 처리
-    function handleChoice(choice) {
-      const currentCard = deck[currentIndex];
+    // 이미지 로드 실패 시 대체 텍스트 표시
+    function handleImageError() {
+      const card = shuffledDeck[currentIndex];
+      const imgEl = document.getElementById('card-image');
+      const fallbackEl = document.getElementById('card-fallback');
+      
+      imgEl.style.display = 'none';
+      fallbackEl.style.display = 'flex';
+      fallbackEl.textContent = `${card.id}. ${card.name}`;
+    }
 
-      if (choice === 'like') {
-        likes.push(currentCard);
-      } else if (choice === 'neutral') {
-        neutrals.push(currentCard);
-      } else if (choice === 'dislike') {
-        dislikes.push(currentCard);
-      }
+    // 카드 선택 처리
+    function chooseCard(type) {
+      const card = shuffledDeck[currentIndex];
+      if (type === 'positive') selectedPositives.push(card);
+      else if (type === 'neutral') selectedNeutrals.push(card);
+      else if (type === 'negative') selectedNegatives.push(card);
 
       currentIndex++;
-      updateCardUI();
-    }
 
-    // 52장 (혹은 한 바퀴) 완료 처리
-    function handleTestCompletion() {
-      if (likes.length === 9) {
-        saveResults(likes);
-      } else if (likes.length > 9) {
-        // 초과 -> 사용자 직접 빼기
-        setupAdjustScreen('over');
+      if (currentIndex < shuffledDeck.length) {
+        updateCardUI();
       } else {
-        // 모자람 -> 모르겠어 항목 재검토 또는 전체 중 재검토
-        if (neutrals.length > 0) {
-          alert(`좋아하는 카드가 ${likes.length}장 선택되었습니다. 부족한 ${9 - likes.length}장을 채우기 위해 '모르겠어' 카드를 다시 검토합니다.`);
-          startTest(currentMode, shuffle(neutrals));
-        } else {
-          // 모르겠어도 없으면 부족한 채로 혹은 남은 전체 재검토
-          setupAdjustScreen('under');
-        }
+        processTestCompletion();
       }
     }
 
-    // 카드 조정 화면 세팅
-    let pendingRemoveIds = new Set();
-    function setupAdjustScreen(type) {
-      showScreen('screen-adjust');
-      const grid = document.getElementById('adjust-grid');
+    // 52장 완료 후 로직 처리 (조건 4)
+    function processTestCompletion() {
+      const posCount = selectedPositives.length;
+
+      if (posCount === 9) {
+        final9Cards = [...selectedPositives];
+        runLoadingAnimation();
+      } else if (posCount < 9) {
+        // 보통 카드에서 추가 선택
+        setupUnderScreen();
+      } else {
+        // 초과된 카드는 제거
+        setupOverScreen();
+      }
+    }
+
+    // < 9장 인 경우 UI 세팅
+    function setupUnderScreen() {
+      const needed = 9 - selectedPositives.length;
+      tempSelectedFromNeutrals = [];
+
+      document.getElementById('under-desc').textContent = 
+        `선택한 카드가 ${selectedPositives.length}장입니다. 9장을 채우기 위해 아래 '보통' 카드 중 ${needed}장을 추가로 선택해 주세요.`;
+
+      const grid = document.getElementById('under-grid');
       grid.innerHTML = '';
-      pendingRemoveIds.clear();
 
-      if (type === 'over') {
-        document.getElementById('adjust-title').innerText = "카드를 9장으로 맞춰주세요";
-        document.getElementById('adjust-subtitle').innerHTML = 
-          `선택된 카드가 <b>${likes.length}장</b>입니다.<br>제외할 카드를 클릭하여 <b>9장</b>을 만들어주세요.`;
-
-        likes.forEach(card => {
-          const item = document.createElement('div');
-          item.className = 'adjust-item';
-          item.id = `adj-card-${card.id}`;
-          item.onclick = () => toggleRemoveCard(card.id);
-
-          item.innerHTML = `
-            <img src="./cards/${card.file}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
-            <div class="fallback-text" style="display:none">${card.name}</div>
-          `;
-          grid.appendChild(item);
-        });
-
-        updateAdjustButton();
-      } else {
-        // 부족하지만 모르겠어도 없을 때
-        alert(`선택된 좋아 카드가 ${likes.length}장입니다. 9장을 다 채우지 못했지만 현재 결과로 확정합니다.`);
-        saveResults(likes);
-      }
-    }
-
-    function toggleRemoveCard(id) {
-      if (pendingRemoveIds.has(id)) {
-        pendingRemoveIds.delete(id);
-        document.getElementById(`adj-card-${id}`).classList.remove('selected-for-remove');
-        document.getElementById(`adj-card-${id}`).querySelector('.remove-badge')?.remove();
-      } else {
-        if (likes.length - pendingRemoveIds.size <= 9) {
-          alert("9장만 남도록 빼야 합니다.");
-          return;
-        }
-        pendingRemoveIds.add(id);
-        document.getElementById(`adj-card-${id}`).classList.add('selected-for-remove');
-        const badge = document.createElement('div');
-        badge.className = 'remove-badge';
-        badge.innerText = 'X';
-        document.getElementById(`adj-card-${id}`).appendChild(badge);
-      }
-      updateAdjustButton();
-    }
-
-    function updateAdjustButton() {
-      const remainingCount = likes.length - pendingRemoveIds.size;
-      document.getElementById('adjust-count').innerText = remainingCount;
-      const btn = document.getElementById('adjust-confirm-btn');
-      btn.disabled = remainingCount !== 9;
-      btn.style.opacity = remainingCount === 9 ? '1' : '0.5';
-    }
-
-    function confirmAdjustment() {
-      likes = likes.filter(card => !pendingRemoveIds.has(card.id));
-      saveResults(likes);
-    }
-
-    // 결과 저장 및 처리 완료
-    function saveResults(finalCards) {
-      results[currentMode] = finalCards;
-
-      // 선택 화면 태그 업데이트
-      const tag = document.getElementById(`tag-${currentMode}`);
-      tag.innerText = "완료";
-      tag.className = "status-tag done";
-
-      if (results.interest && results.aptitude) {
-        document.getElementById('btn-view-report').style.display = 'block';
-      }
-
-      // 모드 선택 화면으로 돌아가기
-      showScreen('screen-mode');
-      renderReport();
-    }
-
-    // 리포트 계산 및 출력
-    function renderReport() {
-      if (results.interest) {
-        renderSubReport('interest', results.interest);
-      }
-      if (results.aptitude) {
-        renderSubReport('aptitude', results.aptitude);
-      }
-      if (results.interest && results.aptitude) {
-        renderCareerRecommendation();
-      }
-    }
-
-    function renderSubReport(mode, cards) {
-      const counts = { Things: 0, People: 0, Data: 0, Ideas: 0 };
-      cards.forEach(c => counts[c.type]++);
-
-      const prefix = mode === 'interest' ? 'int' : 'apt';
-      document.getElementById(`score-${prefix}-things`).innerText = counts.Things;
-      document.getElementById(`score-${prefix}-people`).innerText = counts.People;
-      document.getElementById(`score-${prefix}-data`).innerText = counts.Data;
-      document.getElementById(`score-${prefix}-ideas`).innerText = counts.Ideas;
-
-      // 최고 유형 계산
-      const topType = Object.keys(counts).reduce((a, b) => counts[a] >= counts[b] ? a : b);
-      const typeNames = { Things: "사물형", People: "사람형", Data: "자료형", Ideas: "사고형" };
-      document.getElementById(`res-${mode}-top`).innerText = `주유형: ${typeNames[topType]}`;
-
-      // 미니 카드 그리드
-      const grid = document.getElementById(`grid-${prefix}-cards`);
-      grid.innerHTML = '';
-      cards.forEach(c => {
+      selectedNeutrals.forEach(card => {
         const item = document.createElement('div');
-        item.className = 'mini-card';
-        item.innerText = c.name;
+        item.className = 'grid-card-item';
+        item.innerHTML = `
+          <img src="cards/${card.file}" onerror="this.style.display='none'">
+          <div class="card-name">${card.name}</div>
+        `;
+        item.onclick = () => toggleNeutralSelection(card, item, needed);
         grid.appendChild(item);
       });
+
+      updateUnderBtn(needed);
+      showScreen('screen-under');
     }
 
-    function renderCareerRecommendation() {
-      const intCounts = { Things: 0, People: 0, Data: 0, Ideas: 0 };
-      const aptCounts = { Things: 0, People: 0, Data: 0, Ideas: 0 };
+    function toggleNeutralSelection(card, element, needed) {
+      const idx = tempSelectedFromNeutrals.findIndex(c => c.id === card.id);
+      if (idx > -1) {
+        tempSelectedFromNeutrals.splice(idx, 1);
+        element.classList.remove('selected');
+      } else {
+        if (tempSelectedFromNeutrals.length < needed) {
+          tempSelectedFromNeutrals.push(card);
+          element.classList.add('selected');
+        }
+      }
+      updateUnderBtn(needed);
+    }
 
-      results.interest.forEach(c => intCounts[c.type]++);
-      results.aptitude.forEach(c => aptCounts[c.type]++);
+    function updateUnderBtn(needed) {
+      const btn = document.getElementById('btn-under-confirm');
+      btn.textContent = `선택 완료 (${tempSelectedFromNeutrals.length}/${needed})`;
+      btn.disabled = tempSelectedFromNeutrals.length !== needed;
+    }
 
-      const topInterest = Object.keys(intCounts).reduce((a, b) => intCounts[a] >= intCounts[b] ? a : b);
-      const topAptitude = Object.keys(aptCounts).reduce((a, b) => aptCounts[a] >= aptCounts[b] ? a : b);
+    function confirmUnderSelection() {
+      final9Cards = [...selectedPositives, ...tempSelectedFromNeutrals];
+      runLoadingAnimation();
+    }
 
-      const typeNames = { Things: "사물", People: "사람", Data: "자료", Ideas: "사고" };
+    // > 9장 인 경우 UI 세팅
+    function setupOverScreen() {
+      tempSelectedForTrim = [...selectedPositives];
+      const grid = document.getElementById('over-grid');
+      
+      renderOverGrid();
+      showScreen('screen-over');
+    }
 
-      const careerDatabase = {
-        "Things-Things": "엔지니어, 기계설비 전문가, 건축가, 현장 관리자",
-        "Things-People": "기술 영업, 스포츠 트레이너, 현장 감독, 서비스 엔지니어",
-        "Things-Data": "품질 관리자, 데이터 분석가, 물류 전문가, CAD 설계자",
-        "Things-Ideas": "제품 디자이너, 발명가, 연구원, R&D 엔지니어",
+    function renderOverGrid() {
+      const grid = document.getElementById('over-grid');
+      grid.innerHTML = '';
 
-        "People-Things": "실습 지도사, 작업 치료사, 스포츠 감독",
-        "People-People": "상담사, 교사, 인사(HR) 전문가, 사회복지사",
-        "People-Data": "행정 관리자, 이벤트 기획자, 고객 데이터 분석가",
-        "People-Ideas": "마케팅 전략가, 컨설턴트, 변호사, PR 전문가",
+      tempSelectedForTrim.forEach(card => {
+        const item = document.createElement('div');
+        item.className = 'grid-card-item selected';
+        item.innerHTML = `
+          <img src="cards/${card.file}" onerror="this.style.display='none'">
+          <div class="card-name">${card.name}</div>
+        `;
+        item.onclick = () => {
+          const idx = tempSelectedForTrim.findIndex(c => c.id === card.id);
+          if (idx > -1) {
+            tempSelectedForTrim.splice(idx, 1);
+            renderOverGrid();
+          }
+        };
+        grid.appendChild(item);
+      });
 
-        "Data-Things": "데이터베이스 관리자, IT 시스템 운용자, 재고 관리자",
-        "Data-People": "회계 상담사, 서비스 기획자, 교육 행정가",
-        "Data-Data": "회계사, 세무사, 통계 분석가, 금융 분석가",
-        "Data-Ideas": "전략 기획자, 데이터 연구원, 정책 분석가",
+      const btn = document.getElementById('btn-over-confirm');
+      btn.textContent = `확정하기 (현재 ${tempSelectedForTrim.length}장 / 9장 필요)`;
+      btn.disabled = tempSelectedForTrim.length !== 9;
+    }
 
-        "Ideas-Things": "산업 디자이너, 로봇공학자, 기술 혁신가",
-        "Ideas-People": "크리에이티브 디렉터, 커뮤니케이션 전문가, 브랜드 매니저",
-        "Ideas-Data": "시장 조사 전문가, UX 연구원, 시스템 설계자",
-        "Ideas-Ideas": "기획자, 연구원, 작가, 콘텐츠 크리에이터"
-      };
+    function confirmOverSelection() {
+      final9Cards = [...tempSelectedForTrim];
+      runLoadingAnimation();
+    }
 
-      const key = `${topInterest}-${topAptitude}`;
-      const recCareers = careerDatabase[key] || "기획자, 컨설턴트, 연구원, 프로젝트 매니저";
+    // 5초 로딩 애니메이션 (조건 5)
+    function runLoadingAnimation() {
+      showScreen('screen-loading');
+      setTimeout(() => {
+        renderResults();
+      }, 5000);
+    }
 
-      const box = document.getElementById('career-recommendation');
-      box.innerHTML = `
-        <h4>🎯 흥미(${typeNames[topInterest]}) + 적성(${typeNames[topAptitude]}) 추천 진로</h4>
-        <p><b>추천 직업군:</b> ${recCareers}</p>
-        <p style="margin-top:8px; font-size:0.85rem; color:#6b7280;">
-          좋아하는 <b>${typeNames[topInterest]}</b> 영역과 잘하는 <b>${typeNames[topAptitude]}</b> 영역이 결합된 분야에서 가장 높은 성과와 만족도를 얻을 수 있습니다.
-        </p>
-      `;
+    // 결과 출력 (조건 6, 7)
+    function renderResults() {
+      // 카운트 집계
+      const counts = { red: 0, blue: 0, yellow: 0, green: 0 };
+      final9Cards.forEach(c => counts[c.type]++);
+
+      document.getElementById('cnt-red').textContent = counts.red;
+      document.getElementById('cnt-blue').textContent = counts.blue;
+      document.getElementById('cnt-yellow').textContent = counts.yellow;
+      document.getElementById('cnt-green').textContent = counts.green;
+
+      // 주 유형 선정
+      let mainType = 'red';
+      let maxCnt = -1;
+      for (const t in counts) {
+        if (counts[t] > maxCnt) {
+          maxCnt = counts[t];
+          mainType = t;
+        }
+      }
+
+      const info = typeInfoData[mainType];
+      const isInterest = currentMode === 'interest';
+
+      document.getElementById('result-badge').textContent = isInterest ? "🎯 흥미 검사 결과" : "⚡ 적성 검사 결과";
+      document.getElementById('result-main-type').textContent = info.name;
+      document.getElementById('result-main-type').style.color = info.color;
+
+      const detailsContainer = document.getElementById('result-details');
+      detailsContainer.innerHTML = '';
+
+      if (isInterest) {
+        detailsContainer.innerHTML = `
+          <div class="result-section">
+            <h4>💡 흥미 성향 설명</h4>
+            <p>${info.interest.desc}</p>
+          </div>
+          <div class="result-section">
+            <h4>🎓 추천 학과</h4>
+            <ul>
+              ${info.interest.majors.map(m => `<li>${m}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="result-section">
+            <h4>💼 추천 직업</h4>
+            <ul>
+              ${info.interest.jobs.map(j => `<li>${j}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      } else {
+        detailsContainer.innerHTML = `
+          <div class="result-section">
+            <h4>💡 역량 성향 설명</h4>
+            <p>${info.aptitude.desc}</p>
+          </div>
+          <div class="result-section">
+            <h4>🛠️ 효율적인 일하는 방식</h4>
+            <ul>
+              ${info.aptitude.workStyle.map(w => `<li>${w}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      // 태그 출력
+      const tagsContainer = document.getElementById('selected-tags');
+      tagsContainer.innerHTML = '';
+      final9Cards.forEach(c => {
+        const tag = document.createElement('span');
+        tag.className = 'tag-card';
+        tag.textContent = c.name;
+        tagsContainer.appendChild(tag);
+      });
+
+      showScreen('screen-result');
+    }
+
+    function goHome() {
+      showScreen('screen-home');
     }
   </script>
 </body>
